@@ -68,7 +68,13 @@ img{max-width:100%; display:block}
 }
 .marchio-cover{
   position:absolute; top:clamp(20px,4.5vw,34px); left:50%; transform:translateX(-50%);
-  width:min(52vw,210px); height:auto; z-index:2; opacity:.97;
+  width:min(54vw,220px); height:auto; z-index:3; opacity:1;
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.45));
+}
+.velo-alto{
+  position:absolute; top:0; left:0; right:0; height:clamp(150px,26vh,230px);
+  background:linear-gradient(180deg,rgba(18,14,10,.72) 0%,rgba(18,14,10,.42) 48%,rgba(18,14,10,0) 100%);
+  z-index:1; pointer-events:none;
 }
 .cover-veil{
   position:absolute; inset:0;
@@ -278,6 +284,7 @@ img{max-width:100%; display:block}
 <section class="cover">
   <div class="cover-img" role="img" aria-label="Due sposi sorridenti davanti al portone della villa"></div>
   <div class="cover-veil" role="presentation"></div>
+  <div class="velo-alto" role="presentation"></div>
   <img class="marchio-cover" src="img/invito360-logo-trasparente-su-scuro.svg" alt="Invito 360 — live it, play it, share it" width="700" height="390">
   <div class="cover-in">
     <p class="eyebrow">Invito digitale per matrimoni</p>
