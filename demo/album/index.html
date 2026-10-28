@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Giulia &amp; Matteo — L'album di tutti</title>
+<meta name="description" content="Le foto del matrimonio di Giulia e Matteo, scattate dai loro invitati. Pagina di esempio.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF8F3; --bg-warm:#F4EDE2; --ink:#2C2823; --ink-soft:#736B5E;
+  --accent:#B79A5B; --accent-soft:#EFE6D3; --line:#E3D9C6; --radius:2px;
+  --display:'Cormorant Garamond',Georgia,serif; --body:'Jost',system-ui,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.avviso{background:var(--ink);color:#fff;text-align:center;padding:11px 18px;font-size:.8rem;letter-spacing:.04em}
+.avviso b{font-weight:400}
+
+header{text-align:center;padding:52px 20px 40px;background:var(--bg-warm);border-bottom:1px solid var(--line)}
+header h1{font-family:var(--display);font-weight:300;font-size:clamp(2.1rem,8vw,3.1rem);line-height:1.12}
+.mark{display:block;color:var(--accent);margin:14px 0;letter-spacing:.5em;padding-left:.5em;font-size:.9rem}
+.data{font-size:.78rem;letter-spacing:.26em;color:var(--ink-soft);padding-left:.26em}
+.luogo{font-family:var(--display);font-style:italic;font-size:1.15rem;color:var(--ink-soft);margin-top:6px}
+.intro{max-width:460px;margin:26px auto 0;font-size:.98rem;color:var(--ink-soft)}
+
+.zona{max-width:960px;margin:0 auto;padding:34px 20px}
+.drop{border:1px dashed var(--accent);border-radius:var(--radius);background:var(--accent-soft);padding:34px 22px;text-align:center;transition:background .25s,border-color .25s}
+.drop.hot{background:#E7DAC0;border-color:var(--ink)}
+.drop h2{font-family:var(--display);font-weight:300;font-size:1.55rem;margin-bottom:6px}
+.drop p{font-size:.92rem;color:var(--ink-soft);max-width:380px;margin:0 auto}
+.btn{display:inline-block;margin-top:20px;background:var(--ink);color:#fff;border:1px solid var(--ink);font-family:var(--body);font-weight:300;font-size:.8rem;letter-spacing:.2em;padding:15px 30px;border-radius:var(--radius);cursor:pointer;transition:opacity .25s;padding-left:calc(30px + .2em)}
+.btn:hover{opacity:.86}
+#file{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.nome-box{max-width:320px;margin:18px auto 0;text-align:left}
+.nome-box label{display:block;font-size:.74rem;letter-spacing:.14em;color:var(--ink-soft);margin-bottom:6px}
+.nome-box input{width:100%;font-family:var(--body);font-weight:300;font-size:1rem;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:12px 13px}
+.nome-box input:focus{outline:none;border-color:var(--accent)}
+
+.conta{text-align:center;font-size:.76rem;letter-spacing:.18em;color:var(--ink-soft);margin:34px 0 18px;padding-left:.18em}
+.griglia{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.scatto{position:relative;background:var(--accent-soft);border-radius:var(--radius);overflow:hidden;aspect-ratio:1}
+.scatto img{width:100%;height:100%;object-fit:cover}
+.scatto figcaption{position:absolute;left:0;right:0;bottom:0;padding:24px 10px 8px;background:linear-gradient(transparent,rgba(44,40,35,.68));color:#fff;font-size:.74rem;letter-spacing:.03em}
+.scatto.nuovo{animation:entra .5s ease}
+@keyframes entra{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+
+.qr-sez{background:var(--bg-warm);border-top:1px solid var(--line);margin-top:44px;padding:46px 20px;text-align:center}
+.qr-sez h2{font-family:var(--display);font-weight:300;font-size:1.7rem}
+.qr-sez p{font-size:.92rem;color:var(--ink-soft);max-width:400px;margin:10px auto 0}
+.cartoncino{width:200px;margin:26px auto 0;background:#fff;border:1px solid var(--line);padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.cartoncino .nomi{font-family:var(--display);font-size:1.25rem}
+.qr{display:grid;grid-template-columns:repeat(11,1fr);gap:2px;width:120px}
+.qr i{aspect-ratio:1;background:var(--ink);display:block}
+.qr i.v{background:transparent}
+.cartoncino .dida{font-size:.66rem;letter-spacing:.1em;color:var(--ink-soft);text-align:center;line-height:1.5}
+
+footer{text-align:center;padding:52px 20px;border-top:1px solid var(--line)}
+footer .nomi{font-family:var(--display);font-size:1.5rem}
+footer .meta{font-size:.74rem;letter-spacing:.18em;color:var(--ink-soft);margin-top:8px;padding-left:.18em}
+
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="avviso">Pagina di esempio. <b>Le foto che caricate restano solo sul vostro telefono</b> e spariscono ricaricando.</div>
+
+<header>
+  <h1>Giulia &amp; Matteo</h1>
+  <span class="mark">✦</span>
+  <div class="data">12 · 06 · 2027</div>
+  <div class="luogo">Tenuta Le Ginestre — Montelupo</div>
+  <p class="intro">Ogni vostro scatto racconta un pezzo della nostra festa. Caricate le foto del 12 giugno e costruiamo insieme l'album del nostro matrimonio.</p>
+</header>
+
+<div class="zona">
+  <div class="drop" id="drop">
+    <h2>Aggiungete le vostre foto</h2>
+    <p>Scegliete dalla galleria o trascinatele qui. Potete caricarne quante volete, anche più tardi.</p>
+    <div class="nome-box">
+      <label for="ospite">Il vostro nome, così sappiamo chi ringraziare</label>
+      <input type="text" id="ospite" placeholder="Nome e cognome" autocomplete="name">
+    </div>
+    <button class="btn" id="scegli">SCEGLIETE LE FOTO</button>
+    <input type="file" id="file" accept="image/*" multiple>
+  </div>
+
+  <div class="conta" id="conta">9 scatti finora</div>
+  <div class="griglia" id="griglia"></div>
+</div>
+
+<section class="qr-sez">
+  <h2>Il QR sui tavoli</h2>
+  <p>Questo è il cartoncino che gli invitati trovano al loro posto. Lo inquadrano e arrivano qui, senza installare niente.</p>
+  <div class="cartoncino">
+    <div class="nomi">Giulia &amp; Matteo</div>
+    <div class="qr" id="qr" aria-hidden="true"></div>
+    <div class="dida">Inquadra e condividi<br>le tue foto</div>
+  </div>
+</section>
+
+<footer>
+  <div class="nomi">Giulia &amp; Matteo</div>
+  <div class="meta">12 GIUGNO 2027 · MONTELUPO</div>
+</footer>
+
+<script>
+const $ = s => document.querySelector(s);
+
+/* ── scatti già presenti ─────────────────────────────── */
+const INIZIALI = [
+  { src:'foto/ospite-1.jpg', da:'Chiara' },
+  { src:'foto/ospite-2.jpg', da:'Zio Renzo' },
+  { src:'foto/ospite-3.jpg', da:'Marta e Paolo' },
+  { src:'foto/ospite-4.jpg', da:'Chiara' },
+  { src:'foto/ospite-5.jpg', da:'Nonna Elsa' },
+  { src:'foto/ospite-6.jpg', da:'Davide' },
+  { src:'foto/ospite-7.jpg', da:'Marta e Paolo' },
+  { src:'foto/ospite-8.jpg', da:'Sara' },
+  { src:'foto/ospite-9.jpg', da:'Zio Renzo' }
+];
+
+const griglia = $('#griglia');
+let totale = 0;
+
+function aggiungi(src, da, nuovo){
+  const f = document.createElement('figure');
+  f.className = 'scatto' + (nuovo ? ' nuovo' : '');
+  const img = document.createElement('img');
+  img.src = src; img.alt = 'Scatto di ' + da; img.loading = 'lazy';
+  const c = document.createElement('figcaption');
+  c.textContent = da;
+  f.append(img, c);
+  if(nuovo) griglia.prepend(f); else griglia.append(f);
+  totale++;
+  $('#conta').textContent = totale + (totale === 1 ? ' scatto finora' : ' scatti finora');
+}
+
+INIZIALI.forEach(s => aggiungi(s.src, s.da, false));
+
+/* ── caricamento, solo nel browser ───────────────────── */
+function carica(lista){
+  const da = $('#ospite').value.trim() || 'Un invitato';
+  [...lista].filter(f => f.type.startsWith('image/')).forEach(f => {
+    aggiungi(URL.createObjectURL(f), da, true);
+  });
+  window.scrollTo({ top: griglia.offsetTop - 80, behavior: 'smooth' });
+}
+
+$('#scegli').addEventListener('click', () => $('#file').click());
+$('#file').addEventListener('change', e => { carica(e.target.files); e.target.value = ''; });
+
+const drop = $('#drop');
+['dragenter','dragover'].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('hot'); }));
+['dragleave','drop'].forEach(ev =>
+  drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('hot'); }));
+drop.addEventListener('drop', e => carica(e.dataTransfer.files));
+
+/* ── disegno decorativo del QR sul cartoncino ────────── */
+const T = 11, celle = [];
+for(let y = 0; y < T; y++){
+  for(let x = 0; x < T; x++){
+    const angolo = (x < 3 && y < 3) || (x > T-4 && y < 3) || (x < 3 && y > T-4);
+    const bordo  = angolo && (x === 0 || y === 0 || x === T-1 || y === T-1 ||
+                              (x === 2 && y < 3) || (y === 2 && x < 3) ||
+                              (x === T-3 && y < 3) || (x > T-4 && y === 2) ||
+                              (x === 2 && y > T-4) || (y === T-3 && x < 3));
+    const centro = angolo && x > 0 && x < 2 + (x > 5 ? T-3 : 3) && false;
+    celle.push(angolo ? (bordo ? 1 : (x % 2 === 1 && y % 2 === 1 ? 1 : 0))
+                      : (Math.random() > .52 ? 1 : 0));
+  }
+}
+$('#qr').innerHTML = celle.map(c => `<i class="${c ? '' : 'v'}"></i>`).join('');
+</script>
+</body>
+</html>
