@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-bind="meta-title">Invito</title>
+<meta name="description" data-bind="meta-desc" content="">
+<meta property="og:type" content="website">
+<meta property="og:title" data-bind="meta-title" content="">
+<meta property="og:description" data-bind="meta-desc" content="">
+<meta property="og:image" data-bind="meta-img" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" data-bind="meta-title" content="">
+<meta name="twitter:description" data-bind="meta-desc" content="">
+<meta name="twitter:image" data-bind="meta-img" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF8F3;
+  --bg-warm:#F4EDE2;
+  --ink:#2C2823;
+  --ink-soft:#736B5E;
+  --accent:#B79A5B;
+  --accent-soft:#EFE6D3;
+  --line:#E3D9C6;
+  --radius:2px;
+  --display:'Cormorant Garamond',Georgia,serif;
+  --body:'Jost',system-ui,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ─── copertina ─────────────────────────────────────────── */
+#cover{position:fixed;inset:0;z-index:100;background:var(--bg-warm);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;transition:opacity .9s ease,visibility .9s}
+#cover.gone{opacity:0;visibility:hidden}
+.cover-frame{position:relative;padding:54px 38px}
+.cover-frame::before,.cover-frame::after{content:'';position:absolute;width:34px;height:34px;border:1px solid var(--accent)}
+.cover-frame::before{top:0;left:0;border-right:0;border-bottom:0}
+.cover-frame::after{bottom:0;right:0;border-left:0;border-top:0}
+#cover h1{font-family:var(--display);font-weight:300;font-size:clamp(2.3rem,9vw,3.7rem);line-height:1.12;letter-spacing:.01em}
+.mark{color:var(--accent);font-size:1rem;margin:20px 0;letter-spacing:.5em;padding-left:.5em}
+#cover .date{font-family:var(--body);font-weight:200;letter-spacing:.34em;font-size:.86rem;color:var(--ink-soft);padding-left:.34em}
+#enter{margin-top:42px;background:none;border:1px solid var(--accent);color:var(--ink);font-family:var(--body);font-weight:300;font-size:.78rem;letter-spacing:.24em;padding:15px 32px;cursor:pointer;border-radius:var(--radius);transition:background .3s,color .3s;padding-left:calc(32px + .24em)}
+#enter:hover{background:var(--accent);color:#fff}
+
+/* ─── navigazione ───────────────────────────────────────── */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(251,248,243,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-logo{font-family:var(--display);font-size:1.25rem;letter-spacing:.06em;text-decoration:none;white-space:nowrap}
+.nav-links{display:flex;gap:26px;list-style:none;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{text-decoration:none;font-size:.76rem;letter-spacing:.18em;color:var(--ink-soft);white-space:nowrap;padding:4px 0;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
+.nav-links a:hover{color:var(--ink);border-color:var(--accent)}
+
+/* ─── impaginazione ─────────────────────────────────────── */
+section{padding:88px 20px}
+.wrap{max-width:980px;margin:0 auto}
+.narrow{max-width:620px;margin:0 auto}
+.sec-head{text-align:center;margin-bottom:52px}
+.sec-head .kicker{font-size:.72rem;letter-spacing:.26em;color:var(--ink-soft);padding-left:.26em}
+.sec-head h2{font-family:var(--display);font-weight:300;font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.2;margin-top:10px}
+.sec-head .mark{margin:16px 0 0}
+
+/* ─── hero ──────────────────────────────────────────────── */
+#top{background:var(--bg-warm);text-align:center;padding-top:104px;padding-bottom:104px}
+#top h1{font-family:var(--display);font-weight:300;font-size:clamp(2.6rem,10vw,4.6rem);line-height:1.1}
+.hero-meta{color:var(--ink-soft);font-size:.84rem;letter-spacing:.24em;padding-left:.24em}
+.hero-place{font-family:var(--display);font-size:1.3rem;font-style:italic;color:var(--ink-soft);letter-spacing:0;margin-top:8px}
+.count{display:flex;justify-content:center;gap:clamp(14px,5vw,38px);margin:44px 0 40px;flex-wrap:wrap}
+.count div{min-width:58px}
+.count b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,6vw,2.6rem);line-height:1;font-variant-numeric:tabular-nums}
+.count span{font-size:.64rem;letter-spacing:.2em;color:var(--ink-soft);padding-left:.2em}
+.btn{display:inline-block;text-decoration:none;background:var(--ink);color:#fff;font-size:.76rem;letter-spacing:.22em;padding:16px 34px;border-radius:var(--radius);transition:opacity .25s;padding-left:calc(34px + .22em)}
+.btn:hover{opacity:.85}
+
+/* ─── storia ────────────────────────────────────────────── */
+#storia{text-align:center}
+.quote{font-family:var(--display);font-style:italic;font-size:clamp(1.25rem,3.6vw,1.6rem);line-height:1.5;color:var(--ink);max-width:560px;margin:0 auto 14px}
+.quote-by{font-size:.74rem;letter-spacing:.2em;color:var(--ink-soft);margin-bottom:44px;padding-left:.2em}
+.story p{font-size:1.02rem;margin-bottom:18px}
+.signature{font-family:var(--display);font-style:italic;font-size:1.35rem;color:var(--accent);margin-top:26px}
+
+/* ─── gallerie ──────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--accent-soft);border-radius:var(--radius)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;background:linear-gradient(transparent,rgba(44,40,35,.6));color:#fff;font-size:.78rem;letter-spacing:.04em}
+.ph.empty::after{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:.74rem;letter-spacing:.16em;text-align:center;padding:16px}
+#luoghi .ph{aspect-ratio:4/3}
+
+/* ─── programma ─────────────────────────────────────────── */
+#programma{background:var(--bg-warm)}
+.timeline{max-width:520px;margin:0 auto;list-style:none;position:relative}
+.timeline::before{content:'';position:absolute;left:5px;top:10px;bottom:10px;width:1px;background:var(--line)}
+.timeline li{position:relative;padding:0 0 32px 34px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:'';position:absolute;left:0;top:9px;width:11px;height:11px;border-radius:50%;background:var(--bg-warm);border:1px solid var(--accent)}
+.timeline .ora{font-family:var(--display);font-size:1.3rem;color:var(--accent);line-height:1.2;font-variant-numeric:tabular-nums}
+.timeline .voce{font-size:.98rem}
+
+/* ─── mappa ─────────────────────────────────────────────── */
+.map-box{margin-top:34px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--accent-soft)}
+.map-box iframe{width:100%;height:340px;border:0;display:block}
+.addr{text-align:center;margin-top:22px}
+.addr p{color:var(--ink-soft);font-size:.95rem;margin-bottom:16px}
+
+/* ─── regalo ────────────────────────────────────────────── */
+#regalo{background:var(--bg-warm);text-align:center}
+.iban-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:34px 26px;max-width:480px;margin:34px auto 0;text-align:left}
+.iban-row{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);font-size:.92rem;flex-wrap:wrap}
+.iban-row:last-child{border-bottom:0}
+.iban-row dt{color:var(--ink-soft);font-size:.78rem;letter-spacing:.12em;white-space:nowrap;padding-top:3px}
+.iban-row dd{font-family:var(--display);font-size:1.12rem;text-align:right;flex:1;word-break:break-word}
+#copy-iban{margin-top:20px;width:100%;background:none;border:1px solid var(--accent);color:var(--ink);font-family:var(--body);font-weight:300;font-size:.76rem;letter-spacing:.2em;padding:13px;cursor:pointer;border-radius:var(--radius);transition:background .3s,color .3s;padding-left:calc(13px + .2em)}
+#copy-iban:hover{background:var(--accent);color:#fff}
+
+/* ─── rsvp ──────────────────────────────────────────────── */
+.form{max-width:520px;margin:0 auto}
+.field{margin-bottom:22px}
+.field label{display:block;font-size:.78rem;letter-spacing:.12em;color:var(--ink-soft);margin-bottom:8px}
+.field input,.field textarea,.field select{width:100%;font-family:var(--body);font-weight:300;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:13px 14px;transition:border-color .25s}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--accent)}
+.field textarea{min-height:96px;resize:vertical}
+.choice{display:flex;gap:12px;flex-wrap:wrap}
+.choice label{flex:1;min-width:150px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:var(--radius);padding:14px;cursor:pointer;font-size:.94rem;color:var(--ink);letter-spacing:0;margin:0;transition:border-color .25s,background .25s}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.choice input{width:auto;accent-color:var(--accent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.deadline{text-align:center;color:var(--ink-soft);font-size:.95rem;margin-bottom:38px}
+.deadline b{font-weight:400;color:var(--ink)}
+#rsvp-send{width:100%;background:var(--ink);color:#fff;border:1px solid var(--ink);font-family:var(--body);font-weight:300;font-size:.82rem;letter-spacing:.2em;padding:17px;cursor:pointer;border-radius:var(--radius);transition:opacity .25s;padding-left:calc(17px + .2em)}
+#rsvp-send:hover{opacity:.85}
+#rsvp-send:disabled{opacity:.45;cursor:not-allowed}
+.msg{display:none;margin-top:18px;padding:15px 17px;border-radius:var(--radius);font-size:.94rem}
+.msg.show{display:block}
+.msg.good{background:#EDF2EB;color:#4A6147;border:1px solid #D2DECD}
+.msg.bad{background:#F9ECE6;color:#9C5B3C;border:1px solid #E7CFC4}
+.hide{display:none !important}
+
+/* ─── barra musicale ────────────────────────────────────── */
+#bar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(251,248,243,.96);backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .6s ease;padding-bottom:env(safe-area-inset-bottom,0px)}
+#bar.on{transform:translateY(0)}
+.bar-in{max-width:980px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:14px}
+#bar-play{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--accent);background:none;color:var(--accent);cursor:pointer;display:grid;place-items:center;transition:background .3s,color .3s}
+#bar-play:hover{background:var(--accent);color:#fff}
+#bar-play svg{width:14px;height:14px;fill:currentColor}
+.bar-txt{flex:1;min-width:0}
+.bar-lab{font-size:.62rem;letter-spacing:.2em;color:var(--ink-soft);padding-left:.2em}
+.bar-tit{font-family:var(--display);font-size:1.06rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#bar-yt{max-width:980px;margin:0 auto;padding:0 18px;height:0;overflow:hidden;transition:height .45s ease}
+#bar-yt.open{height:236px;padding-bottom:16px}
+#bar-yt iframe{width:100%;height:220px;border:0;border-radius:var(--radius);display:block}
+body.has-bar footer{padding-bottom:104px}
+@media (max-width:560px){ #bar-yt.open{height:206px} #bar-yt iframe{height:190px} }
+
+/* ─── piede ─────────────────────────────────────────────── */
+footer{text-align:center;padding:64px 20px;border-top:1px solid var(--line)}
+footer .names{font-family:var(--display);font-size:1.6rem;font-weight:300}
+footer .meta{font-size:.76rem;letter-spacing:.18em;color:var(--ink-soft);margin-top:10px;padding-left:.18em}
+
+@media (max-width:560px){
+  section{padding:64px 18px}
+  .two{grid-template-columns:1fr}
+  .nav-links{gap:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ COPERTINA ════════ -->
+<div id="cover">
+  <div class="cover-frame">
+    <h1 data-bind="nomi"></h1>
+    <div class="mark">✦</div>
+    <div class="date" data-bind="data-punti"></div>
+  </div>
+  <button id="enter">ENTRA</button>
+</div>
+
+<nav>
+  <div class="nav-in">
+    <a class="nav-logo" href="#top" data-bind="iniziali"></a>
+    <ul class="nav-links">
+      <li><a href="#storia">Storia</a></li>
+      <li><a href="#galleria">Galleria</a></li>
+      <li><a href="#programma">Programma</a></li>
+      <li><a href="#mappa">Mappa</a></li>
+      <li data-sec="regalo"><a href="#regalo">Regalo</a></li>
+      <li><a href="#rsvp">Conferma</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ════════ APERTURA ════════ -->
+<section id="top">
+  <div class="wrap">
+    <h1 data-bind="nomi"></h1>
+    <div class="mark">✦</div>
+    <div class="hero-meta" data-bind="data-punti"></div>
+    <div class="hero-place" data-bind="luogo-riga"></div>
+    <div class="count" id="count">
+      <div><b id="c-g">00</b><span>GIORNI</span></div>
+      <div><b id="c-o">00</b><span>ORE</span></div>
+      <div><b id="c-m">00</b><span>MIN</span></div>
+      <div><b id="c-s">00</b><span>SEC</span></div>
+    </div>
+    <a class="btn" href="#rsvp">CONFERMA LA PRESENZA</a>
+  </div>
+</section>
+
+<!-- ════════ STORIA ════════ -->
+<section id="storia">
+  <div class="narrow">
+    <blockquote class="quote hide" data-bind="citazione"></blockquote>
+    <div class="quote-by hide" data-bind="citazione-autore"></div>
+    <div class="story" data-bind="storia"></div>
+    <div class="signature" data-bind="firma"></div>
+  </div>
+</section>
+
+<!-- ════════ GALLERIA ════════ -->
+<section id="galleria">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>La nostra storia in immagini</h2>
+      <div class="mark">✦</div>
+    </div>
+    <div class="grid" id="grid-coppia"></div>
+  </div>
+</section>
+
+<!-- ════════ PROGRAMMA ════════ -->
+<section id="programma">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Il programma</div>
+      <h2>Come si svolgerà</h2>
+      <div class="mark">✦</div>
+    </div>
+    <ol class="timeline" id="timeline"></ol>
+  </div>
+</section>
+
+<!-- ════════ LUOGHI E MAPPA ════════ -->
+<section id="mappa">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">La location</div>
+      <h2 data-bind="location-nome"></h2>
+      <div class="mark">✦</div>
+    </div>
+    <div class="grid" id="grid-luoghi"></div>
+    <div class="map-box"><iframe id="map" loading="lazy" title="Mappa della location" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    <div class="addr">
+      <p data-bind="indirizzo"></p>
+      <a class="btn" id="map-link" href="#" target="_blank" rel="noopener">APRI IN GOOGLE MAPS</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ REGALO ════════ -->
+<section id="regalo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Regalo di nozze</div>
+      <h2>Un pensiero per noi</h2>
+      <div class="mark">✦</div>
+    </div>
+    <p class="narrow" data-bind="regalo-testo"></p>
+    <div class="iban-card">
+      <dl>
+        <div class="iban-row"><dt>INTESTATO A</dt><dd data-bind="regalo-intestatario"></dd></div>
+        <div class="iban-row"><dt>IBAN</dt><dd data-bind="regalo-iban"></dd></div>
+        <div class="iban-row"><dt>CAUSALE</dt><dd data-bind="regalo-causale"></dd></div>
+      </dl>
+      <button id="copy-iban">COPIA L'IBAN</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CONFERMA PRESENZA ════════ -->
+<section id="rsvp">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">Conferma presenza</div>
+      <h2>Ci sarai?</h2>
+      <div class="mark">✦</div>
+    </div>
+    <p class="deadline">Ti chiediamo di confermare entro il <b data-bind="rsvp-scadenza"></b>.</p>
+    <form class="form" id="form" novalidate>
+      <div class="field">
+        <label for="f-nome">Nome e cognome</label>
+        <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="f-email">Email</label>
+        <input id="f-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label>Parteciperai?</label>
+        <div class="choice">
+          <label><input type="radio" name="partecipa" value="si" checked> Sì, ci sarò</label>
+          <label><input type="radio" name="partecipa" value="no"> Purtroppo no</label>
+        </div>
+      </div>
+      <div id="blocco-invitati">
+        <div class="two">
+          <div class="field">
+            <label for="f-adulti">Adulti (incluso te)</label>
+            <input id="f-adulti" name="adulti" type="number" min="1" value="1">
+          </div>
+          <div class="field">
+            <label for="f-bambini">Bambini sotto i 10 anni</label>
+            <input id="f-bambini" name="bambini" type="number" min="0" value="0">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-into">Intolleranze o allergie (facoltativo)</label>
+          <input id="f-into" name="intolleranze" type="text">
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-msg">Messaggio per gli sposi (facoltativo)</label>
+        <textarea id="f-msg" name="messaggio"></textarea>
+      </div>
+      <button type="submit" id="rsvp-send">INVIA LA CONFERMA</button>
+      <div class="msg" id="rsvp-msg"></div>
+    </form>
+  </div>
+</section>
+
+<div id="bar" hidden>
+  <div id="bar-yt"></div>
+  <div class="bar-in">
+    <button id="bar-play" aria-label="Ascolta la nostra canzone">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path id="bar-icon" d="M3 1.5v13l11-6.5z"/></svg>
+    </button>
+    <div class="bar-txt">
+      <div class="bar-lab">LA NOSTRA CANZONE</div>
+      <div class="bar-tit" id="bar-tit"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="names" data-bind="nomi"></div>
+  <div class="meta" data-bind="footer-meta"></div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   CONFIGURAZIONE — si modifica solo questo blocco.
+   Tutto il resto del file resta identico per ogni cliente.
+   ══════════════════════════════════════════════════════════ */
+const CONF = {
+
+  sposi: { nome1:'Giulia', nome2:'Matteo' },
+
+  // data e ora della cerimonia
+  data: '2027-06-12',
+  ora:  '17:00',
+
+  location: {
+    nome:      'Tenuta Le Ginestre',
+    citta:     'Montelupo',
+    indirizzo: 'Strada dei Tigli 18, 50056 Montelupo FI'
+  },
+
+  // Citazione in apertura. Lasciare null per non mostrarla.
+  // Attenzione: versi di canzoni e poesie sono protetti da copyright.
+  // Inserirli solo se la coppia se ne assume la responsabilità.
+  citazione: null,
+  citazioneAutore: null,
+
+  // Testo di presentazione: un elemento dell'array = un paragrafo
+  storia: [
+    'Ci siamo conosciuti in fila alla posta, un martedì di novembre, discutendo su quale sportello fosse più veloce. Avevamo torto tutti e due.',
+    'Nove anni dopo vi chiediamo di esserci il 12 giugno. Scorrete giù: trovate il programma, come arrivare e dove confermare la vostra presenza.'
+  ],
+  firma: 'Giulia e Matteo',
+
+  // Foto di coppia. Metterle nella cartella foto/ del repository.
+  // Finché il file non esiste, al suo posto compare un riquadro con la didascalia.
+  fotoCoppia: [
+    { src:'foto/coppia-1.jpg', alt:'Il primo viaggio, Lisbona 2019' },
+    { src:'foto/coppia-2.jpg', alt:'La sera della proposta' },
+    { src:'foto/coppia-3.jpg', alt:'Con gli amici di sempre' },
+    { src:'foto/coppia-4.jpg', alt:'Capodanno in montagna' },
+    { src:'foto/coppia-5.jpg', alt:'Il trasloco, finalmente insieme' },
+    { src:'foto/coppia-6.jpg', alt:'Una domenica qualunque' }
+  ],
+
+  // Foto della location. Array vuoto = sezione con sola mappa.
+  fotoLocation: [
+    { src:'foto/luogo-1.jpg', alt:'Il giardino degli ulivi' },
+    { src:'foto/luogo-2.jpg', alt:'La sala della cena' },
+    { src:'foto/luogo-3.jpg', alt:'La terrazza al tramonto' }
+  ],
+
+  programma: [
+    { ora:'16:30', voce:'Arrivo degli ospiti' },
+    { ora:'17:00', voce:'Cerimonia' },
+    { ora:'18:30', voce:'Aperitivo in giardino' },
+    { ora:'20:00', voce:'Cena' },
+    { ora:'22:00', voce:'Taglio della torta' },
+    { ora:'22:30', voce:'Musica e balli' }
+  ],
+
+  // attivo:false nasconde la sezione e la voce di menu
+  regalo: {
+    attivo: true,
+    testo: 'La vostra presenza è già il regalo più grande. Se desiderate farci un dono, vi lasciamo le nostre coordinate bancarie. Grazie di cuore per il vostro affetto.',
+    intestatario: 'Giulia Ferrante',
+    iban: 'IT00 X000 0000 0000 0000 0000 000',
+    causale: 'Regalo di nozze Giulia e Matteo'
+  },
+
+  rsvp: {
+    scadenza: '2027-04-30',
+    // true solo se il cliente ha acquistato la gestione invitati:
+    // mostra i campi adulti, bambini e intolleranze
+    gestioneInvitati: true,
+    // dove arrivano le conferme se Supabase non è configurato
+    email: 'giuliaematteo@esempio.it'
+  },
+
+  // ─── Musica ──────────────────────────────────────────
+  // modo: 'youtube' = la canzone degli sposi, ospitata da YouTube.
+  //         Premendo play la barra si apre e mostra il player, come
+  //         richiedono le condizioni di YouTube. Usare il link del
+  //         canale ufficiale dell'artista o dell'etichetta.
+  //       'audio'   = file caricato nel sito, parte da solo appena si
+  //         entra e la barra resta sottile. Ammesso SOLO con musica
+  //         royalty-free o di cui la coppia detiene i diritti.
+  //       null      = nessuna musica.
+  musica: {
+    modo: 'audio',
+    titolo: 'Un pomeriggio di giugno',
+    youtube: '',
+    file: 'musica/atmosfera.mp3'
+  },
+
+  // Immagine per l'anteprima nelle chat (percorso assoluto o relativo)
+  anteprima: 'foto/coppia-1.jpg',
+
+  // Salvataggio conferme su Supabase. Lasciare vuoto per usare la mail.
+  // La tabella conferme NON deve avere policy di lettura pubblica.
+  SUPABASE_URL: '',
+  SUPABASE_KEY: '',
+  SUPABASE_TAB: 'rsvp'
+};
+/* ═══════════ fine configurazione ═══════════ */
+
+const $  = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno',
+              'luglio','agosto','settembre','ottobre','novembre','dicembre'];
+
+const dt      = new Date(CONF.data + 'T' + CONF.ora + ':00');
+const [Y,M,D] = CONF.data.split('-');
+const nomi    = CONF.sposi.nome1 + ' & ' + CONF.sposi.nome2;
+const dataPunti = `${D} · ${M} · ${Y}`;
+const dataEstesa = `${+D} ${MESI[+M-1]} ${Y}`;
+const scad = CONF.rsvp.scadenza.split('-');
+const scadEstesa = `${+scad[2]} ${MESI[+scad[1]-1]} ${scad[0]}`;
+
+/* ── testi ─────────────────────────────────────────────── */
+const T = {
+  'nomi': nomi,
+  'iniziali': CONF.sposi.nome1[0] + ' & ' + CONF.sposi.nome2[0],
+  'data-punti': dataPunti,
+  'luogo-riga': CONF.location.nome + ' — ' + CONF.location.citta,
+  'location-nome': CONF.location.nome,
+  'indirizzo': CONF.location.indirizzo,
+  'citazione': CONF.citazione ? '«' + CONF.citazione + '»' : '',
+  'citazione-autore': CONF.citazioneAutore ? '— ' + CONF.citazioneAutore : '',
+  'firma': CONF.firma,
+  'regalo-testo': CONF.regalo.testo,
+  'regalo-intestatario': CONF.regalo.intestatario,
+  'regalo-iban': CONF.regalo.iban,
+  'regalo-causale': CONF.regalo.causale,
+  'rsvp-scadenza': scadEstesa,
+  'footer-meta': `${dataEstesa} · ${CONF.location.citta}`,
+  'meta-title': `${nomi} — ${dataEstesa}`,
+  'meta-desc': `Ci sposiamo il ${dataEstesa} a ${CONF.location.nome}. Scopri il programma e conferma la tua presenza.`,
+  'meta-img': CONF.anteprima
+};
+$$('[data-bind]').forEach(el => {
+  const v = T[el.dataset.bind] ?? '';
+  if(el.tagName === 'META')        el.setAttribute('content', v);
+  else if(el.tagName === 'TITLE')  document.title = v;
+  else { el.textContent = v; if(v) el.classList.remove('hide'); }
+});
+$('.story').innerHTML = CONF.storia.map(p => '<p></p>').join('');
+$$('.story p').forEach((p,i) => p.textContent = CONF.storia[i]);
+
+/* ── barra musicale ────────────────────────────────────── */
+const MUS = CONF.musica || {};
+const bar = $('#bar');
+let suona = false, ytFrame = null, audio = null;
+
+const ICONA = {
+  play:  'M3 1.5v13l11-6.5z',
+  pausa: 'M3.5 1.5h3.2v13H3.5zM9.3 1.5h3.2v13H9.3z'
+};
+const icona = s => $('#bar-icon').setAttribute('d', ICONA[s]);
+
+function idYoutube(u){
+  const m = String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+function attivaBarra(){
+  if(!MUS.modo) return;
+  bar.hidden = false;
+  $('#bar-tit').textContent = MUS.titolo || '';
+  document.body.classList.add('has-bar');
+  requestAnimationFrame(() => bar.classList.add('on'));
+
+  if(MUS.modo === 'audio' && MUS.file){
+    audio = new Audio(MUS.file);
+    audio.loop = true;
+    audio.volume = .55;
+    // la pressione di ENTRA vale come consenso del browser all'audio
+    audio.play().then(() => { suona = true; icona('pausa'); }).catch(() => {});
+  }
+}
+
+$('#bar-play')?.addEventListener('click', () => {
+  if(MUS.modo === 'audio'){
+    if(!audio) return;
+    if(suona){ audio.pause(); icona('play'); } else { audio.play(); icona('pausa'); }
+    suona = !suona;
+    return;
+  }
+
+  const id = idYoutube(MUS.youtube);
+  if(!id) return;
+  const box = $('#bar-yt');
+
+  if(!ytFrame){
+    ytFrame = document.createElement('iframe');
+    ytFrame.allow = 'autoplay; encrypted-media';
+    ytFrame.title = MUS.titolo || 'La nostra canzone';
+    ytFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1`;
+    box.appendChild(ytFrame);
+    box.classList.add('open');
+    suona = true; icona('pausa');
+    return;
+  }
+
+  const cmd = suona ? 'pauseVideo' : 'playVideo';
+  ytFrame.contentWindow.postMessage(
+    JSON.stringify({ event:'command', func:cmd, args:[] }), '*');
+  box.classList.toggle('open', !suona ? true : false);
+  suona = !suona;
+  icona(suona ? 'pausa' : 'play');
+});
+
+/* ── copertina ─────────────────────────────────────────── */
+$('#enter').addEventListener('click', () => {
+  $('#cover').classList.add('gone');
+  document.body.style.overflow = '';
+  attivaBarra();
+  setTimeout(() => $('#cover').remove(), 950);
+});
+document.body.style.overflow = 'hidden';
+
+/* ── conto alla rovescia ───────────────────────────────── */
+function tic(){
+  let d = dt - Date.now();
+  if(d <= 0){ $('#count').innerHTML = '<div style="font-family:var(--display);font-size:1.5rem">È il nostro giorno</div>'; return; }
+  d = Math.floor(d/1000);
+  const p = n => String(n).padStart(2,'0');
+  $('#c-g').textContent = p(Math.floor(d/86400));
+  $('#c-o').textContent = p(Math.floor(d/3600)%24);
+  $('#c-m').textContent = p(Math.floor(d/60)%60);
+  $('#c-s').textContent = p(d%60);
+  setTimeout(tic, 1000);
+}
+tic();
+
+/* ── gallerie ──────────────────────────────────────────── */
+function galleria(sel, foto){
+  const box = $(sel);
+  if(!foto || !foto.length){ box.closest('.grid').classList.add('hide'); return; }
+  box.innerHTML = foto.map(f => `
+    <figure class="ph empty" data-label="${f.alt}">
+      <img src="${f.src}" alt="${f.alt}" loading="lazy">
+      <figcaption>${f.alt}</figcaption>
+    </figure>`).join('');
+  box.querySelectorAll('img').forEach(img => {
+    img.addEventListener('load',  () => img.parentElement.classList.remove('empty'));
+    img.addEventListener('error', () => { img.remove(); });
+  });
+}
+galleria('#grid-coppia', CONF.fotoCoppia);
+galleria('#grid-luoghi', CONF.fotoLocation);
+
+/* ── programma ─────────────────────────────────────────── */
+$('#timeline').innerHTML = CONF.programma.map(r =>
+  `<li><div class="ora">${r.ora}</div><div class="voce">${r.voce}</div></li>`).join('');
+
+/* ── mappa ─────────────────────────────────────────────── */
+const q = encodeURIComponent(CONF.location.indirizzo);
+$('#map').src = `https://www.google.com/maps?q=${q}&output=embed`;
+$('#map-link').href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+
+/* ── regalo ────────────────────────────────────────────── */
+if(!CONF.regalo.attivo){
+  $('#regalo').remove();
+  $('[data-sec="regalo"]').remove();
+} else {
+  $('#copy-iban').addEventListener('click', async e => {
+    try{
+      await navigator.clipboard.writeText(CONF.regalo.iban.replace(/\s/g,''));
+      e.target.textContent = 'IBAN COPIATO';
+      setTimeout(() => e.target.textContent = "COPIA L'IBAN", 2200);
+    }catch{ e.target.textContent = 'COPIA NON RIUSCITA'; }
+  });
+}
+
+/* ── conferma presenza ─────────────────────────────────── */
+if(!CONF.rsvp.gestioneInvitati) $('#blocco-invitati').remove();
+
+function esito(t, ok){
+  const m = $('#rsvp-msg');
+  m.textContent = t;
+  m.className = 'msg show ' + (ok ? 'good' : 'bad');
+}
+
+$('#form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const d = Object.fromEntries(f.entries());
+
+  if(!d.nome || !d.email.includes('@')){
+    esito('Servono il nome e un indirizzo email valido.', false);
+    return;
+  }
+
+  const btn = $('#rsvp-send');
+  btn.disabled = true;
+  btn.textContent = 'INVIO IN CORSO';
+
+  const riga = {
+    nome: d.nome,
+    email: d.email,
+    partecipa: d.partecipa === 'si',
+    adulti: d.adulti ? +d.adulti : null,
+    bambini: d.bambini ? +d.bambini : null,
+    intolleranze: d.intolleranze || null,
+    messaggio: d.messaggio || null
+  };
+
+  if(CONF.SUPABASE_URL && CONF.SUPABASE_KEY){
+    try{
+      const r = await fetch(`${CONF.SUPABASE_URL}/rest/v1/${CONF.SUPABASE_TAB}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+          apikey: CONF.SUPABASE_KEY,
+          Authorization: 'Bearer ' + CONF.SUPABASE_KEY,
+          Prefer: 'return=minimal'
+        },
+        body: JSON.stringify(riga)
+      });
+      if(!r.ok) throw new Error(r.status);
+      e.target.querySelectorAll('input,textarea,button').forEach(x => x.disabled = true);
+      btn.textContent = 'CONFERMA INVIATA';
+      esito(riga.partecipa
+        ? 'Grazie! Non vediamo l\'ora di festeggiare con te.'
+        : 'Grazie per avercelo fatto sapere. Ci mancherai.', true);
+      return;
+    }catch{ /* si prosegue con la mail */ }
+  }
+
+  const corpo = [
+    'Nome: ' + riga.nome,
+    'Email: ' + riga.email,
+    'Partecipa: ' + (riga.partecipa ? 'sì' : 'no'),
+    CONF.rsvp.gestioneInvitati ? 'Adulti: ' + (riga.adulti ?? '') : '',
+    CONF.rsvp.gestioneInvitati ? 'Bambini: ' + (riga.bambini ?? '') : '',
+    CONF.rsvp.gestioneInvitati ? 'Intolleranze: ' + (riga.intolleranze ?? '-') : '',
+    'Messaggio: ' + (riga.messaggio ?? '-')
+  ].filter(Boolean).join('\n');
+
+  window.location.href = `mailto:${CONF.rsvp.email}`
+    + `?subject=${encodeURIComponent('Conferma presenza — ' + riga.nome)}`
+    + `&body=${encodeURIComponent(corpo)}`;
+
+  btn.disabled = false;
+  btn.textContent = 'INVIA LA CONFERMA';
+  esito('Si apre il programma di posta con la conferma già scritta: basta premere invia.', true);
+});
+</script>
+</body>
+</html>
