@@ -81,6 +81,15 @@ section{padding:88px 20px}
 .count span{font-size:.64rem;letter-spacing:.2em;color:var(--ink-soft);padding-left:.2em}
 .btn{display:inline-block;text-decoration:none;background:var(--ink);color:#fff;font-size:.76rem;letter-spacing:.22em;padding:16px 34px;border-radius:var(--radius);transition:opacity .25s;padding-left:calc(34px + .22em)}
 .btn:hover{opacity:.85}
+/* copertina con foto (CONF.copertina) */
+body.con-copertina #cover,body.con-copertina #top{background:linear-gradient(rgba(30,24,18,.40),rgba(30,24,18,.62)),var(--copertina) center 35%/cover no-repeat;color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.35)}
+body.con-copertina #top{min-height:92vh;display:flex;align-items:center;justify-content:center}
+body.con-copertina #top .hero-meta,body.con-copertina #top .hero-place,body.con-copertina #top .count span,body.con-copertina #cover .date{color:rgba(255,255,255,.9)}
+body.con-copertina #top .mark,body.con-copertina #cover .mark{color:#E9D3A6}
+body.con-copertina #top .btn{background:#fff;color:var(--ink);text-shadow:none}
+body.con-copertina #enter{color:#fff;border-color:rgba(255,255,255,.85)}
+body.con-copertina #enter:hover{background:#fff;color:var(--ink)}
+
 
 /* ─── storia ────────────────────────────────────────────── */
 #storia{text-align:center}
@@ -395,19 +404,23 @@ const CONF = {
   // Foto di coppia. Metterle nella cartella foto/ del repository.
   // Finché il file non esiste, al suo posto compare un riquadro con la didascalia.
   fotoCoppia: [
-    { src:'foto/coppia-1.jpg', alt:'Il primo viaggio, Lisbona 2019' },
-    { src:'foto/coppia-2.jpg', alt:'La sera della proposta' },
-    { src:'foto/coppia-3.jpg', alt:'Con gli amici di sempre' },
-    { src:'foto/coppia-4.jpg', alt:'Capodanno in montagna' },
-    { src:'foto/coppia-5.jpg', alt:'Il trasloco, finalmente insieme' },
-    { src:'foto/coppia-6.jpg', alt:'Una domenica qualunque' }
+    { src:'foto/coppia-1.jpg', alt:'Il giorno che aspettavamo' },
+    { src:'foto/coppia-2.jpg', alt:'Sulla scala di casa' },
+    { src:'foto/coppia-3.jpg', alt:'Noi due, alla luce di giugno' },
+    { src:'foto/coppia-4.jpg', alt:'Pronti' },
+    { src:'foto/coppia-5.jpg', alt:'Un passo alla volta' },
+    { src:'foto/coppia-6.jpg', alt:'Tutta la vita davanti' }
   ],
+
+  // Foto di copertina: riempie la prima schermata e l'apertura,
+  // meglio orizzontale. null = copertina a tinta unita.
+  copertina: 'foto/copertina.jpg',
 
   // Foto della location. Array vuoto = sezione con sola mappa.
   fotoLocation: [
-    { src:'foto/luogo-1.jpg', alt:'Il giardino degli ulivi' },
-    { src:'foto/luogo-2.jpg', alt:'La sala della cena' },
-    { src:'foto/luogo-3.jpg', alt:'La terrazza al tramonto' }
+    { src:'foto/luogo-1.jpg', alt:'La tenuta' },
+    { src:'foto/luogo-2.jpg', alt:'La cena sotto le candele' },
+    { src:'foto/luogo-3.jpg', alt:'La terrazza sulle colline' }
   ],
 
   programma: [
@@ -448,9 +461,9 @@ const CONF = {
   //       null      = nessuna musica.
   musica: {
     modo: 'audio',
-    titolo: 'Un pomeriggio di giugno',
+    titolo: 'Promessa',
     youtube: '',
-    file: 'musica/atmosfera.mp3'
+    file: 'musica/dolce.mp3'
   },
 
   // Immagine per l'anteprima nelle chat (percorso assoluto o relativo)
@@ -462,6 +475,12 @@ const CONF = {
   SUPABASE_KEY: '',
   SUPABASE_TAB: 'rsvp'
 };
+// copertina con foto
+if (CONF.copertina) {
+  document.documentElement.style.setProperty('--copertina', 'url("' + CONF.copertina + '")');
+  document.body.classList.add('con-copertina');
+}
+
 /* ═══════════ fine configurazione ═══════════ */
 
 const $  = s => document.querySelector(s);
