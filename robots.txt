@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# le immagini dei post social: servono a Metricool, non ai motori di ricerca
+Disallow: /social/
+
+Sitemap: https://invito360.it/sitemap.xml
