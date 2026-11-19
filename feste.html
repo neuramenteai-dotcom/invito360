@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="it_IT">
 <meta property="og:url" content="https://invito360.it/feste.html">
-<meta property="og:image" content="https://invito360.it/img/invito360-anteprima.png">
+<meta property="og:image" content="https://invito360.it/img/feste/anteprima.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FBF8F2">
 <link rel="canonical" href="https://invito360.it/feste.html">
@@ -53,20 +53,33 @@ h2{font-size:clamp(2rem,5vw,2.8rem)}
 .top nav a:hover{color:var(--ink)}
 @media(max-width:560px){.top nav a.hide-m{display:none}}
 
-/* apertura */
-.hero{text-align:center;padding:84px 0 70px;position:relative;overflow:hidden}
-.hero h1{font-size:clamp(2.6rem,9vw,4.6rem);margin-top:14px}
-.hero h1 em{font-style:italic;color:var(--accent)}
-.hero .lead{margin-top:6px}
-.events{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:26px auto 0;max-width:600px}
-.events span{font-size:.8rem;border:1px solid var(--line);border-radius:999px;padding:5px 14px;background:var(--card)}
+/* apertura: tre foto, una per stile, sotto un velo scuro */
+.hero{text-align:center;padding:110px 0 96px;position:relative;overflow:hidden;background:#15110E;color:#fff;min-height:calc(100svh - 62px);display:flex;align-items:center;isolation:isolate}
+.mosaic{position:absolute;inset:-6% 0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;z-index:-2}
+.mosaic div{background-size:cover;background-position:center;animation:deriva 22s ease-in-out infinite alternate}
+.mosaic div:nth-child(2){animation-direction:alternate-reverse}
+@keyframes deriva{from{transform:translateY(-3%) scale(1.06)}to{transform:translateY(3%) scale(1.06)}}
+.hero::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,rgba(21,17,14,.58) 0%,rgba(21,17,14,.42) 75%),linear-gradient(rgba(21,17,14,.10),rgba(21,17,14,.55))}
+.hero .wrap{width:100%}
+.hero .eyebrow{color:rgba(255,255,255,.75)}
+.hero h1{font-size:clamp(3rem,11vw,6rem);margin-top:14px;line-height:1.02}
+.hero h1 em{font-style:italic;color:#E3C998}
+.hero .mark{color:#E3C998}
+.hero .lead{margin-top:6px;color:rgba(255,255,255,.86)}
+.hero .btn{background:#fff;color:var(--ink);border-color:#fff}
+.hero .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.7)}
+.hero .no-app{color:rgba(255,255,255,.7)}
+.hero>.wrap>*{animation:sale 1s cubic-bezier(.2,.7,.2,1) both}
+.hero>.wrap>*:nth-child(2){animation-delay:.1s}.hero>.wrap>*:nth-child(3){animation-delay:.2s}.hero>.wrap>*:nth-child(4){animation-delay:.3s}
+.hero>.wrap>*:nth-child(5){animation-delay:.4s}.hero>.wrap>*:nth-child(6){animation-delay:.5s}.hero>.wrap>*:nth-child(7){animation-delay:.6s}
+@keyframes sale{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.events{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:26px auto 0;max-width:620px}
+.events span{font-size:.82rem;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:6px 15px;background:rgba(255,255,255,.08);backdrop-filter:blur(6px)}
 .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
 .btn{display:inline-block;text-decoration:none;background:var(--ink);color:#fff;font-family:var(--body);font-size:.78rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;padding:16px 30px;border:1px solid var(--ink);border-radius:2px;cursor:pointer;transition:opacity .25s}
 .btn:hover{opacity:.86}
 .btn.ghost{background:none;color:var(--ink);border-color:var(--accent)}
 .no-app{margin-top:22px;font-size:.9rem;color:var(--ink-soft)}
-.dots{position:absolute;inset:0;pointer-events:none;opacity:.55}
-.dots i{position:absolute;width:10px;height:10px;border-radius:50%}
 
 /* tre stili */
 .sec{padding:84px 0;border-top:1px solid var(--line)}
@@ -74,6 +87,9 @@ h2{font-size:clamp(2rem,5vw,2.8rem)}
 .styles{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 @media(max-width:900px){.styles{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
 .style{text-align:center}
+.stage{position:relative;padding:34px 0 30px;border-radius:4px;overflow:hidden;isolation:isolate}
+.stage::before{content:'';position:absolute;inset:0;z-index:-2;background:var(--foto) center/cover}
+.stage::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(rgba(21,17,14,.15),rgba(21,17,14,.55))}
 .phone{position:relative;width:250px;height:526px;margin:0 auto;border-radius:34px;background:#1d1a17;padding:10px;box-shadow:0 30px 60px -30px rgba(43,38,33,.55)}
 .phone .screen{width:100%;height:100%;border-radius:26px;overflow:hidden;background:#fff;position:relative}
 .phone iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(.590);transform-origin:0 0}
@@ -102,6 +118,17 @@ h2{font-size:clamp(2rem,5vw,2.8rem)}
 .card-qr .qr{width:172px;height:172px;margin:16px auto;padding:11px;background:#fff;outline:1px solid var(--line)}
 .card-qr .qr img,.card-qr .qr canvas{display:block}
 .card-qr small{color:var(--ink-soft)}
+.album-vis{position:relative}
+.wall{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.wall figure{position:relative;aspect-ratio:1;overflow:hidden;background:var(--paper-2)}
+.wall img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.wall figure:hover img{transform:scale(1.04)}
+.wall figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 9px;background:linear-gradient(transparent,rgba(21,17,14,.7));color:#fff;font-family:var(--display);font-style:italic;font-size:1.05rem}
+.wall figcaption small{display:block;font-family:var(--body);font-style:normal;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+.album-vis .card-qr{position:absolute;right:-36px;bottom:-44px;width:190px;padding:20px 16px;box-shadow:0 24px 50px -24px rgba(43,38,33,.55)}
+.album-vis .card-qr .t{font-size:1.25rem}
+.album-vis .card-qr .qr{width:132px;height:132px;padding:8px;margin:10px auto}
+@media(max-width:760px){.album-vis .card-qr{position:relative;right:auto;bottom:auto;margin:-60px auto 0;width:230px}}
 .album ul{list-style:none;margin-top:18px}
 .album li{padding:10px 0 10px 28px;position:relative;border-bottom:1px solid var(--line)}
 .album li::before{content:'✦';position:absolute;left:0;color:var(--accent)}
@@ -164,7 +191,9 @@ footer img{height:90px;width:auto;margin:-14px auto 0}
 .bar-sub{font-size:.88rem}
 .bar-tot{font-family:var(--display);font-size:1.9rem;line-height:1}
 .bar .btn{padding:13px 20px}
-@media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -181,8 +210,12 @@ footer img{height:90px;width:auto;margin:-14px auto 0}
 </header>
 
 <section class="hero">
-  <div class="dots" id="dots" aria-hidden="true"></div>
-  <div class="wrap" style="position:relative">
+  <div class="mosaic" aria-hidden="true">
+    <div style="background-image:url(img/feste/luce.jpg)"></div>
+    <div style="background-image:url(img/feste/festa.jpg)"></div>
+    <div style="background-image:url(img/feste/sera.jpg)"></div>
+  </div>
+  <div class="wrap">
     <p class="eyebrow">Inviti digitali per le feste</p>
     <h1>La vostra festa<br><em>inizia dall'invito</em></h1>
     <span class="mark">✦</span>
@@ -208,19 +241,19 @@ footer img{height:90px;width:auto;margin:-14px auto 0}
     </div>
     <div class="styles">
       <div class="style">
-        <div class="phone"><div class="screen"><iframe data-demo="comunione" title="Esempio di invito per la Prima Comunione" loading="lazy"></iframe></div></div>
+        <div class="stage" style="--foto:url(img/feste/luce.jpg)"><div class="phone"><div class="screen"><iframe data-demo="comunione" title="Esempio di invito per la Prima Comunione" loading="lazy"></iframe></div></div></div>
         <h3><span class="tag" style="background:var(--luce)"></span>Luce</h3>
         <p>Bianco, celeste e un filo d'oro. Per comunioni, battesimi e cresime.</p>
         <a data-demo-link="comunione" href="#" target="_blank" rel="noopener">Apri l'esempio</a>
       </div>
       <div class="style">
-        <div class="phone"><div class="screen"><iframe data-demo="compleanno" title="Esempio di invito per il compleanno di un bambino" loading="lazy"></iframe></div></div>
+        <div class="stage" style="--foto:url(img/feste/festa.jpg)"><div class="phone"><div class="screen"><iframe data-demo="compleanno" title="Esempio di invito per il compleanno di un bambino" loading="lazy"></iframe></div></div></div>
         <h3><span class="tag" style="background:var(--festa)"></span>Festa</h3>
         <p>Colori vivi, forme tonde e coriandoli. Per i compleanni dei bambini.</p>
         <a data-demo-link="compleanno" href="#" target="_blank" rel="noopener">Apri l'esempio</a>
       </div>
       <div class="style">
-        <div class="phone"><div class="screen"><iframe data-demo="quarantanni" title="Esempio di invito per una festa di 40 anni" loading="lazy"></iframe></div></div>
+        <div class="stage" style="--foto:url(img/feste/sera.jpg)"><div class="phone"><div class="screen"><iframe data-demo="quarantanni" title="Esempio di invito per una festa di 40 anni" loading="lazy"></iframe></div></div></div>
         <h3><span class="tag" style="background:var(--sera)"></span>Sera</h3>
         <p>Fondo scuro e oro. Per diciottesimi, compleanni importanti e lauree.</p>
         <a data-demo-link="quarantanni" href="#" target="_blank" rel="noopener">Apri l'esempio</a>
@@ -246,11 +279,19 @@ footer img{height:90px;width:auto;margin:-14px auto 0}
 
 <section class="sec">
   <div class="wrap album">
-    <div class="card-qr">
-      <span class="mark" style="margin:0 0 6px">✦</span>
-      <div class="t">Inquadrate e condividete</div>
-      <div class="qr" id="qr-demo" role="img" aria-label="QR che apre l'album di prova"></div>
-      <small>Il cartoncino da mettere sui tavoli</small>
+    <div class="album-vis">
+      <div class="wall">
+        <figure><img src="img/feste/album-1.jpg" alt="Torta con le candeline" loading="lazy"><figcaption><small>Caricata da</small>Zia Carla</figcaption></figure>
+        <figure><img src="img/feste/album-2.jpg" alt="Amici con le stelline accese" loading="lazy"><figcaption><small>Caricata da</small>Giada</figcaption></figure>
+        <figure><img src="img/feste/album-3.jpg" alt="La tavola con i fiori bianchi" loading="lazy"><figcaption><small>Caricata da</small>Nonno Piero</figcaption></figure>
+        <figure><img src="img/feste/album-4.jpg" alt="Coriandoli" loading="lazy"><figcaption><small>Caricata da</small>Andrea</figcaption></figure>
+      </div>
+      <div class="card-qr">
+        <span class="mark" style="margin:0">✦</span>
+        <div class="t">Inquadrate e condividete</div>
+        <div class="qr" id="qr-demo" role="img" aria-label="QR che apre l'album di prova"></div>
+        <small>Provatelo dal telefono</small>
+      </div>
     </div>
     <div>
       <p class="eyebrow">L'album della festa</p>
@@ -407,17 +448,21 @@ $$('[data-demo-link]').forEach(a => a.href = demoUrl(a.dataset.demoLink));
 (function(){
   const box = $('#qr-demo');
   const url = LOCALE ? 'https://invito360.it/demo/feste/album/' : new URL(demoUrl('album'), location.href).href;
-  if (window.QRCode) new QRCode(box, { text:url, width:150, height:150, colorDark:'#2B2621', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
+  if (window.QRCode) new QRCode(box, { text:url, width:116, height:116, colorDark:'#2B2621', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
 })();
 $('#mail-link').href = 'mailto:' + EMAIL_ORDINI;
 $('#mail-link').textContent = EMAIL_ORDINI;
 
-/* puntini decorativi nell'apertura */
-(function(){
-  const col = ['var(--luce)','var(--festa)','var(--sera)','#F6C343','#2BA9A0'];
-  $('#dots').innerHTML = Array.from({length:18}, (_,i) =>
-    `<i style="left:${i%2 ? 88 + (i*7)%10 : 2 + (i*7)%10}%;top:${(i*37)%100}%;background:${col[i%5]};transform:scale(${.5+((i*7)%10)/10})"></i>`).join('');
-})();
+
+/* le sezioni compaiono scorrendo */
+if ('IntersectionObserver' in window){
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin:'0px 0px -10% 0px' });
+  $$('.sec-head, .style, .step, .album > *, .faq details').forEach((el,i) => {
+    el.classList.add('reveal');
+    if (el.matches('.style, .step')) el.style.transitionDelay = (i % 3) * 120 + 'ms';
+    io.observe(el);
+  });
+}
 
 /* prezzi nelle etichette */
 $$('[data-p]').forEach(el => {
