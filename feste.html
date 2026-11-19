@@ -99,6 +99,20 @@ h2{font-size:clamp(2rem,5vw,2.8rem)}
 .style p{color:var(--ink-soft);font-size:.95rem;max-width:300px;margin:6px auto 14px}
 .style a{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px}
 
+
+/* compleanni dei bambini: schede */
+#bimbi{background:var(--paper-2)}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:34px}
+.tabs button{font:inherit;font-size:.95rem;font-weight:500;padding:10px 20px;border-radius:999px;border:2px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer;transition:transform .15s,background .2s,color .2s;box-shadow:3px 3px 0 var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--k,#F2735A);color:#fff}
+.tabs button:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink)}
+.kids-body{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;max-width:860px;margin:0 auto}
+@media(max-width:760px){.kids-body{grid-template-columns:1fr;gap:26px;text-align:center}}
+.kids-stage{padding:30px 40px;border-radius:28px;background:var(--k,#F2735A);transition:background .4s;box-shadow:0 30px 60px -34px rgba(43,38,33,.6)}
+.kids-txt h3{font-size:2.6rem}
+.kids-txt p{color:var(--ink-soft);margin:8px 0 14px;max-width:420px}
+@media(max-width:760px){.kids-txt p{margin-left:auto;margin-right:auto}}
+.kids-who{font-size:.9rem}
 /* come funziona */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
 @media(max-width:760px){.steps{grid-template-columns:1fr}}
@@ -203,6 +217,7 @@ footer img{height:90px;width:auto;margin:-14px auto 0}
     <a href="./" aria-label="Invito 360"><img src="https://invito360.it/img/invito360-logo-trasparente-su-chiaro.svg" alt="Invito 360" width="115" height="64"></a>
     <nav>
       <a href="#stili" class="hide-m">Esempi</a>
+      <a href="#bimbi" class="hide-m">Bambini</a>
       <a href="#come" class="hide-m">Come funziona</a>
       <a href="#ordina">Ordina</a>
     </nav>
@@ -249,8 +264,8 @@ footer img{height:90px;width:auto;margin:-14px auto 0}
       <div class="style">
         <div class="stage" style="--foto:url(img/feste/festa.jpg)"><div class="phone"><div class="screen"><iframe data-demo="compleanno" title="Esempio di invito per il compleanno di un bambino" loading="lazy"></iframe></div></div></div>
         <h3><span class="tag" style="background:var(--festa)"></span>Festa</h3>
-        <p>Colori vivi, forme tonde e coriandoli. Per i compleanni dei bambini.</p>
-        <a data-demo-link="compleanno" href="#" target="_blank" rel="noopener">Apri l'esempio</a>
+        <p>Colori vivi e coriandoli. Per i bambini ci sono anche Cartoon, Anime, Supereroi e Spazio.</p>
+        <a href="#bimbi">Guardate i cinque stili</a>
       </div>
       <div class="style">
         <div class="stage" style="--foto:url(img/feste/sera.jpg)"><div class="phone"><div class="screen"><iframe data-demo="quarantanni" title="Esempio di invito per una festa di 40 anni" loading="lazy"></iframe></div></div></div>
@@ -262,6 +277,35 @@ footer img{height:90px;width:auto;margin:-14px auto 0}
   </div>
 </section>
 
+
+<section class="sec" id="bimbi">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Compleanni dei bambini</p>
+      <h2>Scelgono loro il mondo della festa</h2>
+      <span class="mark">✦</span>
+      <p class="lead">Cinque stili disegnati apposta, con personaggi e decorazioni originali. Toccate un nome e guardate il telefono.</p>
+    </div>
+    <div class="kids">
+      <div class="tabs" role="tablist" aria-label="Stili per i compleanni dei bambini">
+        <button role="tab" data-k="compleanno" data-c="#F2735A" aria-selected="true">Festa</button>
+        <button role="tab" data-k="cartoon" data-c="#FF5A5F" aria-selected="false">Cartoon</button>
+        <button role="tab" data-k="anime" data-c="#FF2E88" aria-selected="false">Anime</button>
+        <button role="tab" data-k="supereroi" data-c="#1F4FE0" aria-selected="false">Supereroi</button>
+        <button role="tab" data-k="spazio" data-c="#141A45" aria-selected="false">Spazio</button>
+      </div>
+      <div class="kids-body">
+        <div class="kids-stage" id="kids-stage"><div class="phone"><div class="screen"><iframe id="kids-frame" data-demo="compleanno" title="Esempio di invito per bambini" loading="lazy"></iframe></div></div></div>
+        <div class="kids-txt">
+          <h3 id="kids-tit">Festa</h3>
+          <p id="kids-desc"></p>
+          <p class="kids-who" id="kids-who"></p>
+          <a class="btn ghost" id="kids-link" href="#" target="_blank" rel="noopener">Apri l'esempio</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="sec" id="come">
   <div class="wrap">
     <div class="sec-head">
@@ -328,6 +372,13 @@ footer img{height:90px;width:auto;margin:-14px auto 0}
           <label class="opt"><input type="radio" name="tema" value="luce"><span class="name"><span class="sw" style="background:var(--luce)"></span>Luce</span><span class="price"></span><span class="desc">Bianco, celeste e oro, caratteri eleganti. Delicato e sobrio.</span></label>
           <label class="opt"><input type="radio" name="tema" value="festa"><span class="name"><span class="sw" style="background:var(--festa)"></span>Festa</span><span class="price"></span><span class="desc">Colori vivi, caratteri tondi e coriandoli. Allegro e giocoso.</span></label>
           <label class="opt"><input type="radio" name="tema" value="sera"><span class="name"><span class="sw" style="background:var(--sera)"></span>Sera</span><span class="price"></span><span class="desc">Fondo scuro e oro, numero grande in copertina. Elegante e notturno.</span></label>
+        </div>
+        <p class="note" style="margin:22px 0 10px">Per i compleanni dei bambini, anche</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="tema" value="cartoon"><span class="name"><span class="sw" style="background:#FF5A5F"></span>Cartoon</span><span class="price"></span><span class="desc">Sole, nuvole e palloncini disegnati, contorni neri spessi.</span></label>
+          <label class="opt"><input type="radio" name="tema" value="anime"><span class="name"><span class="sw" style="background:#FF2E88"></span>Anime</span><span class="price"></span><span class="desc">Linee di velocità, scintille e titoli a fumetto in stile manga.</span></label>
+          <label class="opt"><input type="radio" name="tema" value="supereroi"><span class="name"><span class="sw" style="background:#1F4FE0"></span>Supereroi</span><span class="price"></span><span class="desc">Fumetto con raggi, città di notte e scritte esplosive.</span></label>
+          <label class="opt"><input type="radio" name="tema" value="spazio"><span class="name"><span class="sw" style="background:#141A45"></span>Spazio</span><span class="price"></span><span class="desc">Stelle, pianeti e un razzo pronto al decollo.</span></label>
         </div>
       </div>
 
@@ -443,6 +494,27 @@ const radio = n => (document.querySelector(`input[name="${n}"]:checked`) || {}).
 /* demo nei telefoni */
 $$('[data-demo]').forEach(f => f.src = demoUrl(f.dataset.demo));
 $$('[data-demo-link]').forEach(a => a.href = demoUrl(a.dataset.demoLink));
+
+
+/* compleanni dei bambini: cambio stile */
+const KIDS = {
+  compleanno:{ t:'Festa',     d:'Colori vivi, caratteri tondi e coriandoli che cadono. Il più classico, va bene per tutti.', w:'Esempio: Leo compie 6 anni.' },
+  cartoon:   { t:'Cartoon',   d:'Cielo, nuvole, un sole sorridente e palloncini che salgono, con contorni neri spessi come in un cartone animato.', w:'Esempio: Pietro compie 5 anni.' },
+  anime:     { t:'Anime',     d:'Linee di velocità, retini, scintille, petali che volano e titoli a fumetto in stile manga. Per chi è cresciuto a cartoni giapponesi.', w:'Esempio: Emma compie 10 anni.' },
+  supereroi: { t:'Supereroi', d:'Un fumetto vero: raggi, città di notte, scritte BOOM e POW, numero esplosivo. Mantello facoltativo.', w:'Esempio: Nico compie 7 anni.' },
+  spazio:    { t:'Spazio',    d:'Cielo stellato, pianeta con l\'anello, luna e un razzo pronto al decollo. Il conto alla rovescia diventa un countdown di lancio.', w:'Esempio: Samuele compie 8 anni.' }
+};
+function scegliKids(btn){
+  $$('.tabs button').forEach(b => b.setAttribute('aria-selected', b === btn));
+  const k = btn.dataset.k, info = KIDS[k];
+  document.querySelector('.kids').style.setProperty('--k', btn.dataset.c);
+  $$('.tabs button').forEach(b => b.style.setProperty('--k', b.dataset.c));
+  $('#kids-frame').src = demoUrl(k);
+  $('#kids-link').href = demoUrl(k);
+  $('#kids-tit').textContent = info.t; $('#kids-desc').textContent = info.d; $('#kids-who').textContent = info.w;
+}
+$$('.tabs button').forEach(b => { b.style.setProperty('--k', b.dataset.c); b.addEventListener('click', () => scegliKids(b)); });
+scegliKids($('.tabs button'));
 
 /* QR vero sul cartoncino: apre l'album di prova */
 (function(){
