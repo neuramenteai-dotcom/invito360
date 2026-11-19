@@ -211,12 +211,17 @@ const CONF = {
 // Firma del fotografo (facoltativa). Nome vuoto = nessuna firma.
 const FOTOGRAFO = { nome: '', link: '' };
 
+// solo nella demo: foto d'esempio nell'album (ospiti inventati)
+const _nomi = ['Zia Carla','Nonno Piero','Giada','Andrea','Marta e Luca','Elisa','Tommaso'];
+var FOTO_ESEMPIO = [];
 // solo nella demo: ?tema=festa o ?tema=sera cambiano anche i testi
 const _demo = new URLSearchParams(location.search).get('tema');
 if (_demo === 'festa') Object.assign(CONF, { kicker:'Leo compie 6 anni', titolo:'Leo', data:'2027-03-20',
   luogo:'Ludoteca La Trottola — Montelupo', invito:'Avete fatto una foto bella alla festa di Leo? Caricatela qui: la vedranno lui, mamma, papà e tutti gli amici.' });
 if (_demo === 'sera') Object.assign(CONF, { kicker:'Quarant\'anni', titolo:'Marco', data:'2027-10-09',
   luogo:'Terrazza Belvedere — Montelupo', invito:'Brindisi, torta, balli: caricate qui le foto della serata, così Marco le ritrova tutte in un posto solo.' });
+{ const t = ['festa','sera'].includes(_demo) ? _demo : 'luce';
+  FOTO_ESEMPIO = _nomi.map((n,i) => ({ ospite:n, url:`foto/${t}-${i+1}.jpg` })); }
 /* ═══════════ fine configurazione ═══════════ */
 
 const $ = s => document.querySelector(s);
@@ -254,7 +259,8 @@ if (FOTOGRAFO.nome) {
   f.hidden = false;
 }
 
-let supa = null, selected = [], demoPhotos = [];
+// FOTO_ESEMPIO esiste solo nelle demo: riempie l'album in modalità anteprima
+let supa = null, selected = [], demoPhotos = (typeof FOTO_ESEMPIO !== 'undefined' ? FOTO_ESEMPIO.slice() : []);
 if (isLive) {
   supa = window.supabase.createClient(CONF.SUPABASE_URL, CONF.SUPABASE_ANON_KEY);
 } else {
