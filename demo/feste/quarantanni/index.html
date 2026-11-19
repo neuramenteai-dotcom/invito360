@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="luce">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-bind="meta-title">Invito</title>
+<meta name="description" data-bind="meta-desc" content="">
+<meta name="theme-color" content="#FBF9F6">
+<meta property="og:type" content="website">
+<meta property="og:title" data-bind="meta-title" content="">
+<meta property="og:description" data-bind="meta-desc" content="">
+<meta property="og:image" data-bind="meta-img" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" data-bind="meta-title" content="">
+<meta name="twitter:description" data-bind="meta-desc" content="">
+<meta name="twitter:image" data-bind="meta-img" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════════
+   TEMI — si scelgono con CONF.tema. Ogni tema ridefinisce
+   solo le variabili: la struttura della pagina è la stessa.
+   luce  = comunione, battesimo, cresima (bianco, celeste, oro)
+   festa = compleanni dei bambini (colori vivi, forme tonde)
+   sera  = diciottesimi, compleanni adulti, lauree (scuro e oro)
+   ════════════════════════════════════════════════════════════ */
+:root,[data-tema="luce"]{
+  --bg:#FBF9F6; --bg-2:#EEF3F7; --card:#FFFFFF;
+  --ink:#2A2D33; --ink-soft:#6C7480;
+  --accent:#7E9DB8; --accent-2:#C9A874; --accent-soft:#E4ECF3;
+  --line:#DCE4EC; --on-accent:#FFFFFF;
+  --btn-bg:#2A2D33; --btn-ink:#FFFFFF;
+  --radius:2px; --radius-big:2px;
+  --display:'Cormorant Garamond',Georgia,serif; --display-w:300; --display-style:normal;
+  --body:'Jost',system-ui,sans-serif; --body-w:300;
+  --track:.24em; --upper:uppercase;
+  --overlay:linear-gradient(rgba(28,34,42,.30),rgba(28,34,42,.58));
+  --nav-bg:rgba(251,249,246,.94);
+}
+[data-tema="festa"]{
+  --bg:#FFF8EE; --bg-2:#FFEBD6; --card:#FFFFFF;
+  --ink:#2E2A3B; --ink-soft:#6E6880;
+  --accent:#F2735A; --accent-2:#2BA9A0; --accent-3:#F6C343; --accent-4:#7C6BE0;
+  --accent-soft:#FFE1D8; --line:#F3DCC6; --on-accent:#FFFFFF;
+  --btn-bg:#F2735A; --btn-ink:#FFFFFF;
+  --radius:14px; --radius-big:22px;
+  --display:'Fredoka','Nunito',system-ui,sans-serif; --display-w:600; --display-style:normal;
+  --body:'Nunito',system-ui,sans-serif; --body-w:400;
+  --track:.08em; --upper:none;
+  --overlay:linear-gradient(rgba(46,42,59,.18),rgba(46,42,59,.55));
+  --nav-bg:rgba(255,248,238,.95);
+}
+[data-tema="sera"]{
+  --bg:#1C1815; --bg-2:#25201C; --card:#2B2520;
+  --ink:#F3ECE0; --ink-soft:#B8AC9A;
+  --accent:#C9A874; --accent-2:#E3CFA3; --accent-soft:#3A3129;
+  --line:#3D352D; --on-accent:#1C1815;
+  --btn-bg:#C9A874; --btn-ink:#1C1815;
+  --radius:2px; --radius-big:2px;
+  --display:'Cormorant Garamond',Georgia,serif; --display-w:300; --display-style:normal;
+  --body:'Jost',system-ui,sans-serif; --body-w:300;
+  --track:.26em; --upper:uppercase;
+  --overlay:linear-gradient(rgba(14,11,9,.45),rgba(14,11,9,.78));
+  --nav-bg:rgba(28,24,21,.92);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:var(--body-w);line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.hide{display:none !important}
+.mark{color:var(--accent-2);font-size:1rem;letter-spacing:.5em;padding-left:.5em;margin:18px 0}
+[data-tema="festa"] .mark{letter-spacing:.35em}
+[data-tema="festa"] .mark span:nth-child(1){color:var(--accent)}
+[data-tema="festa"] .mark span:nth-child(2){color:var(--accent-3)}
+[data-tema="festa"] .mark span:nth-child(3){color:var(--accent-2)}
+.lab{font-size:.74rem;letter-spacing:var(--track);text-transform:var(--upper);color:var(--ink-soft)}
+[data-tema="festa"] .lab{font-weight:700;font-size:.8rem}
+
+/* ─── copertina ─────────────────────────────────────────── */
+#cover{position:fixed;inset:0;z-index:100;background:var(--bg-2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;transition:opacity .9s ease,visibility .9s;overflow:hidden}
+#cover.gone{opacity:0;visibility:hidden}
+.cover-frame{position:relative;padding:50px 34px;max-width:560px}
+.cover-frame::before,.cover-frame::after{content:'';position:absolute;width:34px;height:34px;border:1px solid var(--accent-2)}
+.cover-frame::before{top:0;left:0;border-right:0;border-bottom:0}
+.cover-frame::after{bottom:0;right:0;border-left:0;border-top:0}
+[data-tema="festa"] .cover-frame::before,[data-tema="festa"] .cover-frame::after{display:none}
+.kicker{font-size:.76rem;letter-spacing:var(--track);text-transform:var(--upper);color:var(--ink-soft);padding-left:.2em}
+[data-tema="festa"] .kicker{font-weight:700;color:var(--accent-2);font-size:.95rem}
+.big-age{display:none;font-family:var(--display);font-weight:var(--display-w);line-height:.9;color:var(--accent);margin:6px 0 2px}
+.con-anni .big-age{display:block}
+[data-tema="sera"] .big-age{font-size:clamp(6rem,30vw,10rem);font-style:italic;font-weight:300}
+[data-tema="festa"] .big-age{font-size:clamp(4.4rem,22vw,7rem);width:1.6em;height:1.6em;margin:10px auto 6px;border-radius:50%;background:var(--accent);color:#fff;display:none;place-items:center;box-shadow:0 0 0 10px var(--accent-soft)}
+[data-tema="festa"].con-anni .big-age,.con-anni[data-tema="festa"] .big-age{display:grid}
+[data-tema="luce"] .big-age{font-size:clamp(4rem,18vw,6rem)}
+.cover-title,#top h1{font-family:var(--display);font-weight:var(--display-w);line-height:1.12;letter-spacing:.01em}
+.cover-title{font-size:clamp(2.8rem,12vw,4.2rem);margin-top:8px}
+.con-anni .cover-title{font-size:clamp(2.3rem,9vw,3.4rem)}
+.name-line{font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(1.5rem,6vw,2.1rem);color:var(--ink-soft);margin-top:6px}
+[data-tema="festa"] .name-line{font-style:normal;font-weight:500;color:var(--accent-4)}
+.date{font-weight:300;letter-spacing:.32em;font-size:.86rem;color:var(--ink-soft);padding-left:.32em}
+[data-tema="festa"] .date{letter-spacing:.14em;font-weight:700;font-size:.95rem}
+#enter{margin-top:40px;background:none;border:1px solid var(--accent-2);color:var(--ink);font-family:var(--body);font-weight:var(--body-w);font-size:.78rem;letter-spacing:var(--track);text-transform:var(--upper);padding:15px 32px;cursor:pointer;border-radius:var(--radius);transition:background .3s,color .3s;position:relative;z-index:2}
+#enter:hover{background:var(--accent-2);color:var(--on-accent)}
+[data-tema="festa"] #enter{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;font-size:1rem;border-radius:999px;padding:16px 38px;box-shadow:0 8px 0 -2px #D95A43}
+[data-tema="festa"] #enter:active{transform:translateY(3px);box-shadow:0 4px 0 -2px #D95A43}
+
+/* coriandoli del tema festa (solo decorazione, disegnati in CSS) */
+.confetti{position:absolute;inset:0;pointer-events:none;display:none}
+[data-tema="festa"] .confetti{display:block}
+.confetti i{position:absolute;width:12px;height:12px;border-radius:50%;opacity:.9;animation:cade 9s linear infinite}
+.confetti i:nth-child(3n){border-radius:3px;width:9px;height:16px}
+.confetti i:nth-child(4n){background:var(--accent)}
+.confetti i:nth-child(4n+1){background:var(--accent-3)}
+.confetti i:nth-child(4n+2){background:var(--accent-2)}
+.confetti i:nth-child(4n+3){background:var(--accent-4)}
+@keyframes cade{from{transform:translateY(-12vh) rotate(0)}to{transform:translateY(112vh) rotate(540deg)}}
+/* alone del tema luce */
+[data-tema="luce"] #cover::before{content:'';position:absolute;width:120vmin;height:120vmin;border-radius:50%;background:radial-gradient(circle,#FFFFFF 0%,rgba(255,255,255,0) 62%);top:50%;left:50%;transform:translate(-50%,-55%)}
+/* linee del tema sera */
+[data-tema="sera"] #cover::before{content:'';position:absolute;inset:18px;border:1px solid var(--line);pointer-events:none}
+
+/* ─── navigazione ───────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-logo{font-family:var(--display);font-weight:var(--display-w);font-size:1.3rem;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
+[data-tema="festa"] .nav-logo{color:var(--accent)}
+.nav-links{display:flex;gap:24px;list-style:none;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{text-decoration:none;font-size:.76rem;letter-spacing:.16em;color:var(--ink-soft);white-space:nowrap;padding:4px 0;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
+[data-tema="festa"] .nav-links a{letter-spacing:.02em;font-weight:700;font-size:.86rem}
+.nav-links a:hover{color:var(--ink);border-color:var(--accent)}
+
+/* ─── impaginazione ─────────────────────────────────────── */
+section{padding:88px 20px}
+.wrap{max-width:980px;margin:0 auto}
+.narrow{max-width:620px;margin:0 auto}
+.sec-head{text-align:center;margin-bottom:48px}
+.sec-head h2{font-family:var(--display);font-weight:var(--display-w);font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.2;margin-top:8px}
+.sec-head .mark{margin:14px 0 0}
+.alt{background:var(--bg-2)}
+
+/* ─── apertura ──────────────────────────────────────────── */
+#top{background:var(--bg-2);text-align:center;padding-top:96px;padding-bottom:96px;position:relative;overflow:hidden}
+#top h1{font-size:clamp(2.5rem,10vw,4.4rem)}
+.hero-place{font-family:var(--display);font-size:1.3rem;font-style:italic;color:var(--ink-soft);margin-top:8px}
+[data-tema="festa"] .hero-place{font-style:normal;font-weight:500;font-size:1.15rem}
+.count{display:flex;justify-content:center;gap:clamp(12px,4vw,34px);margin:42px 0 38px;flex-wrap:wrap}
+.count div{min-width:62px}
+.count b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,6vw,2.6rem);line-height:1;font-variant-numeric:tabular-nums}
+.count span{font-size:.64rem;letter-spacing:.2em;color:var(--ink-soft);padding-left:.2em}
+[data-tema="festa"] .count div{background:var(--card);border-radius:var(--radius);padding:12px 10px 8px;box-shadow:0 6px 0 -2px var(--line)}
+[data-tema="festa"] .count div:nth-child(1) b{color:var(--accent)}
+[data-tema="festa"] .count div:nth-child(2) b{color:var(--accent-2)}
+[data-tema="festa"] .count div:nth-child(3) b{color:var(--accent-4)}
+[data-tema="festa"] .count div:nth-child(4) b{color:#E0A400}
+[data-tema="festa"] .count span{letter-spacing:.06em;font-weight:700}
+.btn{display:inline-block;text-decoration:none;background:var(--btn-bg);color:var(--btn-ink);font-size:.76rem;letter-spacing:var(--track);text-transform:var(--upper);padding:16px 34px;border-radius:var(--radius);transition:opacity .25s;border:0;cursor:pointer;font-family:var(--body);font-weight:var(--body-w)}
+[data-tema="festa"] .btn{border-radius:999px;font-weight:700;font-size:.95rem}
+[data-tema="sera"] .btn{font-weight:400}
+.btn:hover{opacity:.86}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--accent-2)}
+
+/* copertina con foto (CONF.copertina) */
+body.con-copertina #cover,body.con-copertina #top{background:var(--overlay),var(--copertina) center 35%/cover no-repeat;color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.35)}
+body.con-copertina #top{min-height:88vh;display:flex;align-items:center;justify-content:center}
+body.con-copertina .kicker,body.con-copertina .date,body.con-copertina .hero-place,body.con-copertina .name-line,body.con-copertina #top .count span{color:rgba(255,255,255,.92)}
+body.con-copertina #enter{color:#fff;border-color:rgba(255,255,255,.85)}
+body.con-copertina #top .btn{background:#fff;color:#2A2622;text-shadow:none}
+body.con-copertina #cover::before{display:none}
+
+/* ─── presentazione ─────────────────────────────────────── */
+#intro{text-align:center}
+.story p{font-size:1.04rem;margin-bottom:18px}
+[data-tema="festa"] .story p{font-size:1.1rem}
+.signature{font-family:var(--display);font-style:italic;font-size:1.4rem;color:var(--accent);margin-top:24px}
+[data-tema="festa"] .signature{font-style:normal;font-weight:500;color:var(--accent-4)}
+
+/* ─── galleria ──────────────────────────────────────────── */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--accent-soft);border-radius:var(--radius)}
+[data-tema="festa"] .ph{border-radius:var(--radius-big);border:5px solid var(--card);box-shadow:0 10px 24px -14px rgba(46,42,59,.4)}
+[data-tema="festa"] .ph:nth-child(odd){transform:rotate(-1.4deg)}
+[data-tema="festa"] .ph:nth-child(even){transform:rotate(1.2deg)}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;background:linear-gradient(transparent,rgba(30,26,22,.62));color:#fff;font-size:.8rem;letter-spacing:.03em}
+.ph.empty::after{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:.78rem;letter-spacing:.12em;text-align:center;padding:16px}
+.ph.empty figcaption{display:none}
+
+/* ─── programma ─────────────────────────────────────────── */
+.timeline{max-width:520px;margin:0 auto;list-style:none;position:relative}
+.timeline::before{content:'';position:absolute;left:5px;top:10px;bottom:10px;width:1px;background:var(--line)}
+.timeline li{position:relative;padding:0 0 30px 34px}
+.timeline li:last-child{padding-bottom:0}
+.timeline li::before{content:'';position:absolute;left:0;top:9px;width:11px;height:11px;border-radius:50%;background:var(--bg-2);border:1px solid var(--accent-2)}
+[data-tema="festa"] .timeline::before{width:3px;left:6px;border-radius:3px;background:repeating-linear-gradient(var(--line) 0 8px,transparent 8px 14px)}
+[data-tema="festa"] .timeline li::before{width:15px;height:15px;border:0;top:6px;background:var(--accent)}
+[data-tema="festa"] .timeline li:nth-child(4n+2)::before{background:var(--accent-2)}
+[data-tema="festa"] .timeline li:nth-child(4n+3)::before{background:var(--accent-3)}
+[data-tema="festa"] .timeline li:nth-child(4n)::before{background:var(--accent-4)}
+.timeline .ora{font-family:var(--display);font-size:1.3rem;color:var(--accent);line-height:1.2;font-variant-numeric:tabular-nums}
+.timeline .voce{font-size:1rem}
+
+/* ─── luoghi ────────────────────────────────────────────── */
+.places{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
+.place{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-big);overflow:hidden;display:flex;flex-direction:column}
+[data-tema="festa"] .place{border:0;box-shadow:0 10px 0 -4px var(--line)}
+.place-txt{padding:26px 24px 22px;text-align:center;flex:1}
+.place-txt .lab{display:block;margin-bottom:6px}
+.place-txt h3{font-family:var(--display);font-weight:var(--display-w);font-size:1.6rem;line-height:1.2}
+.place-txt .p-ora{font-family:var(--display);font-style:italic;color:var(--accent);font-size:1.15rem;margin-top:4px}
+[data-tema="festa"] .place-txt .p-ora{font-style:normal;font-weight:600}
+.place-txt .p-addr{color:var(--ink-soft);font-size:.94rem;margin:10px 0 18px}
+.place iframe{width:100%;height:220px;border:0;display:block;background:var(--accent-soft)}
+[data-tema="sera"] .place iframe{filter:grayscale(.4) brightness(.92)}
+.place-ph{aspect-ratio:16/9;background:var(--accent-soft)}
+.place-ph img{width:100%;height:100%;object-fit:cover}
+
+/* ─── regalo ────────────────────────────────────────────── */
+#regalo{text-align:center}
+.iban-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-big);padding:30px 24px;max-width:480px;margin:30px auto 0;text-align:left}
+.iban-row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.92rem;flex-wrap:wrap}
+.iban-row:last-child{border-bottom:0}
+.iban-row dt{color:var(--ink-soft);font-size:.76rem;letter-spacing:.12em;white-space:nowrap;padding-top:3px}
+.iban-row dd{font-size:.98rem;font-weight:400;text-align:right;flex:1;word-break:break-word;font-variant-numeric:tabular-nums lining-nums}
+#copy-iban{margin-top:18px;width:100%}
+
+/* ─── conferma presenza ─────────────────────────────────── */
+.form{max-width:520px;margin:0 auto}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:.8rem;letter-spacing:.08em;color:var(--ink-soft);margin-bottom:8px}
+[data-tema="festa"] .field label{font-weight:700;letter-spacing:.02em}
+.field input,.field textarea{width:100%;font-family:var(--body);font-weight:var(--body-w);font-size:1rem;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:13px 14px;transition:border-color .25s}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field textarea{min-height:96px;resize:vertical}
+.choice{display:flex;gap:12px;flex-wrap:wrap}
+.choice label{flex:1;min-width:150px;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:var(--radius);padding:14px;cursor:pointer;font-size:.96rem;color:var(--ink);letter-spacing:0;margin:0;background:var(--card);transition:border-color .25s,background .25s}
+.choice label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.choice input{width:auto;accent-color:var(--accent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.deadline{text-align:center;color:var(--ink-soft);font-size:.98rem;margin-bottom:34px}
+.deadline b{font-weight:500;color:var(--ink)}
+#rsvp-send{width:100%;padding:17px}
+#rsvp-send:disabled{opacity:.45;cursor:not-allowed}
+.msg{display:none;margin-top:18px;padding:15px 17px;border-radius:var(--radius);font-size:.95rem}
+.msg.show{display:block}
+.msg.good{background:#EDF2EB;color:#4A6147;border:1px solid #D2DECD}
+.msg.bad{background:#F9ECE6;color:#9C5B3C;border:1px solid #E7CFC4}
+
+/* ─── barra musicale ────────────────────────────────────── */
+#bar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--nav-bg);backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .6s ease;padding-bottom:env(safe-area-inset-bottom,0px)}
+#bar.on{transform:translateY(0)}
+.bar-in{max-width:980px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;gap:14px}
+#bar-play{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--accent);background:none;color:var(--accent);cursor:pointer;display:grid;place-items:center;transition:background .3s,color .3s}
+#bar-play:hover{background:var(--accent);color:var(--on-accent)}
+#bar-play svg{width:14px;height:14px;fill:currentColor}
+.bar-txt{flex:1;min-width:0}
+.bar-lab{font-size:.62rem;letter-spacing:.2em;color:var(--ink-soft);padding-left:.2em}
+.bar-tit{font-family:var(--display);font-size:1.06rem;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#bar-yt{max-width:980px;margin:0 auto;padding:0 18px;height:0;overflow:hidden;transition:height .45s ease}
+#bar-yt.open{height:236px;padding-bottom:16px}
+#bar-yt iframe{width:100%;height:220px;border:0;border-radius:var(--radius);display:block}
+body.has-bar footer{padding-bottom:110px}
+@media (max-width:560px){ #bar-yt.open{height:206px} #bar-yt iframe{height:190px} }
+
+/* ─── piede ─────────────────────────────────────────────── */
+footer{text-align:center;padding:60px 20px;border-top:1px solid var(--line)}
+footer .names{font-family:var(--display);font-weight:var(--display-w);font-size:1.6rem}
+footer .meta{font-size:.76rem;letter-spacing:.16em;color:var(--ink-soft);margin-top:8px;padding-left:.16em}
+.firma-studio{display:inline-flex;align-items:center;gap:8px;margin-top:30px;font-size:.68rem;letter-spacing:.16em;color:var(--ink-soft);text-decoration:none;opacity:.8}
+.firma-studio img{width:20px;height:20px}
+.firma-studio:hover{opacity:1}
+
+@media (max-width:560px){
+  section{padding:64px 18px}
+  .two{grid-template-columns:1fr}
+  .nav-links{gap:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ COPERTINA ════════ -->
+<div id="cover">
+  <div class="confetti" aria-hidden="true"></div>
+  <div class="cover-frame">
+    <div class="kicker" data-bind="kicker"></div>
+    <div class="big-age" data-bind="anni"></div>
+    <h1 class="cover-title" data-bind="titolo"></h1>
+    <div class="name-line hide" data-bind="nome-riga"></div>
+    <div class="mark" data-mark></div>
+    <div class="date" data-bind="data-punti"></div>
+  </div>
+  <button id="enter" data-bind="entra"></button>
+</div>
+
+<nav>
+  <div class="nav-in">
+    <a class="nav-logo" href="#top" data-bind="logo"></a>
+    <ul class="nav-links">
+      <li data-sec="galleria"><a href="#galleria">Foto</a></li>
+      <li><a href="#programma">Programma</a></li>
+      <li><a href="#luoghi">Dove</a></li>
+      <li data-sec="regalo"><a href="#regalo">Regalo</a></li>
+      <li><a href="#rsvp">Conferma</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ════════ APERTURA ════════ -->
+<section id="top">
+  <div class="confetti" aria-hidden="true"></div>
+  <div class="wrap" style="position:relative">
+    <div class="kicker" data-bind="kicker"></div>
+    <div class="big-age" data-bind="anni"></div>
+    <h1 data-bind="titolo"></h1>
+    <div class="name-line hide" data-bind="nome-riga"></div>
+    <div class="mark" data-mark></div>
+    <div class="date" data-bind="data-punti"></div>
+    <div class="hero-place" data-bind="luogo-riga"></div>
+    <div class="count" id="count">
+      <div><b id="c-g">00</b><span>GIORNI</span></div>
+      <div><b id="c-o">00</b><span>ORE</span></div>
+      <div><b id="c-m">00</b><span>MIN</span></div>
+      <div><b id="c-s">00</b><span>SEC</span></div>
+    </div>
+    <a class="btn" href="#rsvp">Confermate la presenza</a>
+  </div>
+</section>
+
+<!-- ════════ PRESENTAZIONE ════════ -->
+<section id="intro">
+  <div class="narrow">
+    <div class="story" data-bind="testo"></div>
+    <div class="signature" data-bind="firma"></div>
+  </div>
+</section>
+
+<!-- ════════ GALLERIA ════════ -->
+<section id="galleria" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lab" data-bind="galleria-kicker"></div>
+      <h2 data-bind="galleria-titolo"></h2>
+      <div class="mark" data-mark></div>
+    </div>
+    <div class="grid" id="grid-foto"></div>
+  </div>
+</section>
+
+<!-- ════════ PROGRAMMA ════════ -->
+<section id="programma">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lab">Il programma</div>
+      <h2>Come si svolgerà</h2>
+      <div class="mark" data-mark></div>
+    </div>
+    <ol class="timeline" id="timeline"></ol>
+  </div>
+</section>
+
+<!-- ════════ LUOGHI ════════ -->
+<section id="luoghi" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lab">Dove</div>
+      <h2 data-bind="luoghi-titolo"></h2>
+      <div class="mark" data-mark></div>
+    </div>
+    <div class="places" id="places"></div>
+  </div>
+</section>
+
+<!-- ════════ REGALO ════════ -->
+<section id="regalo">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lab">Un pensiero</div>
+      <h2 data-bind="regalo-titolo"></h2>
+      <div class="mark" data-mark></div>
+    </div>
+    <p class="narrow" data-bind="regalo-testo"></p>
+    <div class="iban-card" id="iban-card">
+      <dl>
+        <div class="iban-row"><dt>INTESTATO A</dt><dd data-bind="regalo-intestatario"></dd></div>
+        <div class="iban-row"><dt>IBAN</dt><dd data-bind="regalo-iban"></dd></div>
+        <div class="iban-row"><dt>CAUSALE</dt><dd data-bind="regalo-causale"></dd></div>
+      </dl>
+      <button id="copy-iban" class="btn ghost" type="button">Copia l'IBAN</button>
+    </div>
+  </div>
+</section>
+
+<!-- ════════ CONFERMA PRESENZA ════════ -->
+<section id="rsvp" class="alt">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lab">Conferma presenza</div>
+      <h2>Ci sarete?</h2>
+      <div class="mark" data-mark></div>
+    </div>
+    <p class="deadline">Vi chiediamo di confermare entro il <b data-bind="rsvp-scadenza"></b>.</p>
+    <form class="form" id="form" novalidate>
+      <div class="field">
+        <label for="f-nome">Nome e cognome</label>
+        <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="f-email">Email (facoltativa)</label>
+        <input id="f-email" name="email" type="email" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Parteciperete?</label>
+        <div class="choice">
+          <label><input type="radio" name="partecipa" value="si" checked> Sì, ci saremo</label>
+          <label><input type="radio" name="partecipa" value="no"> Purtroppo no</label>
+        </div>
+      </div>
+      <div id="blocco-persone">
+        <div class="two">
+          <div class="field">
+            <label for="f-adulti">Adulti</label>
+            <input id="f-adulti" name="adulti" type="number" min="0" value="1" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="f-bambini">Bambini</label>
+            <input id="f-bambini" name="bambini" type="number" min="0" value="0" inputmode="numeric">
+          </div>
+        </div>
+        <div class="field" id="campo-into">
+          <label for="f-into">Intolleranze o allergie (facoltativo)</label>
+          <input id="f-into" name="intolleranze" type="text">
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-msg" data-bind="msg-label"></label>
+        <textarea id="f-msg" name="messaggio"></textarea>
+      </div>
+      <button type="submit" id="rsvp-send" class="btn">Inviate la conferma</button>
+      <div class="msg" id="rsvp-msg" role="status"></div>
+    </form>
+  </div>
+</section>
+
+<div id="bar" hidden>
+  <div id="bar-yt"></div>
+  <div class="bar-in">
+    <button id="bar-play" aria-label="Ascoltate la musica">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><path id="bar-icon" d="M3 1.5v13l11-6.5z"/></svg>
+    </button>
+    <div class="bar-txt">
+      <div class="bar-lab">LA MUSICA DELLA FESTA</div>
+      <div class="bar-tit" id="bar-tit"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="names" data-bind="titolo"></div>
+  <div class="meta" data-bind="footer-meta"></div>
+  <a class="firma-studio hide" id="firma-studio" href="https://invito360.it" target="_blank" rel="noopener">
+    <img src="https://invito360.it/img/invito360-icona-trasparente.svg" alt="" width="20" height="20">INVITO 360
+  </a>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   CONFIGURAZIONE — si modifica solo questo blocco.
+   Tutto il resto del file resta identico per ogni cliente.
+   ══════════════════════════════════════════════════════════ */
+const CONF = {
+  evento: 'compleanno',
+  tema: 'sera',
+  festeggiato: 'Marco',
+  anni: 40,
+  titolo: null, kicker: 'Si festeggia', sottotitolo: '',
+  data: '2027-10-09',
+  ora:  '20:30',
+  luoghi: [
+    { titolo:'La serata', ora:'20:30', nome:'Terrazza Belvedere', citta:'Montelupo', indirizzo:'Viale dei Colli 21, 50056 Montelupo Fiorentino FI', foto:null }
+  ],
+  testo: [
+    'Quarant\'anni si compiono una volta sola, e voglio passare la serata con le persone che contano.',
+    'Sabato 9 ottobre: aperitivo al tramonto, cena, torta e musica fino a tardi. Ditemi entro il 25 settembre se ci siete.'
+  ],
+  firma: 'Marco',
+  copertina: null,
+  foto: [],
+  programma: [
+    { ora:'20:30', voce:'Aperitivo sulla terrazza' },
+    { ora:'21:30', voce:'Cena' },
+    { ora:'23:00', voce:'Torta e brindisi' },
+    { ora:'23:30', voce:'Musica fino a tardi' }
+  ],
+  regalo: {
+    attivo: true,
+    testo: 'Il regalo più bello è avervi lì. Se però volete partecipare a un pensiero, c\'è un viaggio che aspetto da anni.',
+    intestatario: 'Marco Rinaldi',
+    iban: 'IT00 X000 0000 0000 0000 0000 000',
+    causale: null
+  },
+  rsvp: { scadenza:'2027-09-25', gestioneInvitati:false, email:'marco40@esempio.it' },
+  musica: { modo:null, titolo:'', youtube:'', file:'' },
+  accento: null,
+  anteprima: '',
+  firmaStudio: true,
+  SUPABASE_URL: '', SUPABASE_KEY: '', SUPABASE_TAB: 'rsvp'
+};
+/* ═══════════ fine configurazione ═══════════ */
+
+const $  = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno',
+              'luglio','agosto','settembre','ottobre','novembre','dicembre'];
+const GIORNI = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+
+const nome = CONF.festeggiato;
+const [Y,M,D] = CONF.data.split('-');
+const dt = new Date(CONF.data + 'T' + (CONF.ora || '12:00') + ':00');
+const dataPunti  = `${D} · ${M} · ${Y}`;
+const dataEstesa = `${+D} ${MESI[+M-1]} ${Y}`;
+const giorno     = GIORNI[dt.getDay()];
+const scad = (CONF.rsvp.scadenza || CONF.data).split('-');
+const scadEstesa = `${+scad[2]} ${MESI[+scad[1]-1]} ${scad[0]}`;
+
+/* ── testi automatici per tipo di festa ────────────────── */
+const EVENTI = {
+  comunione:   { tema:'luce',  kicker:'Prima Comunione', titolo:`${nome}`, riga:null,
+                 frase:`${nome} riceve la Prima Comunione`, causale:`Prima Comunione di ${nome}`, oggi:'È il grande giorno' },
+  battesimo:   { tema:'luce',  kicker:'Battesimo', titolo:`${nome}`, riga:null,
+                 frase:`Il Battesimo di ${nome}`, causale:`Battesimo di ${nome}`, oggi:'È il grande giorno' },
+  cresima:     { tema:'luce',  kicker:'Cresima', titolo:`${nome}`, riga:null,
+                 frase:`La Cresima di ${nome}`, causale:`Cresima di ${nome}`, oggi:'È il grande giorno' },
+  compleanno:  { tema:'festa', kicker:CONF.anni ? 'Facciamo festa!' : 'Compleanno', titolo:`${nome}`, riga:CONF.anni ? `compie ${CONF.anni} anni` : null,
+                 frase:CONF.anni ? `${nome} compie ${CONF.anni} anni` : `La festa di compleanno di ${nome}`, causale:`Compleanno di ${nome}`, oggi:'Oggi si festeggia!' },
+  diciottesimo:{ tema:'sera',  kicker:'Diciotto anni', titolo:`${nome}`, riga:null,
+                 frase:`I 18 anni di ${nome}`, causale:`18 anni di ${nome}`, oggi:'Stasera si festeggia' },
+  laurea:      { tema:'sera',  kicker:'Festa di laurea', titolo:`${nome}`, riga:null,
+                 frase:`La festa di laurea di ${nome}`, causale:`Laurea di ${nome}`, oggi:'Oggi si festeggia' },
+  anniversario:{ tema:'sera',  kicker:'Anniversario', titolo:`${nome}`, riga:CONF.anni ? `${CONF.anni} anni insieme` : null,
+                 frase:CONF.anni ? `${nome}: ${CONF.anni} anni insieme` : `L'anniversario di ${nome}`, causale:`Anniversario di ${nome}`, oggi:'È il nostro giorno' },
+  festa:       { tema:'sera',  kicker:'Siete invitati', titolo:`${nome}`, riga:null,
+                 frase:`La festa di ${nome}`, causale:`Festa di ${nome}`, oggi:'Oggi si festeggia' }
+};
+if(CONF.evento === 'diciottesimo' && CONF.anni == null) CONF.anni = 18;
+const EV = EVENTI[CONF.evento] || EVENTI.festa;
+const tema = CONF.tema || EV.tema;
+document.documentElement.dataset.tema = tema;
+document.body.dataset.tema = tema;
+if(CONF.anni) document.documentElement.classList.add('con-anni');
+if(CONF.accento) document.documentElement.style.setProperty('--accent', CONF.accento);
+document.querySelector('meta[name=theme-color]').content =
+  getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+
+if (CONF.copertina) {
+  document.documentElement.style.setProperty('--copertina', 'url("' + CONF.copertina + '")');
+  document.body.classList.add('con-copertina');
+}
+
+const titolo = CONF.titolo || EV.titolo;
+const primo  = CONF.luoghi[0] || { nome:'', indirizzo:'' };
+const citta  = primo.citta || (primo.indirizzo.match(/\d{5}\s+([^,]+?)(?:\s+[A-Z]{2})?$/) || [,''])[1];
+
+const T = {
+  'kicker': CONF.kicker ?? EV.kicker,
+  'anni': CONF.anni ? String(CONF.anni) : '',
+  'titolo': titolo,
+  'nome-riga': CONF.sottotitolo ?? EV.riga ?? '',
+  'logo': tema === 'festa' ? nome : nome.split(' ')[0],
+  'data-punti': dataPunti,
+  'luogo-riga': primo.nome + (citta ? ' — ' + citta : ''),
+  'entra': tema === 'festa' ? 'Aprite l\'invito' : 'Entrate',
+  'testo': '',
+  'firma': CONF.firma || '',
+  'galleria-kicker': 'Qualche ricordo',
+  'galleria-titolo': tema === 'festa' ? 'I momenti più belli' : 'In qualche immagine',
+  'luoghi-titolo': CONF.luoghi.length > 1 ? 'I luoghi della giornata' : (primo.nome || 'Il luogo'),
+  'regalo-titolo': 'Se volete farci un regalo',
+  'regalo-testo': CONF.regalo.testo,
+  'regalo-intestatario': CONF.regalo.intestatario,
+  'regalo-iban': CONF.regalo.iban,
+  'regalo-causale': CONF.regalo.causale || EV.causale,
+  'rsvp-scadenza': scadEstesa,
+  'msg-label': `Un messaggio per ${nome} (facoltativo)`,
+  'footer-meta': `${giorno} ${dataEstesa}` + (citta ? ` · ${citta}` : ''),
+  'meta-title': `${EV.frase} — ${dataEstesa}`,  // anteprima su WhatsApp
+  'meta-desc': `${EV.frase} il ${dataEstesa}. Scoprite il programma e confermate la vostra presenza.`,
+  'meta-img': CONF.anteprima || CONF.copertina || ''
+};
+$$('[data-bind]').forEach(el => {
+  const v = T[el.dataset.bind] ?? '';
+  if(el.tagName === 'META')        el.setAttribute('content', v);
+  else if(el.tagName === 'TITLE')  document.title = v;
+  else { el.textContent = v; if(v) el.classList.remove('hide'); }
+});
+$$('[data-mark]').forEach(m => m.innerHTML = tema === 'festa'
+  ? '<span>✦</span><span>✦</span><span>✦</span>' : '✦');
+$('.story').innerHTML = CONF.testo.map(() => '<p></p>').join('');
+$$('.story p').forEach((p,i) => p.textContent = CONF.testo[i]);
+if(CONF.firmaStudio) $('#firma-studio').classList.remove('hide');
+
+/* coriandoli (solo tema festa) */
+if(tema === 'festa'){
+  $$('.confetti').forEach(box => {
+    box.innerHTML = Array.from({length:22}, () => '<i></i>').join('');
+    box.querySelectorAll('i').forEach(i => {
+      i.style.left = (Math.random()*100) + '%';
+      i.style.animationDelay = (-Math.random()*9) + 's';
+      i.style.animationDuration = (7 + Math.random()*6) + 's';
+    });
+  });
+}
+
+/* ── barra musicale ────────────────────────────────────── */
+const MUS = CONF.musica || {};
+const bar = $('#bar');
+let suona = false, ytFrame = null, audio = null;
+const ICONA = { play:'M3 1.5v13l11-6.5z', pausa:'M3.5 1.5h3.2v13H3.5zM9.3 1.5h3.2v13H9.3z' };
+const icona = s => $('#bar-icon').setAttribute('d', ICONA[s]);
+function idYoutube(u){
+  const m = String(u).match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+function attivaBarra(){
+  if(!MUS.modo) return;
+  bar.hidden = false;
+  $('#bar-tit').textContent = MUS.titolo || '';
+  document.body.classList.add('has-bar');
+  requestAnimationFrame(() => bar.classList.add('on'));
+  if(MUS.modo === 'audio' && MUS.file){
+    audio = new Audio(MUS.file);
+    audio.loop = true; audio.volume = .55;
+    audio.play().then(() => { suona = true; icona('pausa'); }).catch(() => {});
+  }
+}
+$('#bar-play').addEventListener('click', () => {
+  if(MUS.modo === 'audio'){
+    if(!audio) return;
+    if(suona){ audio.pause(); icona('play'); } else { audio.play(); icona('pausa'); }
+    suona = !suona; return;
+  }
+  const id = idYoutube(MUS.youtube);
+  if(!id) return;
+  const box = $('#bar-yt');
+  if(!ytFrame){
+    ytFrame = document.createElement('iframe');
+    ytFrame.allow = 'autoplay; encrypted-media';
+    ytFrame.title = MUS.titolo || 'La musica della festa';
+    ytFrame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&enablejsapi=1&rel=0&modestbranding=1`;
+    box.appendChild(ytFrame); box.classList.add('open');
+    suona = true; icona('pausa'); return;
+  }
+  ytFrame.contentWindow.postMessage(JSON.stringify({ event:'command', func: suona ? 'pauseVideo' : 'playVideo', args:[] }), '*');
+  box.classList.toggle('open', !suona);
+  suona = !suona; icona(suona ? 'pausa' : 'play');
+});
+
+/* ── copertina ─────────────────────────────────────────── */
+$('#enter').addEventListener('click', () => {
+  $('#cover').classList.add('gone');
+  document.body.style.overflow = '';
+  attivaBarra();
+  setTimeout(() => $('#cover').remove(), 950);
+});
+document.body.style.overflow = 'hidden';
+
+/* ── conto alla rovescia ───────────────────────────────── */
+function tic(){
+  let d = dt - Date.now();
+  if(d <= 0){ $('#count').innerHTML = `<div style="font-family:var(--display);font-size:1.6rem;background:none;box-shadow:none">${EV.oggi}</div>`; return; }
+  d = Math.floor(d/1000);
+  const p = n => String(n).padStart(2,'0');
+  $('#c-g').textContent = p(Math.floor(d/86400));
+  $('#c-o').textContent = p(Math.floor(d/3600)%24);
+  $('#c-m').textContent = p(Math.floor(d/60)%60);
+  $('#c-s').textContent = p(d%60);
+  setTimeout(tic, 1000);
+}
+tic();
+
+/* ── galleria ──────────────────────────────────────────── */
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+if(!CONF.foto || !CONF.foto.length){
+  $('#galleria').remove(); $('[data-sec="galleria"]').remove();
+} else {
+  $('#grid-foto').innerHTML = CONF.foto.map(f => `
+    <figure class="ph empty" data-label="${esc(f.alt)}">
+      <img src="${esc(f.src)}" alt="${esc(f.alt)}" loading="lazy">
+      <figcaption>${esc(f.alt)}</figcaption>
+    </figure>`).join('');
+  $$('#grid-foto img').forEach(img => {
+    img.addEventListener('load',  () => img.parentElement.classList.remove('empty'));
+    img.addEventListener('error', () => img.remove());
+  });
+}
+
+/* ── programma ─────────────────────────────────────────── */
+$('#timeline').innerHTML = CONF.programma.map(r =>
+  `<li><div class="ora">${esc(r.ora)}</div><div class="voce">${esc(r.voce)}</div></li>`).join('');
+
+/* ── luoghi ────────────────────────────────────────────── */
+$('#places').innerHTML = CONF.luoghi.map((l,i) => {
+  const q = encodeURIComponent(l.indirizzo);
+  return `<article class="place">
+    ${l.foto ? `<div class="place-ph"><img src="${esc(l.foto)}" alt="${esc(l.nome)}" loading="lazy"></div>` : ''}
+    <div class="place-txt">
+      <span class="lab">${esc(l.titolo)}</span>
+      <h3>${esc(l.nome)}</h3>
+      ${l.ora ? `<div class="p-ora">ore ${esc(l.ora)}</div>` : ''}
+      <p class="p-addr">${esc(l.indirizzo)}</p>
+      <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">Apri in Google Maps</a>
+    </div>
+    <iframe loading="lazy" title="Mappa: ${esc(l.nome)}" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=${q}&output=embed"></iframe>
+  </article>`;
+}).join('');
+
+/* ── regalo ────────────────────────────────────────────── */
+if(!CONF.regalo.attivo){
+  $('#regalo').remove(); $('[data-sec="regalo"]').remove();
+} else {
+  $('#copy-iban').addEventListener('click', async e => {
+    try{
+      await navigator.clipboard.writeText(CONF.regalo.iban.replace(/\s/g,''));
+      e.target.textContent = 'IBAN copiato';
+      setTimeout(() => e.target.textContent = "Copia l'IBAN", 2200);
+    }catch{ e.target.textContent = 'Copia non riuscita'; }
+  });
+}
+/* le sezioni alternano lo sfondo anche quando alcune mancano */
+$$('main section, body > section').forEach(s => s.classList.remove('alt'));
+[...$$('body > section')].filter(s => s.id !== 'top').forEach((s,i) => { if(i % 2) s.classList.add('alt'); });
+
+/* ── conferma presenza ─────────────────────────────────── */
+if(!CONF.rsvp.gestioneInvitati){
+  // Essenziale: solo nome, risposta e numero di persone
+  $('#campo-into').remove();
+  $('#f-bambini').closest('.field').remove();
+  $('label[for="f-adulti"]').textContent = 'Quante persone in tutto';
+  $('#blocco-persone .two').style.gridTemplateColumns = '1fr';
+}
+
+function esito(t, ok){
+  const m = $('#rsvp-msg');
+  m.textContent = t;
+  m.className = 'msg show ' + (ok ? 'good' : 'bad');
+}
+
+$('#form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target).entries());
+  if(!d.nome || !d.nome.trim()){ esito('Scrivete il vostro nome, così sappiamo chi risponde.', false); return; }
+  if(d.email && !d.email.includes('@')){ esito('L\'indirizzo email non sembra corretto.', false); return; }
+
+  const btn = $('#rsvp-send');
+  btn.disabled = true; btn.textContent = 'Invio in corso';
+  const si = d.partecipa === 'si';
+  const riga = {
+    nome: d.nome.trim(),
+    email: d.email || null,
+    partecipa: si,
+    adulti: si && d.adulti !== undefined ? +d.adulti : null,
+    bambini: si && d.bambini !== undefined ? +d.bambini : null,
+    intolleranze: si ? (d.intolleranze || null) : null,
+    messaggio: d.messaggio || null
+  };
+  const grazie = si ? `Grazie! ${nome} non vede l'ora di festeggiare con voi.`
+                    : 'Grazie per avercelo fatto sapere. Ci mancherete.';
+
+  if(CONF.SUPABASE_URL && CONF.SUPABASE_KEY){
+    try{
+      const r = await fetch(`${CONF.SUPABASE_URL}/rest/v1/${CONF.SUPABASE_TAB}`, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', apikey:CONF.SUPABASE_KEY,
+                  Authorization:'Bearer ' + CONF.SUPABASE_KEY, Prefer:'return=minimal' },
+        body: JSON.stringify(riga)
+      });
+      if(!r.ok) throw new Error(r.status);
+      e.target.querySelectorAll('input,textarea,button').forEach(x => x.disabled = true);
+      btn.textContent = 'Conferma inviata';
+      esito(grazie, true);
+      return;
+    }catch{ /* si prosegue con la mail */ }
+  }
+
+  const corpo = [
+    'Nome: ' + riga.nome,
+    riga.email ? 'Email: ' + riga.email : '',
+    'Partecipa: ' + (si ? 'sì' : 'no'),
+    si ? (CONF.rsvp.gestioneInvitati ? 'Adulti: ' : 'Persone: ') + (riga.adulti ?? '') : '',
+    si && CONF.rsvp.gestioneInvitati ? 'Bambini: ' + (riga.bambini ?? '') : '',
+    si && CONF.rsvp.gestioneInvitati ? 'Intolleranze: ' + (riga.intolleranze ?? '-') : '',
+    'Messaggio: ' + (riga.messaggio ?? '-')
+  ].filter(Boolean).join('\n');
+
+  window.location.href = `mailto:${CONF.rsvp.email}`
+    + `?subject=${encodeURIComponent('Conferma presenza — ' + riga.nome)}`
+    + `&body=${encodeURIComponent(corpo)}`;
+  btn.disabled = false; btn.textContent = 'Inviate la conferma';
+  esito('Si apre il programma di posta con la conferma già scritta: basta premere invia.', true);
+});
+</script>
+</body>
+</html>
