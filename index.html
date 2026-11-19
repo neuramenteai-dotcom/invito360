@@ -280,6 +280,23 @@ img{max-width:100%; display:block}
   .riceve{grid-template-columns:1fr auto; align-items:center; gap:80px; padding-left:56px; padding-right:56px}
   .riceve-txt{text-align:left}
 }
+
+/* collegamento alla versione feste */
+.vai-feste{position:absolute;top:clamp(24px,4.6vw,40px);right:24px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:9px 15px;border:1px solid rgba(247,241,230,.55);border-radius:999px;background:rgba(18,14,10,.28);backdrop-filter:blur(6px);color:#F7F1E6;text-decoration:none;font-size:.74rem;letter-spacing:.08em}
+.vai-feste:hover{background:rgba(18,14,10,.5)}
+.vai-feste .lungo{display:none}
+@media(min-width:700px){.vai-feste .lungo{display:inline}.vai-feste .corto{display:none}}
+@media(min-width:900px){.vai-feste{right:max(56px,calc(50vw - 600px));top:46px}}
+.feste-band{padding:clamp(56px,10vw,88px) 24px;text-align:center;border-top:1px solid var(--line)}
+.feste-band .kicker{font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin:0 0 14px}
+.feste-band h2{font-size:clamp(2rem,7vw,2.9rem);font-weight:300;text-wrap:balance}
+.feste-band h2 em{font-style:italic;color:var(--accent)}
+.feste-band p{max-width:46ch;margin:16px auto 0;color:var(--soft)}
+.feste-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:760px;margin:34px auto 30px}
+.feste-tiles a{position:relative;display:block;aspect-ratio:3/4;overflow:hidden;background-size:cover;background-position:center;text-decoration:none}
+.feste-tiles a::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(18,14,10,.72))}
+.feste-tiles span{position:absolute;left:0;right:0;bottom:12px;z-index:1;color:#F7F1E6;font-family:var(--display);font-size:clamp(1rem,3.6vw,1.35rem)}
+.feste-band .btn{display:inline-block;max-width:320px}
 </style>
 </head>
 <body>
@@ -289,6 +306,7 @@ img{max-width:100%; display:block}
   <div class="cover-veil" role="presentation"></div>
   <div class="velo-alto" role="presentation"></div>
   <img class="marchio-cover" src="img/invito360-riga-chiara.svg" alt="Invito 360" width="462" height="150">
+  <a class="vai-feste" href="feste.html"><span class="corto">Feste</span><span class="lungo">Comunioni e compleanni</span> &rarr;</a>
   <div class="cover-in">
     <p class="eyebrow">Invito digitale per matrimoni</p>
     <h1>Il vostro matrimonio <em>inizia dall'invito</em></h1>
@@ -395,6 +413,18 @@ img{max-width:100%; display:block}
     </ul>
     <a href="https://neuramenteai-dotcom.github.io/demo-album/" target="_blank" rel="noopener">Guardate un album di esempio</a>
   </div>
+</section>
+
+<section class="feste-band">
+  <p class="kicker">Non solo matrimoni</p>
+  <h2>Anche per comunioni, battesimi <em>e compleanni</em></h2>
+  <p>Lo stesso invito digitale con conferme e album QR, in tre stili pensati per le feste e cinque per i bambini.</p>
+  <div class="feste-tiles">
+    <a href="feste.html#stili" style="background-image:url(img/feste/luce.jpg)"><span>Comunioni</span></a>
+    <a href="feste.html#bimbi" style="background-image:url(img/feste/festa.jpg)"><span>Compleanni</span></a>
+    <a href="feste.html#stili" style="background-image:url(img/feste/sera.jpg)"><span>Diciottesimi</span></a>
+  </div>
+  <a class="btn" href="feste.html">Guardate gli inviti per le feste</a>
 </section>
 
 <section class="close">
