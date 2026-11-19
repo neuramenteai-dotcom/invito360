@@ -16,7 +16,7 @@
 <meta name="twitter:image" data-bind="meta-img" content="">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500&family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&family=Luckiest+Guy&family=Bangers&family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@500;800&display=swap" rel="stylesheet">
 <style>
 /* ════════════════════════════════════════════════════════════
    TEMI — si scelgono con CONF.tema. Ogni tema ridefinisce
@@ -51,6 +51,69 @@
   --overlay:linear-gradient(rgba(46,42,59,.18),rgba(46,42,59,.55));
   --nav-bg:rgba(255,248,238,.95);
 }
+
+/* ─── temi illustrati per i compleanni dei bambini ─────────────
+   cartoon   = cielo, nuvole e sole disegnati, contorni neri spessi
+   anime     = linee di velocità, retini, scintille e petali
+   supereroi = fumetto: retino, raggi, scritte esplosive
+   spazio    = cielo stellato, pianeta e razzo
+   Tutti i disegni sono originali, nessun personaggio esistente. */
+[data-tema="cartoon"]{
+  --bg:#FFF7DD; --bg-2:#BFE9FF; --card:#FFFFFF;
+  --ink:#1F1A2E; --ink-soft:#4E4862;
+  --accent:#FF5A5F; --accent-2:#18B5A6; --accent-3:#FFC93C; --accent-4:#5B6CFF;
+  --accent-soft:#FFE3E3; --line:#1F1A2E; --on-accent:#FFFFFF;
+  --btn-bg:#FF5A5F; --btn-ink:#FFFFFF;
+  --radius:16px; --radius-big:22px;
+  --display:'Luckiest Guy','Fredoka',system-ui,sans-serif; --display-w:400; --display-style:normal;
+  --body:'Nunito',system-ui,sans-serif; --body-w:600;
+  --track:.06em; --upper:none;
+  --overlay:linear-gradient(rgba(31,26,46,.10),rgba(31,26,46,.45));
+  --nav-bg:rgba(255,247,221,.96);
+  --ombra:4px 4px 0 var(--ink);
+}
+[data-tema="anime"]{
+  --bg:#FFF2F8; --bg-2:#FFE0EF; --card:#FFFFFF;
+  --ink:#1C1238; --ink-soft:#5A4E7A;
+  --accent:#FF2E88; --accent-2:#13C8E8; --accent-3:#FFE14D; --accent-4:#8B5CF6;
+  --accent-soft:#FFD3E8; --line:#1C1238; --on-accent:#FFFFFF;
+  --btn-bg:#FF2E88; --btn-ink:#FFFFFF;
+  --radius:12px; --radius-big:16px;
+  --display:'Dela Gothic One','M PLUS Rounded 1c',system-ui,sans-serif; --display-w:400; --display-style:normal;
+  --body:'M PLUS Rounded 1c','Nunito',system-ui,sans-serif; --body-w:500;
+  --track:.06em; --upper:none;
+  --overlay:linear-gradient(rgba(28,18,56,.15),rgba(28,18,56,.55));
+  --nav-bg:rgba(255,242,248,.95);
+  --ombra:4px 4px 0 var(--ink);
+}
+[data-tema="supereroi"]{
+  --bg:#FFF6DC; --bg-2:#1F4FE0; --card:#FFFFFF;
+  --ink:#141414; --ink-soft:#3D3D3D;
+  --accent:#E63946; --accent-2:#1F4FE0; --accent-3:#FFD60A; --accent-4:#E63946;
+  --accent-soft:#FFE9A8; --line:#141414; --on-accent:#FFFFFF;
+  --btn-bg:#E63946; --btn-ink:#FFFFFF;
+  --radius:6px; --radius-big:8px;
+  --display:'Bangers','Luckiest Guy',system-ui,sans-serif; --display-w:400; --display-style:normal;
+  --body:'Nunito',system-ui,sans-serif; --body-w:700;
+  --track:.08em; --upper:uppercase;
+  --overlay:linear-gradient(rgba(20,20,20,.15),rgba(20,20,20,.55));
+  --nav-bg:rgba(255,246,220,.96);
+  --ombra:5px 5px 0 var(--ink);
+}
+[data-tema="spazio"]{
+  --bg:#0D1130; --bg-2:#141A45; --card:#1B2257;
+  --ink:#F2F4FF; --ink-soft:#AEB5E6;
+  --accent:#FFB547; --accent-2:#5EE6F7; --accent-3:#FF6BD6; --accent-4:#9C8CFF;
+  --accent-soft:#2A3170; --line:#2E3677; --on-accent:#0D1130;
+  --btn-bg:#FFB547; --btn-ink:#0D1130;
+  --radius:16px; --radius-big:22px;
+  --display:'Fredoka','Nunito',system-ui,sans-serif; --display-w:600; --display-style:normal;
+  --body:'Nunito',system-ui,sans-serif; --body-w:500;
+  --track:.08em; --upper:none;
+  --overlay:linear-gradient(rgba(13,17,48,.2),rgba(13,17,48,.7));
+  --nav-bg:rgba(13,17,48,.92);
+  --ombra:0 0 0 2px var(--line),0 12px 30px -12px rgba(0,0,0,.6);
+}
 [data-tema="sera"]{
   --bg:#1C1815; --bg-2:#25201C; --card:#2B2520;
   --ink:#F3ECE0; --ink-soft:#B8AC9A;
@@ -73,12 +136,12 @@ a{color:inherit}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .hide{display:none !important}
 .mark{color:var(--accent-2);font-size:1rem;letter-spacing:.5em;padding-left:.5em;margin:18px 0}
-[data-tema="festa"] .mark{letter-spacing:.35em}
-[data-tema="festa"] .mark span:nth-child(1){color:var(--accent)}
-[data-tema="festa"] .mark span:nth-child(2){color:var(--accent-3)}
-[data-tema="festa"] .mark span:nth-child(3){color:var(--accent-2)}
+[data-bimbi] .mark{letter-spacing:.35em}
+[data-bimbi] .mark span:nth-child(1){color:var(--accent)}
+[data-bimbi] .mark span:nth-child(2){color:var(--accent-3)}
+[data-bimbi] .mark span:nth-child(3){color:var(--accent-2)}
 .lab{font-size:.74rem;letter-spacing:var(--track);text-transform:var(--upper);color:var(--ink-soft)}
-[data-tema="festa"] .lab{font-weight:700;font-size:.8rem}
+[data-bimbi] .lab{font-weight:700;font-size:.8rem}
 
 /* ─── copertina ─────────────────────────────────────────── */
 #cover{position:fixed;inset:0;z-index:100;background:var(--bg-2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;transition:opacity .9s ease,visibility .9s;overflow:hidden}
@@ -94,30 +157,30 @@ a{color:inherit}
 .cover-frame::before,.cover-frame::after{content:'';position:absolute;width:34px;height:34px;border:1px solid var(--accent-2)}
 .cover-frame::before{top:0;left:0;border-right:0;border-bottom:0}
 .cover-frame::after{bottom:0;right:0;border-left:0;border-top:0}
-[data-tema="festa"] .cover-frame::before,[data-tema="festa"] .cover-frame::after{display:none}
+[data-bimbi] .cover-frame::before,[data-bimbi] .cover-frame::after{display:none}
 .kicker{font-size:.76rem;letter-spacing:var(--track);text-transform:var(--upper);color:var(--ink-soft);padding-left:.2em}
-[data-tema="festa"] .kicker{font-weight:700;color:var(--accent-2);font-size:.95rem}
+[data-bimbi] .kicker{font-weight:700;color:var(--accent-2);font-size:.95rem}
 .big-age{display:none;font-family:var(--display);font-weight:var(--display-w);line-height:.9;color:var(--accent);margin:6px 0 2px}
 .con-anni .big-age{display:block}
 [data-tema="sera"] .big-age{font-size:clamp(6rem,30vw,10rem);font-style:italic;font-weight:300}
-[data-tema="festa"] .big-age{font-size:clamp(4.4rem,22vw,7rem);width:1.6em;height:1.6em;margin:10px auto 6px;border-radius:50%;background:var(--accent);color:#fff;display:none;place-items:center;box-shadow:0 0 0 10px var(--accent-soft)}
-[data-tema="festa"].con-anni .big-age,.con-anni[data-tema="festa"] .big-age{display:grid}
+[data-bimbi] .big-age{font-size:clamp(4.4rem,22vw,7rem);width:1.6em;height:1.6em;margin:10px auto 6px;border-radius:50%;background:var(--accent);color:#fff;display:none;place-items:center;box-shadow:0 0 0 10px var(--accent-soft)}
+.con-anni[data-bimbi] .big-age{display:grid}
 [data-tema="luce"] .big-age{font-size:clamp(4rem,18vw,6rem)}
 .cover-title,#top h1{font-family:var(--display);font-weight:var(--display-w);line-height:1.12;letter-spacing:.01em}
 .cover-title{font-size:clamp(2.8rem,12vw,4.2rem);margin-top:8px}
 .con-anni .cover-title{font-size:clamp(2.3rem,9vw,3.4rem)}
 .name-line{font-family:var(--display);font-style:italic;font-weight:300;font-size:clamp(1.5rem,6vw,2.1rem);color:var(--ink-soft);margin-top:6px}
-[data-tema="festa"] .name-line{font-style:normal;font-weight:500;color:var(--accent-4)}
+[data-bimbi] .name-line{font-style:normal;font-weight:500;color:var(--accent-4)}
 .date{font-weight:300;letter-spacing:.32em;font-size:.86rem;color:var(--ink-soft);padding-left:.32em}
-[data-tema="festa"] .date{letter-spacing:.14em;font-weight:700;font-size:.95rem}
+[data-bimbi] .date{letter-spacing:.14em;font-weight:700;font-size:.95rem}
 #enter{margin-top:40px;background:none;border:1px solid var(--accent-2);color:var(--ink);font-family:var(--body);font-weight:var(--body-w);font-size:.78rem;letter-spacing:var(--track);text-transform:var(--upper);padding:15px 32px;cursor:pointer;border-radius:var(--radius);transition:background .3s,color .3s;position:relative;z-index:2}
 #enter:hover{background:var(--accent-2);color:var(--on-accent)}
-[data-tema="festa"] #enter{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;font-size:1rem;border-radius:999px;padding:16px 38px;box-shadow:0 8px 0 -2px #D95A43}
-[data-tema="festa"] #enter:active{transform:translateY(3px);box-shadow:0 4px 0 -2px #D95A43}
+[data-bimbi] #enter{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;font-size:1rem;border-radius:999px;padding:16px 38px;box-shadow:0 8px 0 -2px #D95A43}
+[data-bimbi] #enter:active{transform:translateY(3px);box-shadow:0 4px 0 -2px #D95A43}
 
 /* coriandoli del tema festa (solo decorazione, disegnati in CSS) */
 .confetti{position:absolute;inset:0;pointer-events:none;display:none}
-[data-tema="festa"] .confetti{display:block}
+[data-bimbi] .confetti{display:block}
 .confetti i{position:absolute;width:12px;height:12px;border-radius:50%;opacity:.9;animation:cade 9s linear infinite}
 .confetti i:nth-child(3n){border-radius:3px;width:9px;height:16px}
 .confetti i:nth-child(4n){background:var(--accent)}
@@ -134,11 +197,11 @@ a{color:inherit}
 nav{position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
 .nav-in{max-width:1080px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .nav-logo{font-family:var(--display);font-weight:var(--display-w);font-size:1.3rem;letter-spacing:.04em;text-decoration:none;white-space:nowrap}
-[data-tema="festa"] .nav-logo{color:var(--accent)}
+[data-bimbi] .nav-logo{color:var(--accent)}
 .nav-links{display:flex;gap:24px;list-style:none;overflow-x:auto;scrollbar-width:none}
 .nav-links::-webkit-scrollbar{display:none}
 .nav-links a{text-decoration:none;font-size:.76rem;letter-spacing:.16em;color:var(--ink-soft);white-space:nowrap;padding:4px 0;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
-[data-tema="festa"] .nav-links a{letter-spacing:.02em;font-weight:700;font-size:.86rem}
+[data-bimbi] .nav-links a{letter-spacing:.02em;font-weight:700;font-size:.86rem}
 .nav-links a:hover{color:var(--ink);border-color:var(--accent)}
 
 /* ─── impaginazione ─────────────────────────────────────── */
@@ -154,19 +217,19 @@ section{padding:88px 20px}
 #top{background:var(--bg-2);text-align:center;padding-top:96px;padding-bottom:96px;position:relative;overflow:hidden}
 #top h1{font-size:clamp(2.5rem,10vw,4.4rem)}
 .hero-place{font-family:var(--display);font-size:1.3rem;font-style:italic;color:var(--ink-soft);margin-top:8px}
-[data-tema="festa"] .hero-place{font-style:normal;font-weight:500;font-size:1.15rem}
+[data-bimbi] .hero-place{font-style:normal;font-weight:500;font-size:1.15rem}
 .count{display:flex;justify-content:center;gap:clamp(12px,4vw,34px);margin:42px 0 38px;flex-wrap:wrap}
 .count div{min-width:62px}
 .count b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(1.8rem,6vw,2.6rem);line-height:1;font-variant-numeric:tabular-nums}
 .count span{font-size:.64rem;letter-spacing:.2em;color:var(--ink-soft);padding-left:.2em}
-[data-tema="festa"] .count div{background:var(--card);border-radius:var(--radius);padding:12px 10px 8px;box-shadow:0 6px 0 -2px var(--line)}
-[data-tema="festa"] .count div:nth-child(1) b{color:var(--accent)}
-[data-tema="festa"] .count div:nth-child(2) b{color:var(--accent-2)}
-[data-tema="festa"] .count div:nth-child(3) b{color:var(--accent-4)}
-[data-tema="festa"] .count div:nth-child(4) b{color:#E0A400}
-[data-tema="festa"] .count span{letter-spacing:.06em;font-weight:700}
+[data-bimbi] .count div{background:var(--card);border-radius:var(--radius);padding:12px 10px 8px;box-shadow:0 6px 0 -2px var(--line)}
+[data-bimbi] .count div:nth-child(1) b{color:var(--accent)}
+[data-bimbi] .count div:nth-child(2) b{color:var(--accent-2)}
+[data-bimbi] .count div:nth-child(3) b{color:var(--accent-4)}
+[data-bimbi] .count div:nth-child(4) b{color:#E0A400}
+[data-bimbi] .count span{letter-spacing:.06em;font-weight:700}
 .btn{display:inline-block;text-decoration:none;background:var(--btn-bg);color:var(--btn-ink);font-size:.76rem;letter-spacing:var(--track);text-transform:var(--upper);padding:16px 34px;border-radius:var(--radius);transition:opacity .25s;border:0;cursor:pointer;font-family:var(--body);font-weight:var(--body-w)}
-[data-tema="festa"] .btn{border-radius:999px;font-weight:700;font-size:.95rem}
+[data-bimbi] .btn{border-radius:999px;font-weight:700;font-size:.95rem}
 [data-tema="sera"] .btn{font-weight:400}
 .btn:hover{opacity:.86}
 .btn.ghost{background:none;color:var(--ink);border:1px solid var(--accent-2)}
@@ -181,23 +244,23 @@ body.con-copertina #top{min-height:88vh;display:flex;align-items:center;justify-
 body.con-copertina .kicker,body.con-copertina .date,body.con-copertina .hero-place,body.con-copertina .name-line,body.con-copertina #top .count span{color:rgba(255,255,255,.92)}
 body.con-copertina #enter{color:#fff;border-color:rgba(255,255,255,.85)}
 body.con-copertina #top .btn{background:#fff;color:#2A2622;text-shadow:none}
-body.con-copertina[data-tema="festa"] #top .count span{color:var(--ink-soft)}
-body.con-copertina[data-tema="festa"] #top .count div{text-shadow:none}
-body.con-copertina[data-tema="festa"] .big-age{text-shadow:none}
+body.con-copertina[data-bimbi] #top .count span{color:var(--ink-soft)}
+body.con-copertina[data-bimbi] #top .count div{text-shadow:none}
+body.con-copertina[data-bimbi] .big-age{text-shadow:none}
 
 /* ─── presentazione ─────────────────────────────────────── */
 #intro{text-align:center}
 .story p{font-size:1.04rem;margin-bottom:18px}
-[data-tema="festa"] .story p{font-size:1.1rem}
+[data-bimbi] .story p{font-size:1.1rem}
 .signature{font-family:var(--display);font-style:italic;font-size:1.4rem;color:var(--accent);margin-top:24px}
-[data-tema="festa"] .signature{font-style:normal;font-weight:500;color:var(--accent-4)}
+[data-bimbi] .signature{font-style:normal;font-weight:500;color:var(--accent-4)}
 
 /* ─── galleria ──────────────────────────────────────────── */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
 .ph{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--accent-soft);border-radius:var(--radius)}
-[data-tema="festa"] .ph{border-radius:var(--radius-big);border:5px solid var(--card);box-shadow:0 10px 24px -14px rgba(46,42,59,.4)}
-[data-tema="festa"] .ph:nth-child(odd){transform:rotate(-1.4deg)}
-[data-tema="festa"] .ph:nth-child(even){transform:rotate(1.2deg)}
+[data-bimbi] .ph{border-radius:var(--radius-big);border:5px solid var(--card);box-shadow:0 10px 24px -14px rgba(46,42,59,.4)}
+[data-bimbi] .ph:nth-child(odd){transform:rotate(-1.4deg)}
+[data-bimbi] .ph:nth-child(even){transform:rotate(1.2deg)}
 .ph img{width:100%;height:100%;object-fit:cover}
 .ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;background:linear-gradient(transparent,rgba(30,26,22,.62));color:#fff;font-size:.8rem;letter-spacing:.03em}
 .ph.empty::after{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:.78rem;letter-spacing:.12em;text-align:center;padding:16px}
@@ -209,23 +272,23 @@ body.con-copertina[data-tema="festa"] .big-age{text-shadow:none}
 .timeline li{position:relative;padding:0 0 30px 34px}
 .timeline li:last-child{padding-bottom:0}
 .timeline li::before{content:'';position:absolute;left:0;top:9px;width:11px;height:11px;border-radius:50%;background:var(--bg-2);border:1px solid var(--accent-2)}
-[data-tema="festa"] .timeline::before{width:3px;left:6px;border-radius:3px;background:repeating-linear-gradient(var(--line) 0 8px,transparent 8px 14px)}
-[data-tema="festa"] .timeline li::before{width:15px;height:15px;border:0;top:6px;background:var(--accent)}
-[data-tema="festa"] .timeline li:nth-child(4n+2)::before{background:var(--accent-2)}
-[data-tema="festa"] .timeline li:nth-child(4n+3)::before{background:var(--accent-3)}
-[data-tema="festa"] .timeline li:nth-child(4n)::before{background:var(--accent-4)}
+[data-bimbi] .timeline::before{width:3px;left:6px;border-radius:3px;background:repeating-linear-gradient(var(--line) 0 8px,transparent 8px 14px)}
+[data-bimbi] .timeline li::before{width:15px;height:15px;border:0;top:6px;background:var(--accent)}
+[data-bimbi] .timeline li:nth-child(4n+2)::before{background:var(--accent-2)}
+[data-bimbi] .timeline li:nth-child(4n+3)::before{background:var(--accent-3)}
+[data-bimbi] .timeline li:nth-child(4n)::before{background:var(--accent-4)}
 .timeline .ora{font-family:var(--display);font-size:1.3rem;color:var(--accent);line-height:1.2;font-variant-numeric:tabular-nums}
 .timeline .voce{font-size:1rem}
 
 /* ─── luoghi ────────────────────────────────────────────── */
 .places{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}
 .place{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-big);overflow:hidden;display:flex;flex-direction:column}
-[data-tema="festa"] .place{border:0;box-shadow:0 10px 0 -4px var(--line)}
+[data-bimbi] .place{border:0;box-shadow:0 10px 0 -4px var(--line)}
 .place-txt{padding:26px 24px 22px;text-align:center;flex:1}
 .place-txt .lab{display:block;margin-bottom:6px}
 .place-txt h3{font-family:var(--display);font-weight:var(--display-w);font-size:1.6rem;line-height:1.2}
 .place-txt .p-ora{font-family:var(--display);font-style:italic;color:var(--accent);font-size:1.15rem;margin-top:4px}
-[data-tema="festa"] .place-txt .p-ora{font-style:normal;font-weight:600}
+[data-bimbi] .place-txt .p-ora{font-style:normal;font-weight:600}
 .place-txt .p-addr{color:var(--ink-soft);font-size:.94rem;margin:10px 0 18px}
 .place iframe{width:100%;height:220px;border:0;display:block;background:var(--accent-soft)}
 [data-tema="sera"] .place iframe{filter:grayscale(.4) brightness(.92)}
@@ -245,7 +308,7 @@ body.con-copertina[data-tema="festa"] .big-age{text-shadow:none}
 .form{max-width:520px;margin:0 auto}
 .field{margin-bottom:20px}
 .field label{display:block;font-size:.8rem;letter-spacing:.08em;color:var(--ink-soft);margin-bottom:8px}
-[data-tema="festa"] .field label{font-weight:700;letter-spacing:.02em}
+[data-bimbi] .field label{font-weight:700;letter-spacing:.02em}
 .field input,.field textarea{width:100%;font-family:var(--body);font-weight:var(--body-w);font-size:1rem;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:13px 14px;transition:border-color .25s}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
 .field textarea{min-height:96px;resize:vertical}
@@ -298,6 +361,113 @@ footer .meta{font-size:.76rem;letter-spacing:.16em;color:var(--ink-soft);margin-
   *{transition:none !important;animation:none !important}
   html{scroll-behavior:auto}
 }
+
+/* ════════ TEMI ILLUSTRATI ════════ */
+.deco{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.deco svg{position:absolute}
+#cover .cover-frame,#cover #enter,#top .wrap{z-index:2}
+.cover-frame{position:relative}
+
+/* contorni da cartone: cartoon, anime e supereroi */
+[data-tema="cartoon"] .ph,[data-tema="anime"] .ph,[data-tema="supereroi"] .ph,
+[data-tema="cartoon"] .place,[data-tema="anime"] .place,[data-tema="supereroi"] .place,
+[data-tema="cartoon"] .iban-card,[data-tema="anime"] .iban-card,[data-tema="supereroi"] .iban-card,
+[data-tema="cartoon"] .count div,[data-tema="anime"] .count div,[data-tema="supereroi"] .count div{border:3px solid var(--ink);box-shadow:var(--ombra)}
+[data-tema="cartoon"] .btn,[data-tema="anime"] .btn,[data-tema="supereroi"] .btn,
+[data-tema="cartoon"] #enter,[data-tema="anime"] #enter,[data-tema="supereroi"] #enter{border:3px solid var(--ink);box-shadow:var(--ombra);transition:transform .12s,box-shadow .12s}
+[data-tema="cartoon"] .btn:active,[data-tema="anime"] .btn:active,[data-tema="supereroi"] .btn:active,
+[data-tema="cartoon"] #enter:active,[data-tema="anime"] #enter:active,[data-tema="supereroi"] #enter:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+[data-tema="cartoon"] .btn.ghost,[data-tema="anime"] .btn.ghost,[data-tema="supereroi"] .btn.ghost{background:var(--card);color:var(--ink)}
+[data-tema="cartoon"] .field input,[data-tema="cartoon"] .field textarea,[data-tema="cartoon"] .choice label,
+[data-tema="anime"] .field input,[data-tema="anime"] .field textarea,[data-tema="anime"] .choice label,
+[data-tema="supereroi"] .field input,[data-tema="supereroi"] .field textarea,[data-tema="supereroi"] .choice label{border:2px solid var(--ink)}
+[data-tema="cartoon"] .ph,[data-tema="anime"] .ph,[data-tema="supereroi"] .ph{border-width:3px}
+[data-tema="cartoon"] .place iframe,[data-tema="anime"] .place iframe,[data-tema="supereroi"] .place iframe{border-top:3px solid var(--ink)}
+[data-tema="cartoon"] .timeline li::before,[data-tema="anime"] .timeline li::before,[data-tema="supereroi"] .timeline li::before{border:2px solid var(--ink)}
+[data-tema="cartoon"] nav,[data-tema="anime"] nav,[data-tema="supereroi"] nav{border-bottom:3px solid var(--ink)}
+[data-tema="cartoon"] footer,[data-tema="anime"] footer,[data-tema="supereroi"] footer{border-top:3px solid var(--ink)}
+
+/* ── cartoon ── */
+[data-tema="cartoon"] #cover,[data-tema="cartoon"] #top{background:linear-gradient(#8FD8FF 0%,#C8EEFF 60%,#E8F8FF 100%)}
+[data-tema="cartoon"] .cover-title,[data-tema="cartoon"] #top h1{font-size:clamp(3.4rem,17vw,5.6rem);color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--ink);letter-spacing:.02em}
+[data-tema="cartoon"] .sec-head h2{color:var(--accent);-webkit-text-stroke:2px var(--ink);paint-order:stroke fill;text-shadow:3px 3px 0 var(--ink);letter-spacing:.03em}
+[data-tema="cartoon"] .kicker{background:var(--accent-3);color:var(--ink);display:inline-block;padding:6px 16px;border:3px solid var(--ink);border-radius:999px;box-shadow:3px 3px 0 var(--ink);transform:rotate(-3deg)}
+[data-tema="cartoon"] .name-line{color:var(--ink);font-weight:800}
+[data-tema="cartoon"] .date{color:var(--ink)}
+[data-tema="cartoon"] .big-age{background:var(--accent-3);color:var(--ink);box-shadow:5px 5px 0 var(--ink);border:4px solid var(--ink);font-family:'Luckiest Guy',sans-serif;
+  clip-path:none;border-radius:50%}
+[data-tema="cartoon"] .mark{color:var(--accent)}
+[data-tema="cartoon"] .alt{background:var(--bg-2)}
+[data-tema="cartoon"] .story p{font-weight:600}
+@keyframes nuvola{from{transform:translateX(-8vw)}to{transform:translateX(8vw)}}
+@keyframes sole{to{transform:rotate(360deg)}}
+@keyframes sale-palloncino{from{transform:translateY(110vh)}to{transform:translateY(-30vh)}}
+.palloncino{position:absolute;bottom:0;width:46px;animation:sale-palloncino 14s linear infinite}
+
+/* ── anime ── */
+[data-tema="anime"] #cover,[data-tema="anime"] #top{background:
+  repeating-conic-gradient(from 0deg at 50% 45%,rgba(255,46,136,.10) 0deg 3deg,transparent 3deg 9deg),
+  radial-gradient(circle at 50% 45%,#FFFFFF 0%,#FFE6F2 45%,#FFC9E2 100%)}
+[data-tema="anime"] #cover::after,[data-tema="anime"] #top::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle,rgba(28,18,56,.16) 1.4px,transparent 1.6px) 0 0/12px 12px;
+  -webkit-mask:radial-gradient(circle at 50% 45%,transparent 38%,#000 85%);mask:radial-gradient(circle at 50% 45%,transparent 38%,#000 85%)}
+body.con-copertina[data-tema="anime"] #cover::after,body.con-copertina[data-tema="anime"] #top::after{-webkit-mask:none;mask:none;background:var(--copertina) center 40%/cover no-repeat}
+[data-tema="anime"] .cover-title,[data-tema="anime"] #top h1{font-size:clamp(3rem,15vw,5rem);color:#fff;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;
+  text-shadow:4px 4px 0 var(--accent),8px 8px 0 var(--ink);transform:rotate(-4deg)}
+[data-tema="anime"] .kicker{display:inline-block;background:var(--ink);color:#fff;padding:5px 14px;transform:skewX(-12deg);font-weight:800;letter-spacing:.1em}
+[data-tema="anime"] .name-line{color:var(--accent-4);font-weight:800}
+[data-tema="anime"] .date{color:var(--ink);font-weight:800}
+[data-tema="anime"] .big-age{background:var(--accent-3);color:var(--ink);border:4px solid var(--ink);box-shadow:none;border-radius:0;font-family:'Dela Gothic One',sans-serif;
+  clip-path:polygon(50% 0,61% 22%,85% 10%,78% 36%,100% 45%,79% 58%,90% 84%,63% 76%,50% 100%,37% 76%,10% 84%,21% 58%,0 45%,22% 36%,15% 10%,39% 22%);width:1.9em;height:1.9em}
+[data-tema="anime"] .sec-head h2{display:inline-block;background:#fff;border:3px solid var(--ink);border-radius:999px;padding:.25em .9em .35em;box-shadow:4px 4px 0 var(--ink);position:relative;font-size:clamp(1.5rem,5vw,2.2rem)}
+[data-tema="anime"] .sec-head h2::after{content:'';position:absolute;left:22%;bottom:-16px;width:22px;height:18px;background:#fff;border-right:3px solid var(--ink);border-bottom:3px solid var(--ink);transform:skewX(30deg) rotate(10deg)}
+[data-tema="anime"] .mark{color:var(--accent)}
+[data-tema="anime"] .ph:nth-child(3n+1){clip-path:polygon(0 0,100% 0,100% 92%,0 100%)}
+[data-tema="anime"] .ph:nth-child(3n+2){clip-path:polygon(0 6%,100% 0,100% 100%,0 100%)}
+[data-tema="anime"] .ph{box-shadow:none;transform:none}
+.katakana{position:absolute;writing-mode:vertical-rl;font-family:'Dela Gothic One',sans-serif;font-size:clamp(1.1rem,4vw,1.6rem);color:var(--accent);letter-spacing:.15em;opacity:.85;-webkit-text-stroke:1px var(--ink)}
+@keyframes petalo{0%{transform:translate(0,-10vh) rotate(0)}100%{transform:translate(18vw,110vh) rotate(600deg)}}
+@keyframes brilla{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1);opacity:1}}
+.petalo{position:absolute;top:0;width:14px;height:10px;background:#FFB3CF;border-radius:100% 0 100% 0;animation:petalo 11s linear infinite;opacity:.85}
+.scintilla{position:absolute;width:22px;height:22px;animation:brilla 2.4s ease-in-out infinite}
+
+/* ── supereroi ── */
+[data-tema="supereroi"] body,[data-tema="supereroi"]{background-image:radial-gradient(circle,rgba(230,57,70,.12) 1.5px,transparent 1.8px);background-size:14px 14px}
+[data-tema="supereroi"] #cover,[data-tema="supereroi"] #top{background:
+  repeating-conic-gradient(from 0deg at 50% 42%,#2D63FF 0deg 7deg,#1F4FE0 7deg 14deg)}
+[data-tema="supereroi"] .cover-title,[data-tema="supereroi"] #top h1{font-size:clamp(3.6rem,18vw,6rem);color:var(--accent-3);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:6px 6px 0 var(--ink);letter-spacing:.04em;transform:rotate(-3deg)}
+[data-tema="supereroi"] .kicker{display:inline-block;background:var(--accent-3);color:var(--ink);padding:6px 14px;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-family:'Bangers',sans-serif;font-size:1.3rem;letter-spacing:.08em;transform:rotate(2deg)}
+[data-tema="supereroi"] .name-line,[data-tema="supereroi"] .date,[data-tema="supereroi"] .hero-place{color:#fff;text-shadow:2px 2px 0 var(--ink)}
+[data-tema="supereroi"] #top .count span{color:var(--ink)}
+[data-tema="supereroi"] .big-age{background:var(--accent);color:#fff;border-radius:0;box-shadow:none;font-family:'Bangers',sans-serif;-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;
+  clip-path:polygon(50% 0,58% 25%,80% 6%,75% 32%,100% 28%,82% 48%,100% 66%,74% 66%,82% 94%,58% 76%,50% 100%,42% 76%,18% 94%,26% 66%,0 66%,18% 48%,0 28%,25% 32%,20% 6%,42% 25%);width:2em;height:2em}
+[data-tema="supereroi"] .sec-head h2{display:inline-block;background:var(--accent-3);border:3px solid var(--ink);padding:.15em .6em;box-shadow:5px 5px 0 var(--ink);transform:rotate(-2deg);letter-spacing:.05em}
+[data-tema="supereroi"] .mark{color:var(--accent)}
+[data-tema="supereroi"] .alt{background-color:#FFE9A8}
+[data-tema="supereroi"] #enter{background:var(--accent-3);color:var(--ink);font-family:'Bangers',sans-serif;font-size:1.4rem;letter-spacing:.1em;padding:12px 34px}
+[data-tema="supereroi"] .lab{color:var(--accent)}
+.boom{position:absolute;font-family:'Bangers',sans-serif;color:var(--accent-3);-webkit-text-stroke:2px #141414;paint-order:stroke fill;text-shadow:3px 3px 0 #141414;font-size:clamp(1.6rem,7vw,2.6rem);letter-spacing:.04em}
+
+/* ── spazio ── */
+[data-tema="spazio"] #cover,[data-tema="spazio"] #top{background:radial-gradient(ellipse at 70% 20%,#2A2F7A 0%,#141A45 45%,#080B22 100%)}
+[data-tema="spazio"] .cover-title,[data-tema="spazio"] #top h1{font-size:clamp(3rem,15vw,5rem);background:linear-gradient(#FFFFFF,#9FE9FF);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(94,230,247,.35))}
+[data-tema="spazio"] .kicker{color:var(--accent-2);letter-spacing:.3em;text-transform:uppercase;font-weight:700;font-size:.78rem}
+[data-tema="spazio"] .name-line{color:var(--accent)}
+[data-tema="spazio"] .big-age{background:radial-gradient(circle at 35% 30%,#FFD58A,#FF8A3D 70%);color:#0D1130;box-shadow:0 0 0 10px rgba(255,181,71,.18),0 0 50px rgba(255,138,61,.55)}
+[data-tema="spazio"] .count div{background:var(--card);box-shadow:var(--ombra)}
+[data-tema="spazio"] .count div b{color:var(--accent-2) !important}
+[data-tema="spazio"] .ph{border-color:var(--card)}
+[data-tema="spazio"] .mark{color:var(--accent-2)}
+.stella{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:brilla 3s ease-in-out infinite}
+@keyframes razzo{0%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(2deg)}100%{transform:translateY(0) rotate(0)}}
+@keyframes fiamma{from{transform:scaleY(.75)}to{transform:scaleY(1.15)}}
+[data-tema="anime"] .big-age{font-size:clamp(3rem,15vw,4.4rem);width:2.3em;height:2.3em}
+[data-tema="anime"] .count{gap:8px}
+[data-tema="anime"] .count div{min-width:0;padding:10px 8px 6px}
+[data-tema="anime"] .count b{font-size:clamp(1.4rem,6vw,2rem)}
+[data-tema="cartoon"] .hero-place,[data-tema="anime"] .hero-place{font-family:var(--body);font-weight:800;font-size:1.05rem}
+[data-tema="spazio"] #enter{box-shadow:0 8px 0 -2px #C9821E;color:#0D1130;background:var(--accent);border-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.palloncino,.petalo{display:none}}
 </style>
 </head>
 <body>
@@ -375,7 +545,7 @@ footer .meta{font-size:.76rem;letter-spacing:.16em;color:var(--ink-soft);margin-
   <div class="wrap">
     <div class="sec-head">
       <div class="lab">Il programma</div>
-      <h2>Come si svolgerà</h2>
+      <h2 data-bind="prog-titolo"></h2>
       <div class="mark" data-mark></div>
     </div>
     <ol class="timeline" id="timeline"></ol>
@@ -571,8 +741,19 @@ const EVENTI = {
 if(CONF.evento === 'diciottesimo' && CONF.anni == null) CONF.anni = 18;
 const EV = EVENTI[CONF.evento] || EVENTI.festa;
 const tema = CONF.tema || EV.tema;
+const BIMBI = ['festa','cartoon','anime','supereroi','spazio'].includes(tema);
 document.documentElement.dataset.tema = tema;
 document.body.dataset.tema = tema;
+if(BIMBI){ document.documentElement.dataset.bimbi = ''; document.body.dataset.bimbi = ''; }
+// testi che cambiano col tema dei bambini
+const TT = {
+  festa:     { kicker:'Facciamo festa!',    entra:'Aprite l\'invito',  galleria:'I momenti più belli', prog:'Come si svolgerà',        oggi:'Oggi si festeggia!' },
+  cartoon:   { kicker:'Facciamo festa!',    entra:'Aprite l\'invito!', galleria:'I momenti più belli', prog:'Come si svolgerà',        oggi:'Oggi si festeggia!' },
+  anime:     { kicker:'Episodio speciale',  entra:'Aprite l\'invito ✦', galleria:'Gli episodi precedenti', prog:'La scaletta della festa', oggi:'Oggi è il grande episodio!' },
+  supereroi: { kicker:'Missione compleanno', entra:'Entrate in azione!', galleria:`Le imprese di ${nome}`, prog:'Il piano della missione', oggi:'Missione in corso!' },
+  spazio:    { kicker:'Missione spaziale',  entra:'Partenza!',          galleria:'Diario di bordo',     prog:'Il piano di volo',        oggi:'Decollo avvenuto!' }
+}[tema];
+if(TT && CONF.evento === 'compleanno'){ EV.kicker = CONF.anni ? TT.kicker : EV.kicker; EV.oggi = TT.oggi; }
 if(CONF.anni) document.documentElement.classList.add('con-anni');
 if(CONF.accento) document.documentElement.style.setProperty('--accent', CONF.accento);
 document.querySelector('meta[name=theme-color]').content =
@@ -592,14 +773,15 @@ const T = {
   'anni': CONF.anni ? String(CONF.anni) : '',
   'titolo': titolo,
   'nome-riga': CONF.sottotitolo ?? EV.riga ?? '',
-  'logo': tema === 'festa' ? nome : nome.split(' ')[0],
+  'logo': BIMBI ? nome : nome.split(' ')[0],
   'data-punti': dataPunti,
   'luogo-riga': primo.nome + (citta ? ' — ' + citta : ''),
-  'entra': tema === 'festa' ? 'Aprite l\'invito' : 'Entrate',
+  'entra': TT ? TT.entra : 'Entrate',
   'testo': '',
   'firma': CONF.firma || '',
   'galleria-kicker': 'Qualche ricordo',
-  'galleria-titolo': tema === 'festa' ? 'I momenti più belli' : 'In qualche immagine',
+  'galleria-titolo': TT ? TT.galleria : 'In qualche immagine',
+  'prog-titolo': TT ? TT.prog : 'Come si svolgerà',
   'luoghi-titolo': CONF.luoghi.length > 1 ? 'I luoghi della giornata' : (primo.nome || 'Il luogo'),
   'regalo-titolo': 'Se volete farci un regalo',
   'regalo-testo': CONF.regalo.testo,
@@ -619,11 +801,50 @@ $$('[data-bind]').forEach(el => {
   else if(el.tagName === 'TITLE')  document.title = v;
   else { el.textContent = v; if(v) el.classList.remove('hide'); }
 });
-$$('[data-mark]').forEach(m => m.innerHTML = tema === 'festa'
+$$('[data-mark]').forEach(m => m.innerHTML = BIMBI
   ? '<span>✦</span><span>✦</span><span>✦</span>' : '✦');
 $('.story').innerHTML = CONF.testo.map(() => '<p></p>').join('');
 $$('.story p').forEach((p,i) => p.textContent = CONF.testo[i]);
 if(CONF.firmaStudio) $('#firma-studio').classList.remove('hide');
+
+
+/* ── decorazioni dei temi illustrati (disegni originali in SVG) ── */
+const rnd = (a,b) => a + Math.random()*(b-a);
+const DISEGNI = {
+  cartoon: () => {
+    const nuvola = (x,y,w,d) => `<svg viewBox="0 0 120 60" style="left:${x}%;top:${y}%;width:${w}px;animation:nuvola ${d}s ease-in-out infinite alternate"><path d="M20 50h80a18 18 0 0 0 0-36 26 26 0 0 0-48-6A20 20 0 0 0 20 50z" fill="#fff" stroke="#1F1A2E" stroke-width="4" stroke-linejoin="round"/></svg>`;
+    const palloncino = (c,i) => `<svg class="palloncino" viewBox="0 0 46 110" style="left:${rnd(2,92)}%;animation-delay:${-rnd(0,14)}s;animation-duration:${rnd(12,18)}s"><path d="M23 60c-1 15 6 22 0 50" fill="none" stroke="#1F1A2E" stroke-width="2"/><ellipse cx="23" cy="28" rx="20" ry="25" fill="${c}" stroke="#1F1A2E" stroke-width="3.5"/><path d="M19 52l4 7 4-7z" fill="${c}" stroke="#1F1A2E" stroke-width="3" stroke-linejoin="round"/><ellipse cx="15" cy="18" rx="4" ry="7" fill="#fff" opacity=".7"/></svg>`;
+    return `
+      <svg viewBox="0 0 120 120" style="right:-18px;top:6%;width:min(34vw,170px);animation:sole 40s linear infinite"><g stroke="#1F1A2E" stroke-width="4" stroke-linejoin="round">${Array.from({length:10},(_,i)=>`<path d="M60 4l7 18H53z" fill="#FFC93C" transform="rotate(${i*36} 60 60)"/>`).join('')}<circle cx="60" cy="60" r="32" fill="#FFC93C"/></g><circle cx="50" cy="56" r="4" fill="#1F1A2E"/><circle cx="70" cy="56" r="4" fill="#1F1A2E"/><path d="M48 68q12 12 24 0" fill="none" stroke="#1F1A2E" stroke-width="4" stroke-linecap="round"/><circle cx="42" cy="66" r="4" fill="#FF8C8F"/><circle cx="78" cy="66" r="4" fill="#FF8C8F"/></svg>
+      ${nuvola(4,10,130,9)}${nuvola(55,22,90,12)}${nuvola(12,62,100,10)}
+      ${['#FF5A5F','#18B5A6','#5B6CFF','#FFC93C','#FF5A5F','#18B5A6'].map(palloncino).join('')}
+      <svg viewBox="0 0 400 80" preserveAspectRatio="none" style="left:0;right:0;bottom:-2px;width:100%;height:16vh"><path d="M0 40q60-40 130-10t140-5 130 15v40H0z" fill="#7ED957" stroke="#1F1A2E" stroke-width="4"/><path d="M0 60q90-30 200 0t200-5v25H0z" fill="#5CC23C" stroke="#1F1A2E" stroke-width="4"/></svg>`;
+  },
+  anime: () => {
+    const sc = c => `<svg class="scintilla" viewBox="0 0 24 24" style="left:${rnd(4,92)}%;top:${rnd(5,90)}%;animation-delay:${-rnd(0,2.4)}s;width:${rnd(14,30)}px;height:auto"><path d="M12 0c1 7 5 11 12 12-7 1-11 5-12 12-1-7-5-11-12-12 7-1 11-5 12-12z" fill="${c}" stroke="#1C1238" stroke-width="1.2"/></svg>`;
+    return `${Array.from({length:14},(_,i)=>`<i class="petalo" style="left:${rnd(-10,95)}%;animation-delay:${-rnd(0,11)}s;animation-duration:${rnd(8,14)}s;transform:scale(${rnd(.7,1.3)})"></i>`).join('')}
+      ${['#FFE14D','#13C8E8','#FF2E88','#FFFFFF','#FFE14D','#8B5CF6','#13C8E8','#FFFFFF'].map(sc).join('')}
+      <div class="katakana" style="left:5%;top:12%">おたんじょうび</div>
+      <div class="katakana" style="right:5%;bottom:14%">おめでとう</div>`;
+  },
+  supereroi: () => `
+      <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="left:0;right:0;bottom:-2px;width:100%;height:18vh"><path d="M0 120V70h30V40h28v30h20V20h34v50h18V50h26v-20h30v40h22V35h30v35h16V55h26v-25h30v40h20V45h28v75z" fill="#141414"/>${Array.from({length:26},()=>`<rect x="${rnd(5,390)|0}" y="${rnd(60,110)|0}" width="5" height="7" fill="#FFD60A" opacity="${rnd(.5,1)}"/>`).join('')}</svg>
+      <div class="boom" style="left:6%;top:12%;transform:rotate(-12deg)">BOOM!</div>
+      <div class="boom" style="right:6%;top:22%;transform:rotate(10deg);color:#E63946">POW!</div>
+      <div class="boom" style="left:10%;bottom:22%;transform:rotate(8deg);color:#fff">ZAP!</div>`,
+  spazio: () => `${Array.from({length:60},()=>`<i class="stella" style="left:${rnd(0,100)}%;top:${rnd(0,100)}%;animation-delay:${-rnd(0,3)}s;transform:scale(${rnd(.5,1.6)})"></i>`).join('')}
+      <svg viewBox="0 0 200 120" style="left:-40px;bottom:6%;width:min(52vw,260px)"><circle cx="100" cy="60" r="42" fill="#9C8CFF"/><path d="M70 40q30 10 60 0M64 62q36 10 72 0M72 82q28 8 56 0" stroke="#7B6BE6" stroke-width="7" fill="none" stroke-linecap="round"/><ellipse cx="100" cy="64" rx="96" ry="20" fill="none" stroke="#FFB547" stroke-width="6" transform="rotate(-12 100 64)"/></svg>
+      <svg viewBox="0 0 100 100" style="right:8%;top:8%;width:min(18vw,90px)"><circle cx="50" cy="50" r="40" fill="#F3F0E6"/><circle cx="36" cy="40" r="8" fill="#D9D4C3"/><circle cx="60" cy="62" r="11" fill="#D9D4C3"/><circle cx="64" cy="32" r="5" fill="#D9D4C3"/></svg>
+      <svg viewBox="0 0 80 160" style="right:10%;bottom:8%;width:min(16vw,80px);animation:razzo 3s ease-in-out infinite"><path d="M40 4c22 20 26 56 18 92H22C14 60 18 24 40 4z" fill="#F2F4FF"/><circle cx="40" cy="52" r="11" fill="#5EE6F7" stroke="#1B2257" stroke-width="5"/><path d="M22 96L6 118l20-6zM58 96l16 22-20-6z" fill="#FF6BD6"/><path d="M28 98h24l-12 50z" fill="#FFB547" style="transform-origin:40px 98px;animation:fiamma .18s ease-in-out infinite alternate"/></svg>`
+};
+if(DISEGNI[tema]){
+  $$('#cover, #top').forEach(el => {
+    const d = document.createElement('div');
+    d.className = 'deco'; d.setAttribute('aria-hidden','true');
+    d.innerHTML = DISEGNI[tema]();
+    el.prepend(d);
+  });
+}
 
 /* coriandoli (solo tema festa) */
 if(tema === 'festa'){
