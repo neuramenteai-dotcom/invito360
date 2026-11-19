@@ -492,35 +492,8 @@ footer .mark{margin:0 0 14px}
 
 <section class="sec" id="altro-evento" style="max-width:720px;margin:0 auto 40px;padding-left:20px;padding-right:20px">
   <div class="sec-head"><h2>Non è un matrimonio?</h2></div>
-  <p class="sec-note">Diciottesimi, battesimi, comunioni, compleanni: l'invito digitale e l'album con il QR funzionano allo stesso modo. Ogni tipo di festa ha però sezioni e stile suoi, quindi li costruiamo su richiesta. Raccontateci cosa avete in mente.</p>
-  <div class="field">
-    <label for="ae-tipo">Che festa è</label>
-    <select id="ae-tipo">
-      <option value="">Scegliete</option>
-      <option>Diciottesimo</option>
-      <option>Battesimo</option>
-      <option>Prima comunione</option>
-      <option>Cresima</option>
-      <option>Compleanno</option>
-      <option>Laurea</option>
-      <option>Anniversario</option>
-      <option>Altro</option>
-    </select>
-  </div>
-  <div class="field" style="margin-top:14px">
-    <label for="ae-data">Quando</label>
-    <input type="date" id="ae-data">
-  </div>
-  <div class="field" style="margin-top:14px">
-    <label for="ae-nome">Nome e contatto</label>
-    <input type="text" id="ae-nome" placeholder="Nome, email o telefono">
-  </div>
-  <div class="field" style="margin-top:14px">
-    <label for="ae-note">Cosa vi serve</label>
-    <textarea id="ae-note" rows="3" placeholder="Quanti invitati, cosa vorreste nell'invito, qualsiasi cosa vi venga in mente"></textarea>
-  </div>
-  <button type="button" class="submit" id="ae-send">Mandate la richiesta</button>
-  <div class="msg" id="ae-msg"></div>
+  <p class="sec-note">Comunioni, battesimi, cresime, compleanni, diciottesimi, lauree: c'è una versione pensata apposta per le feste, con tre stili e prezzi suoi.</p>
+  <a class="submit" href="feste.html" style="display:block;text-align:center;text-decoration:none">Guardate gli inviti per le feste</a>
 </section>
 
 <footer>
@@ -828,27 +801,6 @@ $('#form').addEventListener('submit', async e=>{
   btn.disabled = false; btn.textContent = 'Invia la richiesta';
   mostra('Si apre il programma di posta con tutto già scritto: basta premere invia. Il riepilogo è anche negli appunti, se preferite incollarlo altrove.', true);
   mostraPagamento(d);
-});
-
-/* ---------- richiesta altro evento ---------- */
-$('#ae-send').addEventListener('click', ()=>{
-  const tipo = $('#ae-tipo').value;
-  const nome = $('#ae-nome').value.trim();
-  const m = $('#ae-msg');
-  if(!tipo || !nome){
-    m.textContent = 'Servono almeno il tipo di festa e un contatto.';
-    m.className = 'msg show bad';
-    return;
-  }
-  const corpo = [
-    'Tipo di evento: ' + tipo,
-    'Data: ' + ($('#ae-data').value || 'da definire'),
-    'Contatto: ' + nome,
-    'Note: ' + ($('#ae-note').value.trim() || '-')
-  ].join('\n');
-  window.location.href = `mailto:${EMAIL_ORDINI}?subject=${encodeURIComponent('Richiesta — ' + tipo)}&body=${encodeURIComponent(corpo)}`;
-  m.textContent = 'Si apre il programma di posta con la richiesta già scritta: basta premere invia. Vi rispondiamo entro 24 ore con una proposta.';
-  m.className = 'msg show good';
 });
 
 $('#mail-link').href = 'mailto:' + EMAIL_ORDINI;
