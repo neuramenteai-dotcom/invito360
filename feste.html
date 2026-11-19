@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Inviti digitali per comunioni, battesimi e compleanni — Invito 360</title>
+<meta name="description" content="Invito digitale con conferma di presenza e album foto con QR per comunioni, battesimi, cresime, compleanni e diciottesimi. Gli invitati non installano nessuna app.">
+<meta property="og:title" content="La vostra festa inizia dall'invito — Invito 360">
+<meta property="og:description" content="Invito digitale e album foto con QR per comunioni, battesimi, compleanni e diciottesimi.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:url" content="https://invito360.it/feste.html">
+<meta property="og:image" content="https://invito360.it/img/invito360-anteprima.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FBF8F2">
+<link rel="canonical" href="https://invito360.it/feste.html">
+<link rel="icon" href="https://invito360.it/img/invito360-icona.svg" type="image/svg+xml">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&family=Fredoka:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF8F2; --paper-2:#F4EDE2; --card:#FFFFFF;
+  --ink:#2B2621; --ink-soft:#6B6158; --line:#E6DDCC;
+  --accent:#B89355; --accent-soft:#F3EADA;
+  --luce:#7E9DB8; --festa:#F2735A; --sera:#C9A874;
+  --ok:#5E7A55; --warn:#9E5B42;
+  --display:'Cormorant Garamond',Georgia,serif; --body:'Jost',system-ui,sans-serif;
+  --bar-h:76px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;padding-bottom:calc(var(--bar-h) + env(safe-area-inset-bottom,0px))}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+.narrow{max-width:680px;margin:0 auto}
+.mark{color:var(--accent);letter-spacing:.5em;padding-left:.5em;display:block;margin:16px 0}
+.eyebrow{font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-soft)}
+h1,h2,h3{font-family:var(--display);font-weight:300;line-height:1.14}
+h2{font-size:clamp(2rem,5vw,2.8rem)}
+.lead{font-size:1.08rem;color:var(--ink-soft);max-width:560px;margin:0 auto}
+.hide{display:none !important}
+
+/* testata */
+.top{position:sticky;top:0;z-index:40;background:rgba(251,248,242,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.top-in{height:62px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.top img{height:64px;width:auto;margin:-8px 0 -8px -14px}
+.top nav{display:flex;gap:22px;font-size:.78rem;letter-spacing:.14em}
+.top nav a{text-decoration:none;color:var(--ink-soft)}
+.top nav a:hover{color:var(--ink)}
+@media(max-width:560px){.top nav a.hide-m{display:none}}
+
+/* apertura */
+.hero{text-align:center;padding:84px 0 70px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(2.6rem,9vw,4.6rem);margin-top:14px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero .lead{margin-top:6px}
+.events{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:26px auto 0;max-width:600px}
+.events span{font-size:.8rem;border:1px solid var(--line);border-radius:999px;padding:5px 14px;background:var(--card)}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-block;text-decoration:none;background:var(--ink);color:#fff;font-family:var(--body);font-size:.78rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;padding:16px 30px;border:1px solid var(--ink);border-radius:2px;cursor:pointer;transition:opacity .25s}
+.btn:hover{opacity:.86}
+.btn.ghost{background:none;color:var(--ink);border-color:var(--accent)}
+.no-app{margin-top:22px;font-size:.9rem;color:var(--ink-soft)}
+.dots{position:absolute;inset:0;pointer-events:none;opacity:.55}
+.dots i{position:absolute;width:10px;height:10px;border-radius:50%}
+
+/* tre stili */
+.sec{padding:84px 0;border-top:1px solid var(--line)}
+.sec-head{text-align:center;margin-bottom:46px}
+.styles{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+@media(max-width:900px){.styles{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+.style{text-align:center}
+.phone{position:relative;width:250px;height:526px;margin:0 auto;border-radius:34px;background:#1d1a17;padding:10px;box-shadow:0 30px 60px -30px rgba(43,38,33,.55)}
+.phone .screen{width:100%;height:100%;border-radius:26px;overflow:hidden;background:#fff;position:relative}
+.phone iframe{position:absolute;top:0;left:0;width:390px;height:844px;border:0;transform:scale(.590);transform-origin:0 0}
+.phone::before{content:'';position:absolute;top:16px;left:50%;transform:translateX(-50%);width:70px;height:18px;border-radius:12px;background:#1d1a17;z-index:2}
+.style h3{font-size:1.8rem;margin-top:22px}
+.style .tag{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.style p{color:var(--ink-soft);font-size:.95rem;max-width:300px;margin:6px auto 14px}
+.style a{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:2px}
+
+/* come funziona */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--line);padding:30px 26px;position:relative}
+.step::before{counter-increment:s;content:counter(s);font-family:var(--display);font-size:2.6rem;color:var(--accent);line-height:1;display:block;margin-bottom:10px}
+.step h3{font-size:1.45rem;margin-bottom:6px}
+.step p{color:var(--ink-soft);font-size:.95rem}
+
+/* album */
+.album{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:center}
+@media(max-width:760px){.album{grid-template-columns:1fr;gap:30px}}
+.card-qr{background:var(--card);border:1px solid var(--line);padding:34px 28px;text-align:center;max-width:340px;margin:0 auto;position:relative}
+.card-qr::before,.card-qr::after{content:'';position:absolute;width:28px;height:28px;border:1px solid var(--accent)}
+.card-qr::before{top:12px;left:12px;border-right:0;border-bottom:0}
+.card-qr::after{bottom:12px;right:12px;border-left:0;border-top:0}
+.card-qr .t{font-family:var(--display);font-size:1.7rem}
+.card-qr .qr{width:172px;height:172px;margin:16px auto;padding:11px;background:#fff;outline:1px solid var(--line)}
+.card-qr .qr img,.card-qr .qr canvas{display:block}
+.card-qr small{color:var(--ink-soft)}
+.album ul{list-style:none;margin-top:18px}
+.album li{padding:10px 0 10px 28px;position:relative;border-bottom:1px solid var(--line)}
+.album li::before{content:'✦';position:absolute;left:0;color:var(--accent)}
+
+/* configuratore */
+#ordina{background:var(--paper-2)}
+.conf{max-width:720px;margin:0 auto}
+.block{background:var(--card);border:1px solid var(--line);padding:30px 26px;margin-bottom:22px}
+.block h3{font-size:1.6rem;display:flex;align-items:baseline;gap:12px}
+.block h3 .n{font-family:var(--display);color:var(--accent);font-size:1.1rem;font-style:italic}
+.block .note{color:var(--ink-soft);font-size:.92rem;margin:4px 0 18px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{cursor:pointer}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips span{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:.92rem;transition:background .2s,border-color .2s}
+.chips input:checked + span{border-color:var(--accent);background:var(--accent-soft)}
+.chips input:focus-visible + span{outline:2px solid var(--accent);outline-offset:2px}
+.opts{display:grid;gap:12px}
+.opt{display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:start;border:1px solid var(--line);padding:16px 18px;cursor:pointer;transition:border-color .2s,background .2s}
+.opt:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.opt input{margin-top:6px;accent-color:var(--accent)}
+.opt .name{font-family:var(--display);font-size:1.35rem;line-height:1.3}
+.opt .price{font-family:var(--display);font-size:1.3rem;white-space:nowrap}
+.opt .desc{grid-column:2 / 4;color:var(--ink-soft);font-size:.92rem}
+.opt .sw{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:8px;vertical-align:middle}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.78rem;letter-spacing:.1em;color:var(--ink-soft);margin-bottom:6px}
+.field input,.field textarea{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:12px 14px}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field input.err{border-color:var(--warn);background:#FBF0EB}
+.field textarea{min-height:90px;resize:vertical}
+.sum{list-style:none;margin:6px 0 18px}
+.sum li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:.96rem}
+.sum li.tot{font-family:var(--display);font-size:1.5rem;border-bottom:0}
+#send{width:100%;padding:18px}
+.msg{display:none;margin-top:16px;padding:14px 16px;font-size:.95rem}
+.msg.show{display:block}
+.msg.good{background:#EDF2EB;color:#4A6147;border:1px solid #D2DECD}
+.msg.bad{background:#F9ECE6;color:#9C5B3C;border:1px solid #E7CFC4}
+#pay{display:none;margin-top:18px;text-align:center;border:1px solid var(--accent);padding:24px 20px;background:var(--paper)}
+#pay.show{display:block}
+#pay p{color:var(--ink-soft);font-size:.92rem;margin-top:10px}
+
+/* domande */
+.faq details{border-bottom:1px solid var(--line);padding:16px 0}
+.faq summary{cursor:pointer;font-family:var(--display);font-size:1.35rem;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:'+';color:var(--accent)}
+.faq details[open] summary::after{content:'–'}
+.faq p{color:var(--ink-soft);margin-top:8px}
+
+footer{border-top:1px solid var(--line);padding:46px 0 30px;text-align:center;font-size:.9rem;color:var(--ink-soft)}
+footer img{height:90px;width:auto;margin:-14px auto 0}
+
+/* barra del totale */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(251,248,242,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.bar-in{max-width:1080px;margin:0 auto;height:var(--bar-h);padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.bar-lab{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.bar-sub{font-size:.88rem}
+.bar-tot{font-family:var(--display);font-size:1.9rem;line-height:1}
+.bar .btn{padding:13px 20px}
+@media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a href="./" aria-label="Invito 360"><img src="https://invito360.it/img/invito360-logo-trasparente-su-chiaro.svg" alt="Invito 360" width="115" height="64"></a>
+    <nav>
+      <a href="#stili" class="hide-m">Esempi</a>
+      <a href="#come" class="hide-m">Come funziona</a>
+      <a href="#ordina">Ordina</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="dots" id="dots" aria-hidden="true"></div>
+  <div class="wrap" style="position:relative">
+    <p class="eyebrow">Inviti digitali per le feste</p>
+    <h1>La vostra festa<br><em>inizia dall'invito</em></h1>
+    <span class="mark">✦</span>
+    <p class="lead">Un link da mandare su WhatsApp con programma, luoghi, mappa e conferma di presenza. Il giorno della festa, un QR sui tavoli: gli invitati caricano le foto e restano tutte in un album.</p>
+    <div class="events">
+      <span>Prima Comunione</span><span>Battesimo</span><span>Cresima</span><span>Compleanno</span><span>Diciottesimo</span><span>Laurea</span><span>Anniversario</span>
+    </div>
+    <div class="cta">
+      <a class="btn ghost" href="#stili">Guardate gli esempi</a>
+      <a class="btn" href="#ordina">Componete il vostro invito</a>
+    </div>
+    <p class="no-app">Nessuna app da installare, né per voi né per gli invitati.</p>
+  </div>
+</section>
+
+<section class="sec" id="stili">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Tre stili</p>
+      <h2>Uno per ogni festa</h2>
+      <span class="mark">✦</span>
+      <p class="lead">Toccate lo schermo dei telefoni: sono inviti veri, si aprono e si sfogliano.</p>
+    </div>
+    <div class="styles">
+      <div class="style">
+        <div class="phone"><div class="screen"><iframe data-demo="comunione" title="Esempio di invito per la Prima Comunione" loading="lazy"></iframe></div></div>
+        <h3><span class="tag" style="background:var(--luce)"></span>Luce</h3>
+        <p>Bianco, celeste e un filo d'oro. Per comunioni, battesimi e cresime.</p>
+        <a data-demo-link="comunione" href="#" target="_blank" rel="noopener">Apri l'esempio</a>
+      </div>
+      <div class="style">
+        <div class="phone"><div class="screen"><iframe data-demo="compleanno" title="Esempio di invito per il compleanno di un bambino" loading="lazy"></iframe></div></div>
+        <h3><span class="tag" style="background:var(--festa)"></span>Festa</h3>
+        <p>Colori vivi, forme tonde e coriandoli. Per i compleanni dei bambini.</p>
+        <a data-demo-link="compleanno" href="#" target="_blank" rel="noopener">Apri l'esempio</a>
+      </div>
+      <div class="style">
+        <div class="phone"><div class="screen"><iframe data-demo="quarantanni" title="Esempio di invito per una festa di 40 anni" loading="lazy"></iframe></div></div>
+        <h3><span class="tag" style="background:var(--sera)"></span>Sera</h3>
+        <p>Fondo scuro e oro. Per diciottesimi, compleanni importanti e lauree.</p>
+        <a data-demo-link="quarantanni" href="#" target="_blank" rel="noopener">Apri l'esempio</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="come">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Come funziona</p>
+      <h2>Voi pensate alla festa</h2>
+      <span class="mark">✦</span>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>Scegliete</h3><p>Il tipo di festa, lo stile e il pacchetto, qui sotto. Bastano il nome, la data e un contatto: il resto potete mandarcelo anche dopo.</p></div>
+      <div class="step"><h3>Mandate il link</h3><p>In una settimana l'invito è online. Lo inviate su WhatsApp: gli invitati trovano programma, mappa e confermano con un tocco.</p></div>
+      <div class="step"><h3>Raccogliete le foto</h3><p>Stampate i cartoncini col QR e metteteli sui tavoli. Ognuno carica i suoi scatti e l'album si riempie durante la festa.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap album">
+    <div class="card-qr">
+      <span class="mark" style="margin:0 0 6px">✦</span>
+      <div class="t">Inquadrate e condividete</div>
+      <div class="qr" id="qr-demo" role="img" aria-label="QR che apre l'album di prova"></div>
+      <small>Il cartoncino da mettere sui tavoli</small>
+    </div>
+    <div>
+      <p class="eyebrow">L'album della festa</p>
+      <h2 style="margin-top:8px">Le foto più belle le fanno gli invitati</h2>
+      <ul>
+        <li>Si inquadra il QR e si caricano le foto: niente app, niente registrazione.</li>
+        <li>Le foto restano in un album solo vostro, senza pubblicità e senza marchi sopra.</li>
+        <li>L'album resta online per un anno: ognuno può rivedere e salvare le foto che vuole.</li>
+      </ul>
+      <p style="margin-top:22px"><a class="btn ghost" data-demo-link="album" href="#" target="_blank" rel="noopener">Provate l'album</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="ordina">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Componete il vostro invito</p>
+      <h2>Quattro scelte, al resto pensiamo noi</h2>
+      <span class="mark">✦</span>
+    </div>
+
+    <form class="conf" id="form" novalidate>
+      <div class="block">
+        <h3><span class="n">I</span>Che festa è</h3>
+        <p class="note">Scegliendo la festa vi proponiamo lo stile più adatto: potete comunque cambiarlo.</p>
+        <div class="chips" id="eventi"></div>
+      </div>
+
+      <div class="block">
+        <h3><span class="n">II</span>Lo stile</h3>
+        <p class="note">Il colore principale si può adattare: ditecelo nelle note.</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="tema" value="luce"><span class="name"><span class="sw" style="background:var(--luce)"></span>Luce</span><span class="price"></span><span class="desc">Bianco, celeste e oro, caratteri eleganti. Delicato e sobrio.</span></label>
+          <label class="opt"><input type="radio" name="tema" value="festa"><span class="name"><span class="sw" style="background:var(--festa)"></span>Festa</span><span class="price"></span><span class="desc">Colori vivi, caratteri tondi e coriandoli. Allegro e giocoso.</span></label>
+          <label class="opt"><input type="radio" name="tema" value="sera"><span class="name"><span class="sw" style="background:var(--sera)"></span>Sera</span><span class="price"></span><span class="desc">Fondo scuro e oro, numero grande in copertina. Elegante e notturno.</span></label>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3><span class="n">III</span>Il pacchetto</h3>
+        <p class="note">Scegliete il pacchetto, poi aggiungete solo se vi serve.</p>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="pacchetto" value="essenziale" checked><span class="name">Essenziale</span><span class="price" data-p="essenziale"></span><span class="desc">Invito digitale con conferma di presenza (nome e numero di persone), album foto con QR, file dei cartoncini da stampare, online per un anno.</span></label>
+          <label class="opt"><input type="radio" name="pacchetto" value="completo"><span class="name">Completo</span><span class="price" data-p="completo"></span><span class="desc">Tutto l'Essenziale, più adulti e bambini separati, allergie e intolleranze, una pagina riservata con l'elenco delle risposte da passare al ristorante e uno spazio foto più grande, anche per i video.</span></label>
+        </div>
+        <p class="note" style="margin:22px 0 10px">In aggiunta</p>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" data-extra="urgenza"><span class="name">Consegna in due giorni</span><span class="price" data-p="urgenza"></span><span class="desc">Di norma l'invito è online una settimana dopo che riceviamo testi e foto. Con questa opzione, in due giorni lavorativi.</span></label>
+          <label class="opt"><input type="checkbox" data-extra="video"><span class="name">Video ricordo</span><span class="price" data-p="video"></span><span class="desc">Dopo la festa montiamo le foto caricate dagli invitati in un breve video da condividere.</span></label>
+        </div>
+      </div>
+
+      <div class="block">
+        <h3><span class="n">IV</span>I vostri dati</h3>
+        <p class="note">Bastano questi per partire. Luoghi, programma, testi e foto potete mandarceli anche dopo l'ordine.</p>
+        <div class="row">
+          <div class="field"><label for="festeggiato">Chi festeggia</label><input type="text" id="festeggiato" placeholder="Es. Sofia"></div>
+          <div class="field"><label for="anni">Quanti anni compie <small>(se è un compleanno)</small></label><input type="number" id="anni" min="1" max="120" inputmode="numeric"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="data">Data della festa</label><input type="date" id="data"></div>
+          <div class="field"><label for="nome">Il vostro nome</label><input type="text" id="nome" autocomplete="name" placeholder="Nome e cognome"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label for="email">Email</label><input type="email" id="email" autocomplete="email"></div>
+          <div class="field"><label for="tel">Telefono</label><input type="tel" id="tel" autocomplete="tel"></div>
+        </div>
+        <div class="field"><label for="note">Note <small>(facoltative)</small></label><textarea id="note" placeholder="Luoghi, orari, un colore preferito, qualsiasi cosa vi venga in mente"></textarea></div>
+      </div>
+
+      <div class="block" id="riepilogo">
+        <h3>Riepilogo</h3>
+        <ul class="sum" id="sum"></ul>
+        <button type="submit" class="btn" id="send">Invia la richiesta</button>
+        <div class="msg" id="msg" role="status"></div>
+        <div id="pay">
+          <a class="btn" id="pay-btn" href="#" target="_blank" rel="noopener">Paga <span id="pay-tot"></span> € con carta</a>
+          <p>Pagamento sicuro su Stripe, in una nuova scheda. Nella pagina di Stripe inserite l'importo di <b><span id="pay-tot2"></span> €</b>.</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="sec faq">
+  <div class="wrap narrow">
+    <div class="sec-head"><p class="eyebrow">Domande</p><h2>Prima di ordinare</h2><span class="mark">✦</span></div>
+    <details><summary>Gli invitati devono installare qualcosa?</summary><p>No. L'invito è un link che si apre dal telefono, l'album si apre inquadrando il QR. Funziona anche con i nonni.</p></details>
+    <details><summary>Quando è pronto?</summary><p>Una settimana dopo l'ordine e l'arrivo di testi e foto. Vi mandiamo l'anteprima prima di pubblicare, così potete chiederci modifiche.</p></details>
+    <details><summary>Per quanto tempo resta online?</summary><p>Un anno, invito e album compresi. In quel tempo voi e gli invitati potete rivedere e salvare le foto.</p></details>
+    <details><summary>Possiamo mettere la nostra musica?</summary><p>Sì: una musica d'atmosfera con licenza libera scelta da noi, oppure il vostro brano preferito dal player ufficiale di YouTube.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="https://invito360.it/img/invito360-logo-trasparente-su-chiaro.svg" alt="Invito 360" width="161" height="90">
+    <p>Scriveteci per qualsiasi dubbio: <a id="mail-link" href="#"></a></p>
+    <p style="margin-top:6px"><a href="https://www.instagram.com/invito360/" target="_blank" rel="noopener">Instagram @invito360</a> · <a href="./">Inviti per matrimoni</a></p>
+  </div>
+</footer>
+
+<div class="bar">
+  <div class="bar-in">
+    <div><div class="bar-lab">Totale</div><div class="bar-sub" id="bar-sub"></div></div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div class="bar-tot"><span id="tot"></span> €</div>
+      <a class="btn" href="#riepilogo">Riepilogo</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIGURAZIONE — modifica solo questo blocco
+   ============================================================ */
+const EMAIL_ORDINI = 'invito360@gmail.com';
+
+// Payment Link Stripe dedicato alle feste, con «Il cliente sceglie il prezzo».
+// Vuoto = dopo la richiesta il cliente legge che gli mandate voi il link.
+const STRIPE_LINK = '';
+
+const PREZZI = {
+  essenziale: { nome:'Pacchetto Essenziale',   prezzo:90 },
+  completo:   { nome:'Pacchetto Completo',     prezzo:150 },
+  urgenza:    { nome:'Consegna in due giorni', prezzo:30 },
+  video:      { nome:'Video ricordo',          prezzo:30 }
+};
+
+// tipo di festa → stile proposto
+const EVENTI = [
+  ['Prima Comunione','luce'], ['Battesimo','luce'], ['Cresima','luce'],
+  ['Compleanno bambini','festa'], ['Compleanno','sera'], ['Diciottesimo','sera'],
+  ['Laurea','sera'], ['Anniversario','sera'], ['Altra festa','luce']
+];
+
+// dove stanno le demo: sul sito /demo/feste/, in locale ../demo/feste/
+const LOCALE = location.protocol === 'file:';
+const DEMO_BASE = LOCALE ? '../demo/feste/' : '/demo/feste/';
+const demoUrl = n => DEMO_BASE + n + (LOCALE ? '/index.html' : '/');
+/* ============================================================ */
+
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const val = id => ($(id)?.value || '').trim();
+const radio = n => (document.querySelector(`input[name="${n}"]:checked`) || {}).value || '';
+
+/* demo nei telefoni */
+$$('[data-demo]').forEach(f => f.src = demoUrl(f.dataset.demo));
+$$('[data-demo-link]').forEach(a => a.href = demoUrl(a.dataset.demoLink));
+
+/* QR vero sul cartoncino: apre l'album di prova */
+(function(){
+  const box = $('#qr-demo');
+  const url = LOCALE ? 'https://invito360.it/demo/feste/album/' : new URL(demoUrl('album'), location.href).href;
+  if (window.QRCode) new QRCode(box, { text:url, width:150, height:150, colorDark:'#2B2621', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
+})();
+$('#mail-link').href = 'mailto:' + EMAIL_ORDINI;
+$('#mail-link').textContent = EMAIL_ORDINI;
+
+/* puntini decorativi nell'apertura */
+(function(){
+  const col = ['var(--luce)','var(--festa)','var(--sera)','#F6C343','#2BA9A0'];
+  $('#dots').innerHTML = Array.from({length:18}, (_,i) =>
+    `<i style="left:${i%2 ? 88 + (i*7)%10 : 2 + (i*7)%10}%;top:${(i*37)%100}%;background:${col[i%5]};transform:scale(${.5+((i*7)%10)/10})"></i>`).join('');
+})();
+
+/* prezzi nelle etichette */
+$$('[data-p]').forEach(el => {
+  const k = el.dataset.p, p = PREZZI[k].prezzo;
+  el.textContent = (k === 'essenziale' || k === 'completo') ? p + ' €' : '+ ' + p + ' €';
+});
+
+/* tipo di festa */
+$('#eventi').innerHTML = EVENTI.map(([n,t],i) =>
+  `<label><input type="radio" name="evento" value="${n}" data-tema="${t}"><span>${n}</span></label>`).join('');
+$('#eventi').addEventListener('change', e => {
+  const t = e.target.dataset.tema;
+  const r = document.querySelector(`input[name="tema"][value="${t}"]`);
+  if (r) r.checked = true;
+  const comp = /Compleanno|Diciottesimo|Anniversario/.test(e.target.value);
+  $('#anni').closest('.field').style.opacity = comp ? 1 : .5;
+  if (e.target.value === 'Diciottesimo' && !$('#anni').value) $('#anni').value = 18;
+  aggiorna();
+});
+
+/* totale */
+const pacchetto = () => radio('pacchetto') || 'essenziale';
+const voci = () => [PREZZI[pacchetto()], ...$$('input[data-extra]:checked').map(i => PREZZI[i.dataset.extra])];
+const totale = () => voci().reduce((s,v) => s + v.prezzo, 0);
+function aggiorna(){
+  const v = voci(), t = totale();
+  $('#tot').textContent = t;
+  $('#bar-sub').textContent = (pacchetto() === 'completo' ? 'Completo' : 'Essenziale') + (v.length > 1 ? ` + ${v.length-1}` : '');
+  $('#sum').innerHTML = v.map(x => `<li><span>${x.nome}</span><span>${x.prezzo} €</span></li>`).join('')
+    + `<li class="tot"><span>Totale</span><span>${t} €</span></li>`;
+}
+$('#form').addEventListener('change', aggiorna);
+aggiorna();
+
+/* codice partner (stesso meccanismo del sito matrimoni): non si vede, va solo nella mail */
+(function(){try{var p=new URLSearchParams(location.search).get('p');
+if(p){p=p.toUpperCase().replace(/[^A-Z0-9-]/g,'').slice(0,30);
+if(p)localStorage.setItem('sm_partner',JSON.stringify({c:p,t:Date.now()}));}}catch(e){}})();
+function codicePartner(){try{var o=JSON.parse(localStorage.getItem('sm_partner')||'null');
+if(o&&Date.now()-o.t<180*864e5)return o.c;}catch(e){}return '';}
+
+/* invio */
+function mostra(t, ok){ const m = $('#msg'); m.textContent = t; m.className = 'msg show ' + (ok ? 'good' : 'bad'); }
+
+$('#form').addEventListener('submit', async e => {
+  e.preventDefault();
+  $$('.err').forEach(x => x.classList.remove('err'));
+  const obbl = ['#festeggiato','#data','#nome','#email','#tel'];
+  const vuoti = obbl.filter(s => !val(s));
+  if (!radio('evento') || !radio('tema') || vuoti.length){
+    vuoti.forEach(s => $(s).classList.add('err'));
+    (!radio('evento') ? $('#eventi') : !radio('tema') ? $('input[name=tema]') : $(vuoti[0])).scrollIntoView({behavior:'smooth', block:'center'});
+    mostra('Mancano ancora alcune informazioni: tipo di festa, stile, chi festeggia, data e i vostri contatti.', false);
+    return;
+  }
+  if (!val('#email').includes('@')){ $('#email').classList.add('err'); mostra('L\'indirizzo email non sembra corretto.', false); return; }
+
+  const d = {
+    evento: radio('evento'), tema: radio('tema'),
+    festeggiato: val('#festeggiato'), anni: val('#anni'), data: val('#data'),
+    nome: val('#nome'), email: val('#email'), tel: val('#tel'), note: val('#note'),
+    voci: voci().map(v => v.nome), totale: totale(), partner: codicePartner()
+  };
+  const corpo = [
+    `RICHIESTA INVITO FESTA — ${d.totale} €`,
+    `Voci: ${d.voci.join(', ')}`,
+    '',
+    `Festa: ${d.evento}${d.anni ? ' — ' + d.anni + ' anni' : ''}`,
+    `Chi festeggia: ${d.festeggiato}`,
+    `Data: ${d.data}`,
+    `Stile: ${d.tema}`,
+    '',
+    `Cliente: ${d.nome}`,
+    `Contatti: ${d.email} · ${d.tel}`,
+    d.note ? '\nNote: ' + d.note : '',
+    d.partner ? '\nPartner: ' + d.partner : ''
+  ].filter(x => x !== '').join('\n');
+  const oggetto = `Richiesta invito ${d.evento} — ${d.festeggiato}`;
+  try{ await navigator.clipboard.writeText(corpo); }catch(err){}
+  location.href = `mailto:${EMAIL_ORDINI}?subject=${encodeURIComponent(oggetto)}&body=${encodeURIComponent(corpo)}`;
+
+  if (STRIPE_LINK){
+    const rif = (d.festeggiato + '-' + d.evento + '-' + d.data).toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,60);
+    const u = new URL(STRIPE_LINK);
+    u.searchParams.set('prefilled_email', d.email);
+    u.searchParams.set('client_reference_id', (d.partner ? d.partner + '__' : '') + rif);
+    $('#pay-btn').href = u.toString();
+    $('#pay-tot').textContent = $('#pay-tot2').textContent = d.totale;
+    $('#pay').classList.add('show');
+    mostra('Si apre il programma di posta con la richiesta già scritta: basta premere invia. Potete pagare subito qui sotto, oppure aspettare la nostra risposta entro 24 ore.', true);
+  } else {
+    mostra('Si apre il programma di posta con la richiesta già scritta: basta premere invia. Vi rispondiamo entro 24 ore con l\'anteprima dei tempi e il link per il pagamento.', true);
+  }
+});
+</script>
+</body>
+</html>
