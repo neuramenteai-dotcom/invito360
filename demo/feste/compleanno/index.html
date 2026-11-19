@@ -35,7 +35,7 @@
   --display:'Cormorant Garamond',Georgia,serif; --display-w:300; --display-style:normal;
   --body:'Jost',system-ui,sans-serif; --body-w:300;
   --track:.24em; --upper:uppercase;
-  --overlay:linear-gradient(rgba(28,34,42,.30),rgba(28,34,42,.58));
+  --overlay:linear-gradient(rgba(24,30,40,.18),rgba(24,30,40,.55));
   --nav-bg:rgba(251,249,246,.94);
 }
 [data-tema="festa"]{
@@ -83,6 +83,13 @@ a{color:inherit}
 /* ─── copertina ─────────────────────────────────────────── */
 #cover{position:fixed;inset:0;z-index:100;background:var(--bg-2);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;transition:opacity .9s ease,visibility .9s;overflow:hidden}
 #cover.gone{opacity:0;visibility:hidden}
+#cover .cover-frame>*,#enter{animation:sale .9s cubic-bezier(.2,.7,.2,1) both}
+#cover .cover-frame>*:nth-child(2){animation-delay:.12s}#cover .cover-frame>*:nth-child(3){animation-delay:.24s}
+#cover .cover-frame>*:nth-child(4){animation-delay:.36s}#cover .cover-frame>*:nth-child(5){animation-delay:.48s}
+#cover .cover-frame>*:nth-child(6){animation-delay:.6s}#enter{animation-delay:.8s}
+@keyframes sale{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
 .cover-frame{position:relative;padding:50px 34px;max-width:560px}
 .cover-frame::before,.cover-frame::after{content:'';position:absolute;width:34px;height:34px;border:1px solid var(--accent-2)}
 .cover-frame::before{top:0;left:0;border-right:0;border-bottom:0}
@@ -165,12 +172,18 @@ section{padding:88px 20px}
 .btn.ghost{background:none;color:var(--ink);border:1px solid var(--accent-2)}
 
 /* copertina con foto (CONF.copertina) */
-body.con-copertina #cover,body.con-copertina #top{background:var(--overlay),var(--copertina) center 35%/cover no-repeat;color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.35)}
+body.con-copertina #cover,body.con-copertina #top{background:#1a1612;color:#fff;text-shadow:0 1px 14px rgba(0,0,0,.35);isolation:isolate}
+/* foto e velo su due livelli: la foto si avvicina piano (effetto «Ken Burns») */
+body.con-copertina #cover::after,body.con-copertina #top::after{content:'';position:absolute;inset:0;z-index:-2;background:var(--copertina) center 40%/cover no-repeat;animation:avvicina 16s ease-out both}
+body.con-copertina #cover::before,body.con-copertina #top::before{content:'';display:block;position:absolute;inset:0;z-index:-1;background:var(--overlay);border:0;width:auto;height:auto;transform:none;border-radius:0;top:0;left:0}
+@keyframes avvicina{from{transform:scale(1.14)}to{transform:scale(1)}}
 body.con-copertina #top{min-height:88vh;display:flex;align-items:center;justify-content:center}
 body.con-copertina .kicker,body.con-copertina .date,body.con-copertina .hero-place,body.con-copertina .name-line,body.con-copertina #top .count span{color:rgba(255,255,255,.92)}
 body.con-copertina #enter{color:#fff;border-color:rgba(255,255,255,.85)}
 body.con-copertina #top .btn{background:#fff;color:#2A2622;text-shadow:none}
-body.con-copertina #cover::before{display:none}
+body.con-copertina[data-tema="festa"] #top .count span{color:var(--ink-soft)}
+body.con-copertina[data-tema="festa"] #top .count div{text-shadow:none}
+body.con-copertina[data-tema="festa"] .big-age{text-shadow:none}
 
 /* ─── presentazione ─────────────────────────────────────── */
 #intro{text-align:center}
@@ -278,6 +291,8 @@ footer .meta{font-size:.76rem;letter-spacing:.16em;color:var(--ink-soft);margin-
   section{padding:64px 18px}
   .two{grid-template-columns:1fr}
   .nav-links{gap:16px}
+  #galleria .grid{grid-template-columns:1fr 1fr;gap:10px}
+  #galleria .ph figcaption{font-size:.72rem;padding:20px 10px 9px}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important}
@@ -485,15 +500,22 @@ const CONF = {
   data: '2027-03-20',
   ora:  '16:00',
   luoghi: [
-    { titolo:'La festa', ora:'16:00', nome:'Ludoteca La Trottola', citta:'Montelupo', indirizzo:'Via delle Rondini 8, 50056 Montelupo Fiorentino FI', foto:null }
+    { titolo:'La festa', ora:'16:00', nome:'Ludoteca La Trottola', citta:'Montelupo', indirizzo:'Via delle Rondini 8, 50056 Montelupo Fiorentino FI', foto:'foto/luogo-1.jpg' }
   ],
   testo: [
     'Sabato 20 marzo compio 6 anni e voglio festeggiare con voi! Ci saranno giochi, un mago, la merenda e una torta enorme.',
     'Mamma e papà vi chiedono di dirci entro il 13 marzo se venite, e se qualcuno ha allergie o non può mangiare qualcosa.'
   ],
   firma: 'Leo, mamma e papà',
-  copertina: null,
-  foto: [],
+  copertina: 'foto/copertina.jpg',
+  foto: [
+    { src:'foto/foto-1.jpg', alt:'Le candeline!' },
+    { src:'foto/foto-2.jpg', alt:'Palloncini fino al cielo' },
+    { src:'foto/foto-3.jpg', alt:'Una montagna di palloncini' },
+    { src:'foto/foto-4.jpg', alt:'Pioggia di coriandoli' },
+    { src:'foto/foto-5.jpg', alt:'La torta con le fragole' },
+    { src:'foto/foto-6.jpg', alt:'Il gran finale' }
+  ],
   programma: [
     { ora:'16:00', voce:'Arrivo e giochi liberi' },
     { ora:'16:45', voce:'Lo spettacolo del mago' },
@@ -505,7 +527,7 @@ const CONF = {
   rsvp: { scadenza:'2027-03-13', gestioneInvitati:true, email:'festa.leo@esempio.it' },
   musica: { modo:null, titolo:'', youtube:'', file:'' },
   accento: null,
-  anteprima: '',
+  anteprima: 'foto/copertina.jpg',
   firmaStudio: true,
   SUPABASE_URL: '', SUPABASE_KEY: '', SUPABASE_TAB: 'rsvp'
 };
@@ -732,6 +754,16 @@ if(!CONF.regalo.attivo){
 /* le sezioni alternano lo sfondo anche quando alcune mancano */
 $$('main section, body > section').forEach(s => s.classList.remove('alt'));
 [...$$('body > section')].filter(s => s.id !== 'top').forEach((s,i) => { if(i % 2) s.classList.add('alt'); });
+
+/* ── le sezioni compaiono scorrendo ────────────────────── */
+if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin:'0px 0px -8% 0px' });
+  $$('.sec-head, .story, .signature, .ph, .timeline li, .place, .iban-card, .form').forEach((el,i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = (el.matches('.ph, .timeline li, .place') ? (i % 4) * 90 : 0) + 'ms';
+    io.observe(el);
+  });
+}
 
 /* ── conferma presenza ─────────────────────────────────── */
 if(!CONF.rsvp.gestioneInvitati){
