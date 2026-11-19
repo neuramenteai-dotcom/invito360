@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="it" data-tema="luce">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-bind="meta-title">Album della festa</title>
+<meta name="description" data-bind="meta-desc" content="">
+<meta property="og:title" data-bind="meta-title" content="">
+<meta property="og:description" data-bind="meta-desc" content="">
+<meta name="theme-color" content="#FBF9F6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400;500&family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* Temi identici all'invito feste: luce · festa · sera */
+:root,[data-tema="luce"]{
+  --bg:#FBF9F6; --card:#FFFFFF; --ink:#2A2D33; --ink-soft:#6C7480;
+  --accent:#7E9DB8; --accent-2:#C9A874; --line:#DCE4EC; --soft:#EEF3F7;
+  --btn:linear-gradient(180deg,#8EAAC2,#7391AC); --btn-ink:#fff;
+  --radius:14px; --display:'Cormorant Garamond',Georgia,serif; --display-w:500; --body:'Jost',sans-serif; --body-w:300;
+  --ombra:0 18px 50px -28px rgba(42,45,51,.45);
+}
+[data-tema="festa"]{
+  --bg:#FFF8EE; --card:#FFFFFF; --ink:#2E2A3B; --ink-soft:#6E6880;
+  --accent:#F2735A; --accent-2:#2BA9A0; --accent-3:#F6C343; --accent-4:#7C6BE0; --line:#F3DCC6; --soft:#FFEBD6;
+  --btn:linear-gradient(180deg,#F5846D,#E9644B); --btn-ink:#fff;
+  --radius:20px; --display:'Fredoka','Nunito',sans-serif; --display-w:600; --body:'Nunito',sans-serif; --body-w:400;
+  --ombra:0 14px 34px -20px rgba(46,42,59,.4);
+}
+[data-tema="sera"]{
+  --bg:#1C1815; --card:#2B2520; --ink:#F3ECE0; --ink-soft:#B8AC9A;
+  --accent:#C9A874; --accent-2:#E3CFA3; --line:#3D352D; --soft:#25201C;
+  --btn:linear-gradient(180deg,#D4B684,#BC9A63); --btn-ink:#1C1815;
+  --radius:10px; --display:'Cormorant Garamond',Georgia,serif; --display-w:500; --body:'Jost',sans-serif; --body-w:300;
+  --ombra:0 18px 50px -28px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-weight:var(--body-w);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2{font-family:var(--display);font-weight:var(--display-w);line-height:1.08}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+.mark{color:var(--accent-2);letter-spacing:.4em}
+[data-tema="festa"] .mark{color:var(--accent-3)}
+.eyebrow{letter-spacing:.32em;text-transform:uppercase;font-size:.7rem;color:var(--accent);font-weight:400}
+[data-tema="festa"] .eyebrow{letter-spacing:.08em;text-transform:none;font-size:.95rem;font-weight:700;color:var(--accent-2)}
+
+header{padding:calc(44px + env(safe-area-inset-top,0px)) 0 6px;text-align:center}
+header .names{font-size:clamp(2.6rem,11vw,4rem);margin:.15em 0 .1em}
+[data-tema="festa"] header .names{color:var(--accent)}
+header .date{letter-spacing:.42em;font-size:.82rem;color:var(--ink-soft);padding-left:.42em}
+[data-tema="festa"] header .date{letter-spacing:.12em;font-weight:700}
+header .place{font-family:var(--display);font-style:italic;color:var(--ink-soft);font-size:1.1rem;margin-top:4px}
+[data-tema="festa"] header .place{font-style:normal;font-weight:500}
+.divider{display:flex;align-items:center;gap:16px;margin:28px auto;max-width:240px}
+.divider::before,.divider::after{content:"";height:1px;flex:1;background:var(--line)}
+
+.hero{text-align:center}
+.hero h1{font-size:clamp(2.1rem,9vw,3rem);margin-bottom:.3em}
+.hero h1 em{color:var(--accent);font-style:italic;font-weight:400}
+[data-tema="festa"] .hero h1 em{font-style:normal;color:var(--accent-4)}
+.hero p{max-width:46ch;margin:0 auto}
+
+.qr-card{position:relative;background:var(--card);border-radius:var(--radius);box-shadow:var(--ombra);padding:34px 26px 30px;margin:36px auto;max-width:340px;text-align:center;border:1px solid var(--line)}
+.qr-card .label{font-family:var(--display);font-size:1.7rem;margin:4px 0 2px}
+.qr-card .sub{font-size:.86rem;color:var(--ink-soft);margin-bottom:20px}
+#qrcode{display:inline-block;padding:12px;background:#fff;border-radius:10px;line-height:0}
+.qr-card .hint{margin-top:16px;font-size:.78rem;color:var(--ink-soft)}
+.qr-link{display:inline-block;margin-top:4px;font-size:.78rem;color:var(--accent);word-break:break-all;text-decoration:none;border-bottom:1px solid var(--line)}
+
+.section-title{text-align:center;margin-bottom:6px}
+.section-title h2{font-size:clamp(1.9rem,7vw,2.5rem)}
+.section-title .eyebrow{display:block;margin-bottom:8px}
+.upload{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 20px;margin:22px auto;box-shadow:var(--ombra)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px}
+.field input{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:9px;background:var(--bg);font-family:var(--body);font-size:1rem;color:var(--ink)}
+.field input:focus{outline:none;border-color:var(--accent)}
+.dropzone{border:2px dashed var(--accent);border-radius:12px;padding:26px 18px;text-align:center;background:var(--soft);cursor:pointer;transition:filter .2s}
+.dropzone:hover,.dropzone.drag{filter:brightness(.97)}
+.dropzone .big{font-family:var(--display);font-size:1.4rem;margin:2px 0}
+.dropzone .small{font-size:.82rem;color:var(--ink-soft)}
+#fileInput{display:none}
+.previews{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.thumb{position:relative;width:64px;height:64px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb button{position:absolute;top:2px;right:2px;width:22px;height:22px;border-radius:50%;border:0;background:rgba(0,0,0,.55);color:#fff;font-size:.8rem;cursor:pointer;line-height:1}
+.btn{display:block;width:100%;margin-top:18px;padding:15px;border:0;border-radius:10px;cursor:pointer;background:var(--btn);color:var(--btn-ink);font-family:var(--body);font-weight:500;letter-spacing:.18em;text-transform:uppercase;font-size:.8rem}
+[data-tema="festa"] .btn{border-radius:999px;letter-spacing:.04em;text-transform:none;font-size:1.02rem;font-weight:700}
+.btn:disabled{opacity:.5;cursor:default}
+.status{text-align:center;font-size:.88rem;margin-top:14px;min-height:1.2em}
+.status.ok{color:#5a8a4f}
+.status.err{color:#c0573f}
+.banner{margin:16px auto 0;padding:11px 16px;border-radius:9px;background:var(--soft);border:1px solid var(--line);font-size:.8rem;color:var(--ink-soft);text-align:center}
+
+.album{padding:10px 0 40px}
+#gallery{columns:2;column-gap:12px}
+@media(min-width:520px){#gallery{columns:3}}
+.photo{break-inside:avoid;margin-bottom:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--ombra);cursor:pointer;animation:rise .6s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.photo img{width:100%;display:block}
+.photo .by{padding:8px 11px 10px;font-family:var(--display);font-size:1.05rem}
+.photo .by .pre{font-family:var(--body);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:block}
+.empty{text-align:center;color:var(--ink-soft);font-family:var(--display);font-size:1.35rem;padding:36px 10px}
+.count{text-align:center;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:16px}
+.lightbox{position:fixed;inset:0;background:rgba(20,17,14,.93);display:none;align-items:center;justify-content:center;z-index:50;padding:24px}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:78vh;border-radius:10px}
+.lightbox .cap{position:absolute;bottom:26px;left:0;right:0;text-align:center;color:#f5ead0;font-family:var(--display);font-size:1.25rem}
+.lightbox .close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:18px;color:#f5ead0;font-size:2.2rem;background:none;border:0;cursor:pointer;line-height:1;padding:6px 10px}
+
+footer{text-align:center;padding:32px 0 46px;border-top:1px solid var(--line)}
+footer .names{font-family:var(--display);font-size:1.9rem}
+footer .meta{font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-top:6px}
+.fotografo{margin-top:18px;font-size:.74rem;letter-spacing:.08em;color:var(--ink-soft)}
+.fotografo a{display:inline-block;margin-top:4px;font-family:var(--display);font-size:1.15rem;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--accent-2)}
+@media(prefers-reduced-motion:reduce){.photo{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow" data-bind="kicker"></div>
+    <h1 class="names" data-bind="titolo"></h1>
+    <div class="date" data-bind="data-punti"></div>
+    <div class="place" data-bind="luogo"></div>
+  </div>
+</header>
+
+<div class="divider"><span class="mark">✦</span></div>
+
+<section class="hero wrap">
+  <h1>Le foto <em>di tutti</em></h1>
+  <p data-bind="invito"></p>
+</section>
+
+<div class="wrap">
+  <div class="qr-card">
+    <div class="mark">✦</div>
+    <div class="label">Inquadrate e condividete</div>
+    <div class="sub">Aprite la fotocamera del telefono e inquadrate il codice</div>
+    <div id="qrcode"></div>
+    <div class="hint">oppure usate il link:</div>
+    <a class="qr-link" id="qrLink" href="#">questa pagina</a>
+  </div>
+</div>
+
+<section class="wrap">
+  <div class="section-title">
+    <span class="eyebrow">Il vostro contributo</span>
+    <h2>Aggiungete le vostre foto</h2>
+  </div>
+  <div class="upload">
+    <div class="field">
+      <label for="guestName">Il vostro nome</label>
+      <input type="text" id="guestName" placeholder="Come firmate le foto?" autocomplete="name">
+    </div>
+    <div class="dropzone" id="dropzone" role="button" tabindex="0">
+      <div class="mark">✦</div>
+      <div class="big">Scegliete le foto</div>
+      <div class="small">toccate qui · potete sceglierne più di una</div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*" multiple>
+    <div class="previews" id="previews"></div>
+    <button class="btn" id="uploadBtn" disabled>Carica nell'album</button>
+    <div class="status" id="status" role="status"></div>
+  </div>
+  <div class="banner" id="banner" hidden></div>
+</section>
+
+<div class="divider"><span class="mark">✦ ✦ ✦</span></div>
+
+<section class="album wrap">
+  <div class="section-title">
+    <span class="eyebrow">Insieme</span>
+    <h2>L'album della festa</h2>
+  </div>
+  <div class="count" id="count"></div>
+  <div id="gallery"></div>
+  <div class="empty" id="empty">Ancora nessuna foto. Siate i primi a condividere un ricordo.</div>
+</section>
+
+<footer>
+  <div class="names" data-bind="titolo"></div>
+  <div class="meta" data-bind="footer-meta"></div>
+  <div class="fotografo" id="fotografo" hidden></div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="close" id="lbClose" aria-label="Chiudi">×</button>
+  <img id="lbImg" alt="">
+  <div class="cap" id="lbCap"></div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   CONFIGURAZIONE — si modifica solo questo blocco.
+   Niente marchio Invito 360 in questa pagina.
+   ══════════════════════════════════════════════════════════ */
+const CONF = {
+  tema: 'luce',
+  kicker: 'Prima Comunione',
+  titolo: 'Sofia',
+  data: '2027-05-16',
+  luogo: 'Villa Le Ortensie — Montelupo',
+  invito: 'Ogni vostro scatto racconta un pezzo della festa. Caricate qui le foto della giornata: le vedrà Sofia e le vedranno tutti gli invitati.',
+  SUPABASE_URL: '', SUPABASE_ANON_KEY: '', BUCKET: '', TABLE: 'foto', UPLOAD_URL: ''
+};
+// Firma del fotografo (facoltativa). Nome vuoto = nessuna firma.
+const FOTOGRAFO = { nome: '', link: '' };
+
+// solo nella demo: ?tema=festa o ?tema=sera cambiano anche i testi
+const _demo = new URLSearchParams(location.search).get('tema');
+if (_demo === 'festa') Object.assign(CONF, { kicker:'Leo compie 6 anni', titolo:'Leo', data:'2027-03-20',
+  luogo:'Ludoteca La Trottola — Montelupo', invito:'Avete fatto una foto bella alla festa di Leo? Caricatela qui: la vedranno lui, mamma, papà e tutti gli amici.' });
+if (_demo === 'sera') Object.assign(CONF, { kicker:'Quarant\'anni', titolo:'Marco', data:'2027-10-09',
+  luogo:'Terrazza Belvedere — Montelupo', invito:'Brindisi, torta, balli: caricate qui le foto della serata, così Marco le ritrova tutte in un posto solo.' });
+/* ═══════════ fine configurazione ═══════════ */
+
+const $ = s => document.querySelector(s);
+const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+const isLive = !!(CONF.SUPABASE_URL && CONF.SUPABASE_ANON_KEY && window.supabase);
+
+// in modalità anteprima (senza Supabase) ?tema= permette di provare i temi
+const temaUrl = !isLive && new URLSearchParams(location.search).get('tema');
+const tema = ['luce','festa','sera'].includes(temaUrl) ? temaUrl : CONF.tema;
+document.documentElement.dataset.tema = tema;
+document.querySelector('meta[name=theme-color]').content =
+  getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
+
+const [Y,M,D] = CONF.data.split('-');
+const T = {
+  'kicker': CONF.kicker, 'titolo': CONF.titolo,
+  'data-punti': `${D} · ${M} · ${Y}`, 'luogo': CONF.luogo, 'invito': CONF.invito,
+  'footer-meta': `${+D} ${MESI[+M-1]} ${Y}`,
+  'meta-title': `${CONF.titolo} — L'album della festa`,
+  'meta-desc': `Caricate le vostre foto della festa di ${CONF.titolo} e guardate quelle di tutti gli invitati.`
+};
+document.querySelectorAll('[data-bind]').forEach(el => {
+  const v = T[el.dataset.bind] ?? '';
+  if(el.tagName === 'META') el.setAttribute('content', v);
+  else if(el.tagName === 'TITLE') document.title = v;
+  else el.textContent = v;
+});
+
+if (FOTOGRAFO.nome) {
+  const f = $('#fotografo');
+  const a = document.createElement(FOTOGRAFO.link ? 'a' : 'span');
+  a.textContent = FOTOGRAFO.nome + (FOTOGRAFO.link ? ' →' : '');
+  if (FOTOGRAFO.link) { a.href = FOTOGRAFO.link; a.target = '_blank'; a.rel = 'noopener'; }
+  f.append('Foto ufficiali di', document.createElement('br'), a);
+  f.hidden = false;
+}
+
+let supa = null, selected = [], demoPhotos = [];
+if (isLive) {
+  supa = window.supabase.createClient(CONF.SUPABASE_URL, CONF.SUPABASE_ANON_KEY);
+} else {
+  const b = $('#banner'); b.hidden = false;
+  b.innerHTML = '<b>Anteprima.</b> Le foto che caricate restano solo su questo telefono e spariscono chiudendo la pagina.';
+}
+
+/* QR */
+(function(){
+  const url = CONF.UPLOAD_URL || location.href.split('?')[0];
+  $('#qrLink').textContent = url.replace(/^https?:\/\//,'');
+  $('#qrLink').href = url;
+  if (window.QRCode) new QRCode($('#qrcode'), { text:url, width:188, height:188, colorDark:'#2A2622', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
+  else $('#qrcode').textContent = 'QR non disponibile';
+})();
+
+/* selezione */
+const dz = $('#dropzone'), fi = $('#fileInput');
+dz.addEventListener('click', () => fi.click());
+dz.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fi.click(); } });
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag'); addFiles(e.dataTransfer.files); });
+fi.addEventListener('change', () => { addFiles(fi.files); fi.value = ''; });
+function addFiles(list){ for (const f of list) if (f.type.startsWith('image/')) selected.push(f); renderPreviews(); }
+function renderPreviews(){
+  const box = $('#previews'); box.innerHTML = '';
+  selected.forEach((f,i) => {
+    const t = document.createElement('div'); t.className = 'thumb';
+    const img = document.createElement('img'); img.src = URL.createObjectURL(f); img.alt = '';
+    const x = document.createElement('button'); x.textContent = '×'; x.setAttribute('aria-label','Togli questa foto');
+    x.onclick = e => { e.stopPropagation(); selected.splice(i,1); renderPreviews(); };
+    t.append(img, x); box.appendChild(t);
+  });
+  $('#uploadBtn').disabled = selected.length === 0;
+}
+
+/* compressione nel browser: lato lungo max 2000 px, JPEG 0,85.
+   Se il formato non si può leggere, si carica l'originale. */
+async function comprimi(file){
+  if (file.size < 900*1024 || file.type === 'image/gif') return file;
+  try{
+    const bmp = await createImageBitmap(file, { imageOrientation:'from-image' });
+    const k = Math.min(1, 2000 / Math.max(bmp.width, bmp.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(bmp.width*k); c.height = Math.round(bmp.height*k);
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', .85));
+    return blob && blob.size < file.size ? new File([blob], file.name.replace(/\.\w+$/,'') + '.jpg', { type:'image/jpeg' }) : file;
+  }catch{ return file; }
+}
+
+/* caricamento */
+$('#uploadBtn').addEventListener('click', async () => {
+  const name = $('#guestName').value.trim() || 'Un invitato';
+  const btn = $('#uploadBtn'), st = $('#status');
+  if (!selected.length) return;
+  btn.disabled = true; st.className = 'status'; st.textContent = 'Caricamento in corso…';
+  try{
+    let done = 0;
+    for (const orig of selected){
+      const file = await comprimi(orig);
+      if (isLive){
+        const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+        const path = `${Date.now()}-${Math.random().toString(36).slice(2,8)}.${ext}`;
+        const up = await supa.storage.from(CONF.BUCKET).upload(path, file, { upsert:false, contentType:file.type });
+        if (up.error) throw up.error;
+        const { data:pub } = supa.storage.from(CONF.BUCKET).getPublicUrl(path);
+        const ins = await supa.from(CONF.TABLE).insert({ ospite:name, url:pub.publicUrl, path, tipo:file.type });
+        if (ins.error) throw ins.error;
+      } else {
+        demoPhotos.unshift({ ospite:name, url:URL.createObjectURL(file) });
+      }
+      done++; st.textContent = `Caricamento in corso… ${done}/${selected.length}`;
+    }
+    selected = []; renderPreviews();
+    st.className = 'status ok'; st.textContent = 'Grazie! Le vostre foto sono nell\'album ✦';
+    await loadGallery();
+  }catch(err){
+    console.error(err);
+    st.className = 'status err'; st.textContent = 'Qualcosa non ha funzionato. Riprovate tra un momento.';
+  }finally{ btn.disabled = selected.length === 0; }
+});
+
+/* album */
+async function loadGallery(){
+  let photos = demoPhotos;
+  if (isLive){
+    const { data, error } = await supa.from(CONF.TABLE).select('ospite,url,created_at').order('created_at',{ascending:false});
+    if (!error && data) photos = data;
+  }
+  const g = $('#gallery'); g.innerHTML = '';
+  $('#empty').style.display = photos.length ? 'none' : 'block';
+  $('#count').textContent = !photos.length ? '' : photos.length === 1 ? '1 ricordo condiviso' : `${photos.length} ricordi condivisi`;
+  photos.forEach(p => {
+    const card = document.createElement('div'); card.className = 'photo';
+    const img = document.createElement('img'); img.loading = 'lazy'; img.src = p.url; img.alt = 'Foto di ' + (p.ospite || 'un invitato');
+    const by = document.createElement('div'); by.className = 'by';
+    const pre = document.createElement('span'); pre.className = 'pre'; pre.textContent = 'Caricata da';
+    by.append(pre, p.ospite || 'Un invitato');
+    card.append(img, by);
+    card.onclick = () => { $('#lbImg').src = p.url; $('#lbCap').textContent = '✦  ' + (p.ospite || 'Un invitato'); $('#lightbox').classList.add('open'); };
+    g.appendChild(card);
+  });
+}
+const chiudi = () => $('#lightbox').classList.remove('open');
+$('#lbClose').onclick = chiudi;
+$('#lightbox').onclick = e => { if (e.target.id === 'lightbox') chiudi(); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') chiudi(); });
+
+loadGallery();
+if (isLive) setInterval(loadGallery, 20000);
+</script>
+</body>
+</html>
